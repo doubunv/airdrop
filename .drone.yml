@@ -1,0 +1,39 @@
+kind: pipeline
+type: exec
+name: mm_service
+
+trigger:
+  branch:
+    include:
+      - master
+
+steps:
+  - name: update-repo
+    commands:
+      - cd /opt/giter/mm_service
+      - git config --global --add safe.directory /opt/giter/mm_service
+      - git pull http://53dd0d79f15810580fb58755b1fab0599f9e2e9e@10.8.0.1:5511/p3/mm_service.git
+      - echo "拉取成功"
+
+  - name: build
+    commands:
+      - cd /opt/giter/mm_service/cmd
+      - export PATH=$PATH:/opt/giter/go/bin
+      - export PATH=$PATH:/usr/local/go/bin
+      - GOOS=linux GOARCH=amd64 go build -o ./myapp
+      - echo "build ok"
+
+  - name: move
+    commands:
+      - cd /opt/giter/mm_service/cmd
+      - mv myapp /opt/giter/mm_service/home
+      - cp /opt/giter/mm_service/cmd/etc/mm-test.yaml /opt/giter/mm_service/home
+      - echo "build 成功"
+
+  - name: start
+    commands:
+      - cd /opt/giter/mm_service/home
+      - chmod +x myapp
+      - cd /opt/giter/mm_service/
+      - bash start.sh
+      - echo "start成功"

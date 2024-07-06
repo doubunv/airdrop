@@ -1,0 +1,45 @@
+syntax = "v1"
+
+type (
+	GetNonceResp {
+		Nonce string `json:"nonce"`
+	}
+	LoginReq {
+		UAddress  string `json:"uAddress"`
+		PAddress  string `json:"pAddress"`
+		ChainId   int64  `json:"chainId"`
+		Timestamp int64  `json:"timestamp"`
+		Signature string `json:"signature"`
+		Nonce     string `json:"nonce"`
+	}
+	LoginResp {
+		Token string `json:"token"`
+	}
+	adminLoginReq {
+		UAddress  string `json:"uAddress"`
+		ChainId   int64  `json:"chainId"`
+		Timestamp int64  `json:"timestamp"`
+		Signature string `json:"signature"`
+		Nonce     string `json:"nonce"`
+	}
+	adminLoginResp {
+		Token string `json:"token"`
+		Role  string `json:"role"`
+	}
+)
+
+@server (
+	prefix: /person
+	group:  person
+)
+service Main {
+	@handler nonce
+	get /getNonce returns (GetNonceResp)
+
+	@handler login
+	post /login (LoginReq) returns (LoginResp)
+
+	@handler adminLogin
+	post /adminLogin (adminLoginReq) returns (adminLoginResp)
+}
+
