@@ -1,3 +1,24 @@
-Name: Main
+Name: xyz
 Host: 0.0.0.0
-Port: 8888
+Port: 8090
+Version: v2.0.1
+Env: test
+
+Log:
+  Mode: file
+  Encoding: plain
+  KeepDays: 15
+  MaxBackups: 30
+  ServiceName: airdrop
+
+RedisConf:
+  Host: 172.22.1.2:9309
+  Type: node
+
+# Modify to your own database connection info
+DataSource: "root:xxx@tcp(119.23.240.0:3306)/kongtou?charset=utf8mb4&parseTime=True&loc=Local"
+
+# 前后端token登录权限认证 AWT
+Auth:
+  AccessSecret: df434fhslda17 #token Secret
+  AccessExpire: 2592000 #token 过期时间
