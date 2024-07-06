@@ -33,7 +33,6 @@ func (l *CheckAddressRegisterLogic) CheckAddressRegister(req *types.UserAddressR
 		resp.IsRegister = true
 	}
 	resp.UAddress = req.UAddress
-	return
 
 	return
 }
