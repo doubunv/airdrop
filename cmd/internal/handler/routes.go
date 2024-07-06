@@ -41,4 +41,51 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		},
 		rest.WithPrefix("/person"),
 	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/invite/summary",
+				Handler: person.InviteHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/getInviter",
+				Handler: person.GetInviterHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/inviteCode/input",
+				Handler: person.InviteCodeInputHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/inviteCode/changeSelf",
+				Handler: person.InviteCodeChangeSelfHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/invite/count",
+				Handler: person.InviteCountHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/userList",
+				Handler: person.UserListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/userAddress/Register",
+				Handler: person.CheckAddressRegisterHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/inviteList",
+				Handler: person.InviteListHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/person"),
+	)
 }

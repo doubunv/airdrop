@@ -30,3 +30,89 @@ type AdminLoginResp struct {
 	Token string `json:"token"`
 	Role  string `json:"role"`
 }
+
+type InviteReq struct {
+	UAddress string `json:"uAddress"`
+}
+
+type InviteResp struct {
+	Tribe       int `json:"tribe"`
+	Recommender int `json:"recommender"`
+}
+
+type GetInviterResp struct {
+	PAddress    string `json:"pAddress"`
+	PInviteCode string `json:"pInviteCode"`
+	InviteCode  string `json:"inviteCode"`
+}
+
+type InviteCodeReq struct {
+	InviteCode string `json:"inviteCode"`
+}
+
+type InviteCountResp struct {
+	Count       int64 `json:"count"`
+	ActiveCount int64 `json:"active_count"`
+	TeamLevel   int64 `json:"team_level"`
+}
+
+type UserAddressResgiterReq struct {
+	UAddress string `form:"uAddress"`
+}
+
+type UserAddressResgiterResp struct {
+	UAddress   string `json:"uAddress"`
+	IsRegister bool   `json:"isRegister"`
+}
+
+type InviteUserReq struct {
+	PageNo   int64 `form:"pageNo"`
+	PageSize int64 `form:"pageSize"`
+}
+
+type InviteUserResp struct {
+	List     []UserInviteItem `json:"list"`
+	PageNo   int64            `json:"pageNo"`
+	PageSize int64            `json:"pageSize"`
+	Total    int64            `json:"total"`
+}
+
+type UserInviteItem struct {
+	ID              int64   `json:"id"`
+	UAddress        string  `json:"u_address"`
+	TeamLevel       int     `json:"team_level"`
+	IsActive        int     `json:"is_active"` // 0 or 1-is active
+	SpendAmount     float64 `json:"spend_amount"`
+	TeamSpendAmount float64 `json:"team_spend_amount"`
+	CreatedAt       int64   `json:"created_at"`
+}
+
+type UserListReq struct {
+	PageNo     int    `form:"pageNo"`
+	PageSize   int    `form:"pageSize"`
+	UAddress   string `form:"uAddress,optional"`
+	PAddress   string `form:"pAddress,optional"`
+	StartTime  string `form:"startTime,optional"`
+	EndTime    string `form:"endTime,optional"`
+	InviteCode string `form:"inviteCode,optional"`
+}
+
+type UserListResp struct {
+	List     []UserItem `json:"list"`
+	PageNo   int64      `json:"pageNo"`
+	PageSize int64      `json:"pageSize"`
+	Total    int64      `json:"total"`
+}
+
+type UserItem struct {
+	Id            int64  `json:"id"`
+	UAddress      string `json:"u_address"`
+	ParentAddress string `json:"parent_address"`
+	NodeId        int    `json:"node_id"`
+	IsOwner       int    `json:"is_owner"`
+	Score         int    `json:"score"`
+	InviteCode    string `json:"invite_code"`
+	Path          string `json:"path"`
+	CreateAt      string `json:"create_at"`
+	TeamLevel     int    `json:"team_level"`
+}

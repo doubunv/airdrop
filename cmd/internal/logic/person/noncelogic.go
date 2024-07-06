@@ -1,7 +1,11 @@
 package person
 
 import (
+	"air-drop/pkg/alert"
+	"air-drop/pkg/utils"
+	"air-drop/pkg/xerr"
 	"context"
+	"fmt"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -24,7 +28,17 @@ func NewNonceLogic(ctx context.Context, svcCtx *svc.ServiceContext) *NonceLogic 
 }
 
 func (l *NonceLogic) Nonce() (resp *types.GetNonceResp, err error) {
-	// todo: add your logic here and delete this line
-
+	resp = &types.GetNonceResp{}
+	str := utils.RandStr(8)
+	resp.Nonce = str
+	ex, err := l.svcCtx.Redis.SetnxEx("mm:nonce:"+str, "1", 60)
+	if err != nil {
+		alert.SendMsg(fmt.Sprintf("redis set error err:%+v", err))
+		return nil, xerr.NewErrMsg("try later")
+	}
+	if !ex {
+		alert.SendMsg("nonce repeat")
+		return nil, xerr.NewErrMsg("try again later")
+	}
 	return
 }

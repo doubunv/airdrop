@@ -2,6 +2,7 @@ syntax = "v1"
 
 import (
 	"login.api"
+	"person.api"
 )
 
 // 定义 HTTP 服务

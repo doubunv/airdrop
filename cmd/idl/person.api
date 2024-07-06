@@ -1,0 +1,121 @@
+syntax = "v1"
+
+
+type (
+    InviteReq {
+        UAddress string `json:"uAddress"`
+    }
+
+    InviteResp {
+        Tribe int `json:"tribe"`
+        Recommender int `json:"recommender"`
+    }
+
+    GetInviterResp {
+        PAddress string `json:"pAddress"`
+        PInviteCode string `json:"pInviteCode"`
+        InviteCode string `json:"inviteCode"`
+    }
+
+    InviteCodeReq {
+        InviteCode string `json:"inviteCode"`
+    }
+
+    InviteCountResp {
+        Count int64 `json:"count"`
+        activeCount int64 `json:"active_count"`
+        TeamLevel int64 `json:"team_level"`
+    }
+
+    UserAddressResgiterReq {
+        UAddress string `form:"uAddress"`
+    }
+    UserAddressResgiterResp {
+        UAddress string `json:"uAddress"`
+        IsRegister bool `json:"isRegister"`
+    }
+
+    InviteUserReq {
+        PageNo int64 `form:"pageNo"`
+        PageSize int64 `form:"pageSize"`
+    }
+    InviteUserResp {
+       List []UserInviteItem `json:"list"`
+       PageNo int64 `json:"pageNo"`
+       PageSize int64 `json:"pageSize"`
+       Total int64 `json:"total"`
+    }
+    UserInviteItem{
+        ID int64 `json:"id"`
+        UAddress string `json:"u_address"`
+        TeamLevel int `json:"team_level"`
+        IsActive int `json:"is_active"` // 0 or 1-is active
+        SpendAmount float64 `json:"spend_amount"`
+        TeamSpendAmount float64 `json:"team_spend_amount"`
+        CreatedAt int64 `json:"created_at"`
+    }
+
+    UserListReq {
+        PageNo int `form:"pageNo"`
+        PageSize int `form:"pageSize"`
+        UAddress string `form:"uAddress,optional"`
+        PAddress string `form:"pAddress,optional"`
+        StartTime string `form:"startTime,optional"`
+        EndTime string `form:"endTime,optional"`
+        InviteCode string `form:"inviteCode,optional"`
+    }
+
+    UserListResp {
+        List []UserItem `json:"list"`
+        PageNo int64 `json:"pageNo"`
+        PageSize int64 `json:"pageSize"`
+        Total int64 `json:"total"`
+    }
+    UserItem {
+        Id int64 `json:"id"`
+        UAddress string `json:"u_address"`
+        ParentAddress string `json:"parent_address"`
+        NodeId int `json:"node_id"`
+        IsOwner int `json:"is_owner"`
+        Score int `json:"score"`
+        InviteCode string `json:"invite_code"`
+        Path string `json:"path"`
+        CreateAt string `json:"create_at"`
+        TeamLevel int `json:"team_level"`
+    }
+)
+
+@server(
+    prefix: /person
+    group: person
+    jwt: Auth
+)
+service Main {
+    @handler invite
+    post /invite/summary (InviteReq) returns (InviteResp)
+
+    @handler getInviter
+    get /getInviter returns (GetInviterResp)
+
+    @handler inviteCodeInput
+    post /inviteCode/input (InviteCodeReq) returns ()
+
+    @handler inviteCodeChangeSelf
+    post /inviteCode/changeSelf (InviteCodeReq) returns ()
+
+    @handler inviteCount
+    get /invite/count returns (InviteCountResp)
+
+    @handler userList
+    get /userList (UserListReq) returns (UserListResp)
+
+
+    @handler checkAddressRegister
+    get /userAddress/Register (UserAddressResgiterReq) returns (UserAddressResgiterResp)
+
+    @handler inviteList
+    get /inviteList (InviteUserReq) returns (InviteUserResp)
+
+}
+
+
