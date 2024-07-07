@@ -78,13 +78,9 @@ type InviteUserResp struct {
 }
 
 type UserInviteItem struct {
-	ID              int64   `json:"id"`
-	UAddress        string  `json:"u_address"`
-	TeamLevel       int     `json:"team_level"`
-	IsActive        int     `json:"is_active"` // 0 or 1-is active
-	SpendAmount     float64 `json:"spend_amount"`
-	TeamSpendAmount float64 `json:"team_spend_amount"`
-	CreatedAt       int64   `json:"created_at"`
+	ID        int64  `json:"id"`
+	UAddress  string `json:"u_address"`
+	CreatedAt int64  `json:"created_at"`
 }
 
 type UserListReq struct {
@@ -105,14 +101,11 @@ type UserListResp struct {
 }
 
 type UserItem struct {
-	Id            int64  `json:"id"`
-	UAddress      string `json:"u_address"`
-	ParentAddress string `json:"parent_address"`
-	NodeId        int    `json:"node_id"`
-	IsOwner       int    `json:"is_owner"`
-	Score         int    `json:"score"`
-	InviteCode    string `json:"invite_code"`
-	Path          string `json:"path"`
-	CreateAt      string `json:"create_at"`
-	TeamLevel     int    `json:"team_level"`
+	Id            int64   `json:"id"`
+	UAddress      string  `json:"u_address"`
+	ParentAddress string  `json:"parent_address"`
+	Amount        float64 `json:"amount"`
+	InviteCode    string  `json:"invite_code"`
+	Path          string  `json:"path"`
+	CreateAt      string  `json:"create_at"`
 }

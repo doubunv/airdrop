@@ -1,9 +1,9 @@
 package person
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
-	"air-drop/cmd/internal/data/model"
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
 	"air-drop/pkg/utils"
@@ -34,7 +34,7 @@ func (l *UserListLogic) UserList(req *types.UserListReq) (resp *types.UserListRe
 	}
 
 	resp = &types.UserListResp{}
-	user := &model.User{
+	user := &schema.User{
 		InviteCode:    req.InviteCode,
 		UAddress:      req.UAddress,
 		ParentAddress: req.PAddress}
@@ -50,7 +50,7 @@ func (l *UserListLogic) UserList(req *types.UserListReq) (resp *types.UserListRe
 			Id:            item.ID,
 			UAddress:      item.UAddress,
 			ParentAddress: item.ParentAddress,
-			Score:         int(item.Score),
+			Amount:        item.Amount,
 			InviteCode:    item.InviteCode,
 			Path:          string(item.Path),
 			CreateAt:      item.CreateAt.Format("2006-01-02 15:04:05"),

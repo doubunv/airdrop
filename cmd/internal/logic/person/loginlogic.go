@@ -1,11 +1,11 @@
 package person
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 	"strings"
 	"time"
 
-	"air-drop/cmd/internal/data/model"
 	"air-drop/pkg/utils"
 	"air-drop/pkg/xerr"
 
@@ -57,7 +57,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	}
 
 	if user.ID == 0 {
-		user = model.User{
+		user = schema.User{
 			ParentAddress: "",
 			UAddress:      strings.ToLower(req.UAddress),
 			CreateAt:      time.Now(),
