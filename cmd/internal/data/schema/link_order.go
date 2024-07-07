@@ -1,6 +1,6 @@
 package schema
 
-type Order struct {
+type LinkOrder struct {
 	In         int64   `gorm:"column:in"`
 	UserId     int64   `gorm:"column:user_id"`
 	Type       int64   `gorm:"column:type"`
@@ -14,4 +14,4 @@ type Order struct {
 	UpdatedAt  int64   `gorm:"column:updated_at"`
 }
 
-func (Order) TableName() string { return "order" }
+func (LinkOrder) TableName() string { return "link_order" }

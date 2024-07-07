@@ -1,0 +1,69 @@
+syntax = "v1"
+
+type (
+    GetOrderInfoReq {
+    }
+    GetOrderInfoResp {
+        TotalBuyAmount float64 `json:total_buy_amount`//累计投资金额
+        LinkEarnings float64 `json:link_earnings` //全链空投收益
+        ReceivePackageEarnings float64 `json:receive_package_earnings` //已发放私募空投
+        WaitPackageEarnings float64 `json:wait_package_earnings` //待领取的私募空投
+        CommissionEarnings float64 `json:commission_earnings` //佣金奖励
+    }
+
+    GetPackageOrderListReq {
+        Page    int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+    }
+    GetPackageOrderListItem {
+        Id int64 `json:id`
+        Created_at int64 `json:created_at` //投资时间
+        Amount float64 `json:amount` //投资额度
+        Month int32 `json:month` //服务周期
+        LeftDay int32 `json:left_day` //剩余回报时间
+        ReceiveEarnings float64 `json:receive_earnings` //已回报金额
+        MaxEarningsRate float64 `json:max_earnings_rate` //最高回报率
+    }
+    GetPackageOrderListResp {
+        list []GetPackageOrderListItem `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    GetLinkOrderListReq {
+        Page    int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+    }
+
+    GetLinkOrderListItem {
+        CreatedAt int64 `json:created_at` //投资时间
+        Name string `json:name` //项目名字
+        BuyNumber int32 `json:buy_number` //认购数量
+        Amount float64 `json:amount` //认购金额
+        DropTime int64 `json:drop_time` //发币时间
+        Status int32 `json:status` //状态 0-全部 1-待发放 2-已发放待领取 3-已领取
+    }
+
+    GetLinkOrderListResp {
+        list []GetLinkOrderListItem `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+)
+
+@server (
+	prefix: /order
+	group:  order
+)
+service Main {
+	@handler getOrderInfo
+	post /getOrderInfo(GetOrderInfoReq) returns (GetOrderInfoResp)
+
+    @handler getPackageOrderList
+	post /getPackageOrderList(GetPackageOrderListReq) returns (GetPackageOrderListResp)
+
+    @handler getLinkOrderList
+	post /getLinkOrderList(GetLinkOrderListReq) returns (GetLinkOrderListResp)
+}

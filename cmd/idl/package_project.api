@@ -1,0 +1,50 @@
+syntax = "v1"
+
+type (
+    PackageProjectChildListItem {
+        Id int64 `json:"id"` //子项目ID
+        Name string `json:"name"` //子项目名字
+    }
+
+    GetPackageProjectList {
+        Id int64 `json:"id"` //项目ID
+        Name string `json:"name"` //项目名字
+        Price float64 `json:"price"` //价格
+        Month int64 `json:"month"` //服务周期
+        List []PackageProjectChildListItem `json:"list"`
+    }
+
+    GetPackageProjectListReq {
+        Page      int64 `json:"page"` // 页码
+    	PageSize  int64 `json:"page_size"` // 每页数量
+    }
+
+    GetPackageProjectListResp {
+        list []GetPackageProjectList `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    BuyPackageProjectReq {
+        Id int64 `json:"id"`
+    }
+
+    BuyPackageProjectResp {
+        OrderId int64 `json:"order_id"`
+        Amount float64 `json:"Amount"`
+        sign string `json:"sign"`
+    }
+)
+
+@server (
+	prefix: /packageProject
+	group:  package_project
+)
+service Main {
+	@handler getPackageProjectList
+	post /getPackageProjectList(GetPackageProjectListReq) returns (GetPackageProjectListResp)
+
+	@handler buyPackageProject
+    post /buyPackageProject(BuyPackageProjectReq) returns (BuyPackageProjectResp)
+}

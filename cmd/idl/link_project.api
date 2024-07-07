@@ -1,0 +1,44 @@
+syntax = "v1"
+
+type (
+    GetLinkProjectList {
+        Id int64 `json:"id"` //项目ID
+        Name string `json:"name"` //项目名字
+        Price float64 `json:"price"` //价格
+        DropTime int64 `json:"drop_time"` //法币时间
+    }
+
+    GetLinkProjectListReq {
+        Page      int64 `json:"page"` // 页码
+    	PageSize  int64 `json:"page_size"` // 每页数量
+    }
+
+    GetLinkProjectListResp {
+        list []GetLinkProjectList `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    BuyLinkProjectReq {
+        Id int64 `json:"id"`
+    }
+
+    BuyLinkProjectResp {
+        OrderId int64 `json:"order_id"`
+        Amount float64 `json:"Amount"`
+        sign string `json:"sign"`
+    }
+)
+
+@server (
+	prefix: /linkProject
+	group:  link_project
+)
+service Main {
+	@handler getLinkProjectList
+	post /getLinkProjectList(GetLinkProjectListReq) returns (GetLinkProjectListResp)
+
+	@handler buyLinkProject
+    post /buyPackageProject(BuyLinkProjectReq) returns (BuyLinkProjectResp)
+}
