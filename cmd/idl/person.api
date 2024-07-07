@@ -2,6 +2,16 @@ syntax = "v1"
 
 
 type (
+    PersonInfoReq {
+
+    }
+    PersonInfoResp {
+        UAddress string `json:"u_address"` //钱包地址
+        ParentAddress string `json:"parent_address"` //邀请者地址
+        InviteCode string `json:"invite_code"` //邀请码
+        CreateAt int64 `json:"create_at"` //注册时间
+    }
+
     InviteReq {
         UAddress string `json:"uAddress"`
     }
@@ -76,6 +86,24 @@ type (
         Path string `json:"path"`
         CreateAt string `json:"create_at"`
     }
+
+    WalletLogListReq {
+        Page    int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+    }
+    WalletLogListItem {
+        CreatedAt int64 `json:"createdAt"` //创建时间
+        Amount float64 `json:"amount"` //变动金额
+        TargetAddress string `json:"target_address"` //金额变动来源地址
+        UAddress string `json:"u_address"`//金额变动地址
+    }
+    WalletLogListResp {
+        list []WalletLogListItem `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+    InviteCodeResp {}
 )
 
 @server(
@@ -84,29 +112,35 @@ type (
     jwt: Auth
 )
 service Main {
-    @handler invite
-    post /invite/summary (InviteReq) returns (InviteResp)
+    @doc "个人信息"
+    @handler personInfo
+    post /personInfo (PersonInfoReq) returns (PersonInfoResp)
 
-    @handler getInviter
-    get /getInviter returns (GetInviterResp)
-
+    @doc "填写邀请人的邀请码"
     @handler inviteCodeInput
-    post /inviteCode/input (InviteCodeReq) returns ()
+    post /inviteCode/input (InviteCodeReq) returns (InviteCodeResp)
 
+    @doc "设置自己的邀请码"
     @handler inviteCodeChangeSelf
-    post /inviteCode/changeSelf (InviteCodeReq) returns ()
+    post /inviteCode/changeSelf (InviteCodeReq) returns (InviteCodeResp)
 
-    @handler inviteCount
-    get /invite/count returns (InviteCountResp)
+//    @doc "获取自己的邀请人数"
+//    @handler inviteCount
+//    get /invite/count returns (InviteCountResp)
+//
+//    @handler userList
+//    get /userList (UserListReq) returns (UserListResp)
+//
+//    @handler checkAddressRegister
+//    get /userAddress/Register (UserAddressResgiterReq) returns (UserAddressResgiterResp)
 
-    @handler userList
-    get /userList (UserListReq) returns (UserListResp)
-
-    @handler checkAddressRegister
-    get /userAddress/Register (UserAddressResgiterReq) returns (UserAddressResgiterResp)
-
+    @doc "获取自己的邀请人列表"
     @handler inviteList
     get /inviteList (InviteUserReq) returns (InviteUserResp)
+
+    @doc "佣金记录、回报记录"
+    @handler walletLogList
+    get /walletLogList (WalletLogListReq) returns (WalletLogListResp)
 
 }
 

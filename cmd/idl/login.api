@@ -33,9 +33,11 @@ type (
 	group:  person
 )
 service Main {
+	@doc "登录签名"
 	@handler nonce
 	get /getNonce returns (GetNonceResp)
 
+	@doc "C端登录"
 	@handler login
 	post /login (LoginReq) returns (LoginResp)
 

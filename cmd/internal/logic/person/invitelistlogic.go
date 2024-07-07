@@ -36,7 +36,6 @@ func (l *InviteListLogic) InviteList(req *types.InviteUserReq) (resp *types.Invi
 		resp.List = append(resp.List, types.UserInviteItem{
 			ID:        user.ID,
 			UAddress:  user.UAddress,
-			IsActive:  user.IsActive,
 			CreatedAt: user.CreatedAt.Unix(),
 		})
 	}

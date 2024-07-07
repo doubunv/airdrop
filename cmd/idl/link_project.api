@@ -36,9 +36,11 @@ type (
 	group:  link_project
 )
 service Main {
+    @doc "全链路-项目列表"
 	@handler getLinkProjectList
 	post /getLinkProjectList(GetLinkProjectListReq) returns (GetLinkProjectListResp)
 
+    @doc "全链路-购买"
 	@handler buyLinkProject
     post /buyPackageProject(BuyLinkProjectReq) returns (BuyLinkProjectResp)
 }

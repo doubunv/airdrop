@@ -42,9 +42,11 @@ type (
 	group:  package_project
 )
 service Main {
+    @doc "整包空投-项目列表"
 	@handler getPackageProjectList
 	post /getPackageProjectList(GetPackageProjectListReq) returns (GetPackageProjectListResp)
 
+    @doc "整包空投-项目列表"
 	@handler buyPackageProject
     post /buyPackageProject(BuyPackageProjectReq) returns (BuyPackageProjectResp)
 }

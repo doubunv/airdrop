@@ -4,11 +4,11 @@ type (
     GetOrderInfoReq {
     }
     GetOrderInfoResp {
-        TotalBuyAmount float64 `json:total_buy_amount`//累计投资金额
-        LinkEarnings float64 `json:link_earnings` //全链空投收益
-        ReceivePackageEarnings float64 `json:receive_package_earnings` //已发放私募空投
-        WaitPackageEarnings float64 `json:wait_package_earnings` //待领取的私募空投
-        CommissionEarnings float64 `json:commission_earnings` //佣金奖励
+        TotalBuyAmount float64 `json:"total_buy_amount"`//累计投资金额
+        LinkEarnings float64 `json:"link_earnings"` //全链空投收益
+        ReceivePackageEarnings float64 `json:"receive_package_earnings"` //已发放私募空投
+        WaitPackageEarnings float64 `json:"wait_package_earnings"` //待领取的私募空投
+        CommissionEarnings float64 `json:"commission_earnings"` //佣金奖励
     }
 
     GetPackageOrderListReq {
@@ -16,13 +16,13 @@ type (
         PageSize  int64 `json:"page_size"` // 每页数量
     }
     GetPackageOrderListItem {
-        Id int64 `json:id`
-        Created_at int64 `json:created_at` //投资时间
-        Amount float64 `json:amount` //投资额度
-        Month int32 `json:month` //服务周期
-        LeftDay int32 `json:left_day` //剩余回报时间
-        ReceiveEarnings float64 `json:receive_earnings` //已回报金额
-        MaxEarningsRate float64 `json:max_earnings_rate` //最高回报率
+        Id int64 `json:"id"`
+        Created_at int64 `json:"created_at"` //投资时间
+        Amount float64 `json:"amount"` //投资额度
+        Month int32 `json:"month"` //服务周期
+        LeftDay int32 `json:"left_day"` //剩余回报时间
+        SendEarnings float64 `json:"send_earnings"` //已回报金额
+        MaxEarningsRate float64 `json:"max_earnings_rate"` //最高回报率
     }
     GetPackageOrderListResp {
         list []GetPackageOrderListItem `json:"list"`
@@ -37,16 +37,42 @@ type (
     }
 
     GetLinkOrderListItem {
-        CreatedAt int64 `json:created_at` //投资时间
-        Name string `json:name` //项目名字
-        BuyNumber int32 `json:buy_number` //认购数量
-        Amount float64 `json:amount` //认购金额
-        DropTime int64 `json:drop_time` //发币时间
-        Status int32 `json:status` //状态 0-全部 1-待发放 2-已发放待领取 3-已领取
+        CreatedAt int64 `json:"created_at"` //投资时间
+        Name string `json:"name"` //项目名字
+        BuyNumber int32 `json:"buy_number"` //认购数量
+        BuyAmount float64 `json:"buy_amount"` //认购金额
+        DropTime int64 `json:"drop_time"` //发币时间
+        Status int32 `json:"status"` //状态 0-全部 1-待发放 2-已发放待领取 3-已领取
     }
 
     GetLinkOrderListResp {
         list []GetLinkOrderListItem `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    ApplyLinkEarningsReq {
+        Id int64 `json:"id"`
+        address string `json:"address"`
+        amount float64 `json:"amount"`
+    }
+    ApplyLinkEarningsResp {
+    
+    }
+
+    GetApplyLinkLogListReq {
+        Id int64 `json:"id"`
+        Page    int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+    }
+    GetApplyLinkLogListItem {
+        createdAt int64 `json:"createdAt"`
+        uAddress string  `json:"uAddress"`
+        amount float64 `json:"amount"`
+    }
+    GetApplyLinkLogListResp {
+        list []GetApplyLinkLogListItem `json:"list"`
         Page int64 `json:"page"` // 页码
         PageSize  int64 `json:"page_size"` // 每页数量
         Total    int64 `json:"total"` // 总数
@@ -58,12 +84,23 @@ type (
 	group:  order
 )
 service Main {
+    @doc "我的投资-投资汇总统计数据"
 	@handler getOrderInfo
 	post /getOrderInfo(GetOrderInfoReq) returns (GetOrderInfoResp)
 
+    @doc "我的投资-整包列表"
     @handler getPackageOrderList
 	post /getPackageOrderList(GetPackageOrderListReq) returns (GetPackageOrderListResp)
 
+    @doc "我的投资-全链路列表"
     @handler getLinkOrderList
 	post /getLinkOrderList(GetLinkOrderListReq) returns (GetLinkOrderListResp)
+
+    @doc "我的投资-全链路申请领取"
+    @handler applyLinkEarnings
+    post /applyLinkEarnings(ApplyLinkEarningsReq) returns (ApplyLinkEarningsResp)
+
+    @doc "我的投资-全链路申请领取记录"
+    @handler getApplyLinkEarningsList
+    post /getApplyLinkLogList(GetApplyLinkLogListReq) returns (GetApplyLinkLogListResp)
 }

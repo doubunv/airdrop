@@ -48,7 +48,6 @@ func (l *InviteCodeInputLogic) InviteCodeInput(req *types.InviteCodeReq) error {
 	}
 
 	userInfo.ParentAddress = parentInfo.UAddress
-	userInfo.Level = parentInfo.Level + 1
 	userInfo.Path = parentInfo.Path.Append(parentInfo.ID)
 	userInfo.InvitePathDistance = parentInfo.InvitePathDistance + 1
 

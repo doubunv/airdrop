@@ -4,6 +4,9 @@ package handler
 import (
 	"net/http"
 
+	link_project "air-drop/cmd/internal/handler/link_project"
+	order "air-drop/cmd/internal/handler/order"
+	package_project "air-drop/cmd/internal/handler/package_project"
 	person "air-drop/cmd/internal/handler/person"
 	"air-drop/cmd/internal/svc"
 
@@ -46,13 +49,8 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/invite/summary",
-				Handler: person.InviteHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/getInviter",
-				Handler: person.GetInviterHandler(serverCtx),
+				Path:    "/personInfo",
+				Handler: person.PersonInfoHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
@@ -66,26 +64,79 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/invite/count",
-				Handler: person.InviteCountHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/userList",
-				Handler: person.UserListHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/userAddress/Register",
-				Handler: person.CheckAddressRegisterHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
 				Path:    "/inviteList",
 				Handler: person.InviteListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/walletLogList",
+				Handler: person.WalletLogListHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/person"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/getPackageProjectList",
+				Handler: package_project.GetPackageProjectListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/buyPackageProject",
+				Handler: package_project.BuyPackageProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/packageProject"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/getLinkProjectList",
+				Handler: link_project.GetLinkProjectListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/buyPackageProject",
+				Handler: link_project.BuyLinkProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/linkProject"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/getOrderInfo",
+				Handler: order.GetOrderInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/getPackageOrderList",
+				Handler: order.GetPackageOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/getLinkOrderList",
+				Handler: order.GetLinkOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/applyLinkEarnings",
+				Handler: order.ApplyLinkEarningsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/getApplyLinkLogList",
+				Handler: order.GetApplyLinkEarningsListHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/order"),
 	)
 }

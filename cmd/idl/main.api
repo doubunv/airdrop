@@ -3,6 +3,9 @@ syntax = "v1"
 import (
 	"login.api"
 	"person.api"
+	"package_project.api"
+	"link_project.api"
+	"order.api"
 )
 
 // 定义 HTTP 服务
