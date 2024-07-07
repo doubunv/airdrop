@@ -1,47 +1,11 @@
 package model
 
 import (
-	"fmt"
-	"time"
-
 	"air-drop/cmd/internal/data/dto/userDto"
-	"air-drop/pkg/systemType"
-
+	"air-drop/cmd/internal/data/schema"
 	"github.com/zeromicro/go-zero/core/logx"
 	"gorm.io/gorm"
 )
-
-type UserPath string
-
-func (p UserPath) Append(pid int64) UserPath {
-	var res UserPath
-	if p == "" {
-		res = UserPath(fmt.Sprintf("%d", pid))
-	} else {
-		res = UserPath(fmt.Sprintf("%s,%d", p, pid))
-	}
-
-	return res
-}
-
-type User struct {
-	ID                 int64     `gorm:"column:id"`
-	UAddress           string    `gorm:"column:u_address"`
-	Level              int64     `gorm:"column:level"`
-	ParentAddress      string    `gorm:"column:parent_address"`
-	Score              uint      `gorm:"column:score"`
-	Version            int       `gorm:"column:version"`
-	TeamLevel          int64     `gorm:"column:team_level"`
-	InviteCode         string    `gorm:"column:invite_code"`
-	Path               UserPath  `gorm:"column:path"`
-	InvitePathDistance int       `gorm:"column:invite_path_distance"`
-	CreateAt           time.Time `gorm:"column:create_at"`
-	UpdatedAt          time.Time `gorm:"column:updated_at"`
-}
-
-func (m User) TableName() string {
-	return "mm_user"
-}
 
 type UserModel struct {
 	db *gorm.DB
@@ -51,13 +15,13 @@ func NewUserModel(db *gorm.DB) *UserModel {
 	return &UserModel{db: db}
 }
 
-func (m *UserModel) GetUserByUAddress(uAddress string) (res User, err error) {
+func (m *UserModel) GetUserByUAddress(uAddress string) (res schema.User, err error) {
 	err = m.db.Find(&res, "u_address = ?", uAddress).Error
 	return
 }
 
-func (m *UserModel) GetUnique(inviteCode string) User {
-	var res User
+func (m *UserModel) GetUnique(inviteCode string) schema.User {
+	var res schema.User
 	err := m.db.First(&res, "invite_code = ?", inviteCode).Error
 	if err != nil {
 		logx.Errorf("NewUserModel GetUnique err:%v", err)
@@ -65,32 +29,32 @@ func (m *UserModel) GetUnique(inviteCode string) User {
 	return res
 }
 
-func (m *UserModel) GetUserByParentAddress(parentAddress string, isOwner int) (res []User, err error) {
+func (m *UserModel) GetUserByParentAddress(parentAddress string, isOwner int) (res []schema.User, err error) {
 	err = m.db.Find(&res, "parent_address = ? and is_owner = ?", parentAddress, isOwner).Error
 	return
 }
 
 func (m *UserModel) GetIsOwnerByParentAddress(parentAddress string) (res []int64, err error) {
-	err = m.db.Model(&User{}).Select("is_owner").Find(&res, "parent_address = ?", parentAddress).Error
+	err = m.db.Model(&schema.User{}).Select("is_owner").Find(&res, "parent_address = ?", parentAddress).Error
 	return
 }
 
-func (m *UserModel) Insert(res *User) error {
+func (m *UserModel) Insert(res *schema.User) error {
 	return m.db.Create(res).Error
 }
 
-func (m *UserModel) UpdateSchema(data *User) error {
+func (m *UserModel) UpdateSchema(data *schema.User) error {
 	return m.db.Where("id = ?", data.ID).Save(data).Error
 }
 
 func (m *UserModel) CountInvite(userAddress string) int64 {
 	var count int64
-	m.db.Model(&User{}).Where("parent_address = ?", userAddress).Count(&count)
+	m.db.Model(&schema.User{}).Where("parent_address = ?", userAddress).Count(&count)
 	return count
 }
 
-func (m *UserModel) GetUserList(user *User, startTime, endTime string, page, pageSize int) (list []*User, total int64, err error) {
-	q := m.db.Model(&User{})
+func (m *UserModel) GetUserList(user *schema.User, startTime, endTime string, page, pageSize int) (list []*schema.User, total int64, err error) {
+	q := m.db.Model(&schema.User{})
 	if user.UAddress != "" {
 		q = q.Where("u_address = ?", user.UAddress)
 	}
@@ -111,26 +75,15 @@ func (m *UserModel) GetUserList(user *User, startTime, endTime string, page, pag
 	return
 }
 
-func (m *UserModel) GetInviteList(userAddress string, page, pageSize int) (res []User, total int64, err error) {
-	q := m.db.Model(&User{}).Where("parent_address = ?", userAddress)
+func (m *UserModel) GetInviteList(userAddress string, page, pageSize int) (res []schema.User, total int64, err error) {
+	q := m.db.Model(&schema.User{}).Where("parent_address = ?", userAddress)
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&res).Error
 	return
 }
 
-type InviteData struct {
-	ID                   int64             `gorm:"column:id"`
-	UAddress             string            `gorm:"column:u_address"`
-	TeamLevel            int64             `gorm:"column:team_level"`
-	IsActive             int               `gorm:"column:is_active"`
-	CreatedAt            time.Time         `gorm:"column:create_at"`
-	TeamSpendAmount      systemType.Amount `gorm:"column:team_spend_amount"`
-	SpendAmount          systemType.Amount `gorm:"column:spend_amount"`
-	TotalTeamSpendAmount systemType.Amount `gorm:"column:total_team_spend_amount"`
-}
-
-func (m *UserModel) GetInviteCountList(userAddress string, page, pageSize int) (res []InviteData, total int64, err error) {
-	q := m.db.Model(&User{}).Where("parent_address = ?", userAddress).
+func (m *UserModel) GetInviteCountList(userAddress string, page, pageSize int) (res []userDto.InviteData, total int64, err error) {
+	q := m.db.Model(&schema.User{}).Where("parent_address = ?", userAddress).
 		Joins("left join mm_user_team on mm_user.u_address = mm_user_team.user_address").Select(
 		"mm_user.id,mm_user.u_address,mm_user.team_level,mm_user.create_at,mm_user_team.team_spend_amount,mm_user_team.spend_amount, mm_user_team.is_active, mm_user_team.total_team_spend_amount")
 	err = q.Count(&total).Error
@@ -139,10 +92,10 @@ func (m *UserModel) GetInviteCountList(userAddress string, page, pageSize int) (
 	return
 }
 
-func (m *UserModel) GetAllUser() []User {
-	var res []User
+func (m *UserModel) GetAllUser() []schema.User {
+	var res []schema.User
 
-	err := m.db.Model(&User{}).Order("id asc").Find(&res).Error
+	err := m.db.Model(&schema.User{}).Order("id asc").Find(&res).Error
 	if err != nil {
 		logx.Errorf("GetAllUser err:%v", err)
 	}
@@ -151,8 +104,8 @@ func (m *UserModel) GetAllUser() []User {
 }
 
 // not contain self
-func (m *UserModel) GetInviteParentList(id []int64) (res []User, err error) {
-	err = m.db.Model(&User{}).Where("id in (?)", id).Find(&res).Error
+func (m *UserModel) GetInviteParentList(id []int64) (res []schema.User, err error) {
+	err = m.db.Model(&schema.User{}).Where("id in (?)", id).Find(&res).Error
 	return
 }
 
@@ -163,31 +116,31 @@ type CountGroupByTime struct {
 
 func (m *UserModel) GetTeamGroupByTime(userId int64, startTime, endTime string) (res []CountGroupByTime, err error) {
 	// err = m.db.Model(&User{}).Select("date(CONVERT_TZ(create_at, '+00:00','+08:00')) as day_time, count(1) as today_add").
-	err = m.db.Model(&User{}).Select("date(create_at) as day_time, count(1) as today_add").
+	err = m.db.Model(&schema.User{}).Select("date(create_at) as day_time, count(1) as today_add").
 		Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and create_at >= ? and create_at <= ?", userId, startTime, endTime).
 		Group("day_time").Order("day_time asc").Scan(&res).Error
 	return
 }
 
 func (m *UserModel) CountTeamMembersByTime(userId int64, startTime, endTime string) (res int64, err error) {
-	err = m.db.Model(&User{}).Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and create_at >= ? and create_at <= ?", userId, startTime, endTime).Count(&res).Error
+	err = m.db.Model(&schema.User{}).Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and create_at >= ? and create_at <= ?", userId, startTime, endTime).Count(&res).Error
 	return
 }
 
 func (m *UserModel) GetInviteGroupByTime(address string, startTime, endTime string) (res []CountGroupByTime, err error) {
-	err = m.db.Model(&User{}).Select("date(create_at) as day_time, count(1) as today_add").
+	err = m.db.Model(&schema.User{}).Select("date(create_at) as day_time, count(1) as today_add").
 		Where("id in (SELECT id FROM mm_user WHERE parent_address = ?) and create_at >= ? and create_at <= ?", address, startTime, endTime).
 		Group("day_time").Order("day_time asc").Scan(&res).Error
 	return
 }
 
 func (m *UserModel) CountInviteByTime(address string, startTime, endTime string) (res int64, err error) {
-	err = m.db.Model(&User{}).Where("parent_address = ? and create_at >= ? and create_at <= ?", address, startTime, endTime).Count(&res).Error
+	err = m.db.Model(&schema.User{}).Where("parent_address = ? and create_at >= ? and create_at <= ?", address, startTime, endTime).Count(&res).Error
 	return
 }
 
-func (m *UserModel) GetByAddressList(address []string) []User {
-	var res []User
+func (m *UserModel) GetByAddressList(address []string) []schema.User {
+	var res []schema.User
 	_ = m.db.Find(&res, "u_address in ?", address).Error
 	return res
 }
@@ -207,7 +160,7 @@ func (m *UserModel) CountTeamNum() []userDto.UserTeamCount {
 func (m *UserModel) Count() int64 {
 	var res int64
 
-	if err := m.db.Model(&User{}).Count(&res).Error; err != nil {
+	if err := m.db.Model(&schema.User{}).Count(&res).Error; err != nil {
 		logx.Errorf("Count err:%v", err.Error())
 	}
 	return res
