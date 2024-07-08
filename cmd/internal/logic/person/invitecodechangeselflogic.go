@@ -1,14 +1,12 @@
 package person
 
 import (
-	"context"
-	"regexp"
-	"strings"
-
 	errs2 "air-drop/cmd/errs"
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
 	"air-drop/pkg/utils"
+	"context"
+	"regexp"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -33,7 +31,7 @@ func (l *InviteCodeChangeSelfLogic) InviteCodeChangeSelf(req *types.InviteCodeRe
 	regex := regexp.MustCompile(`^[a-zA-Z0-9]{6,18}$`) // 匹配 6 到 18 位数字和字母的组合
 	match := regex.MatchString(req.InviteCode)
 	if match {
-		req.InviteCode = strings.ToLower(req.InviteCode)
+		//req.InviteCode = strings.ToLower(req.InviteCode)
 	} else {
 		return errs2.InviteCodeNowAllow
 	}

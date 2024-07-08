@@ -3,7 +3,6 @@ package person
 import (
 	"air-drop/cmd/internal/data/schema"
 	"context"
-	"strings"
 	"time"
 
 	"air-drop/pkg/utils"
@@ -31,13 +30,12 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	resp = &types.LoginResp{}
-	req.UAddress = strings.ToLower(req.UAddress)
-	req.PAddress = strings.ToLower(req.PAddress)
+	//req.UAddress = strings.ToLower(req.UAddress)
 
-	ex, err := l.svcCtx.Redis.Get("mm:nonce:" + req.Nonce)
-	if ex == "" {
-		return nil, xerr.NewErrCodeMsg(401, "nonce error")
-	}
+	//ex, err := l.svcCtx.Redis.Get("mm:nonce:" + req.Nonce)
+	//if ex == "" {
+	//	return nil, xerr.NewErrCodeMsg(401, "nonce error")
+	//}
 
 	blVerify, err := utils.VerifyLoginAddress(req.ChainId, req.Timestamp, req.Nonce, req.UAddress, req.UAddress, req.Signature)
 	if err != nil {
@@ -56,13 +54,18 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		return nil, xerr.NewErrCodeMsg(401, "uAddress not find")
 	}
 
+	if req.InviteCode != "" {
+		if user.InviteCode != req.InviteCode {
+			return nil, xerr.NewErrCodeMsg(500, "InviteCode not find")
+		}
+	}
+
 	if user.ID == 0 {
 		user = schema.User{
-			ParentAddress: "",
-			UAddress:      strings.ToLower(req.UAddress),
+			ParentAddress: user.ParentAddress,
+			UAddress:      req.UAddress,
 			CreateAt:      time.Now(),
 		}
-		// 4. insert database
 		err = l.svcCtx.UserModel.Insert(&user)
 		if err != nil {
 			logx.Errorf("Login InsertUser err:%v", err)

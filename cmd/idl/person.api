@@ -88,6 +88,7 @@ type (
     }
 
     WalletLogListReq {
+        typeId int32  `json:"type_id"` //1-佣金记录， 2-回报记录
         Page    int64 `json:"page"` // 页码
         PageSize  int64 `json:"page_size"` // 每页数量
     }

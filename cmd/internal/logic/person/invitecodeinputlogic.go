@@ -1,13 +1,11 @@
 package person
 
 import (
-	"context"
-	"strings"
-
 	"air-drop/cmd/errs"
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
 	"air-drop/pkg/utils"
+	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,7 +25,7 @@ func NewInviteCodeInputLogic(ctx context.Context, svcCtx *svc.ServiceContext) *I
 }
 
 func (l *InviteCodeInputLogic) InviteCodeInput(req *types.InviteCodeReq) error {
-	req.InviteCode = strings.ToLower(req.InviteCode)
+	//req.InviteCode = strings.ToLower(req.InviteCode)
 
 	userAddress := utils.GetTokenAddress(l.ctx)
 	userInfo, err := l.svcCtx.UserModel.GetUserByUAddress(userAddress)

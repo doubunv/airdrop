@@ -5,12 +5,12 @@ type (
 		Nonce string `json:"nonce"`
 	}
 	LoginReq {
-		UAddress  string `json:"uAddress"`
-		PAddress  string `json:"pAddress"`
-		ChainId   int64  `json:"chainId"`
-		Timestamp int64  `json:"timestamp"`
-		Signature string `json:"signature"`
-		Nonce     string `json:"nonce"`
+		UAddress  string `json:"uAddress"` //用户钱包地址
+		InviteCode  string `json:"inviteCode,optional"` //邀请码
+		ChainId   int64  `json:"chainId"` //链Id
+		Timestamp int64  `json:"timestamp"` //时间戳
+		Signature string `json:"signature"` //钱包签名
+		Nonce     string `json:"nonce"` //钱包签名随机串， getNonce()接口获取
 	}
 	LoginResp {
 		Token string `json:"token"`

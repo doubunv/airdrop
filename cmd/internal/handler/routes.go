@@ -27,67 +27,70 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
-				Path:    "/getNonce",
-				Handler: person.NonceHandler(serverCtx),
+				// 全链路-购买
+				Method:  http.MethodPost,
+				Path:    "/buyPackageProject",
+				Handler: link_project.BuyLinkProjectHandler(serverCtx),
 			},
 			{
+				// 全链路-项目列表
 				Method:  http.MethodPost,
-				Path:    "/login",
-				Handler: person.LoginHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/adminLogin",
-				Handler: person.AdminLoginHandler(serverCtx),
+				Path:    "/getLinkProjectList",
+				Handler: link_project.GetLinkProjectListHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/person"),
+		rest.WithPrefix("/linkProject"),
 	)
 
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 我的投资-全链路申请领取
 				Method:  http.MethodPost,
-				Path:    "/personInfo",
-				Handler: person.PersonInfoHandler(serverCtx),
+				Path:    "/applyLinkEarnings",
+				Handler: order.ApplyLinkEarningsHandler(serverCtx),
 			},
 			{
+				// 我的投资-全链路申请领取记录
 				Method:  http.MethodPost,
-				Path:    "/inviteCode/input",
-				Handler: person.InviteCodeInputHandler(serverCtx),
+				Path:    "/getApplyLinkLogList",
+				Handler: order.GetApplyLinkEarningsListHandler(serverCtx),
 			},
 			{
+				// 我的投资-全链路列表
 				Method:  http.MethodPost,
-				Path:    "/inviteCode/changeSelf",
-				Handler: person.InviteCodeChangeSelfHandler(serverCtx),
+				Path:    "/getLinkOrderList",
+				Handler: order.GetLinkOrderListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
-				Path:    "/inviteList",
-				Handler: person.InviteListHandler(serverCtx),
+				// 我的投资-投资汇总统计数据
+				Method:  http.MethodPost,
+				Path:    "/getOrderInfo",
+				Handler: order.GetOrderInfoHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
-				Path:    "/walletLogList",
-				Handler: person.WalletLogListHandler(serverCtx),
+				// 我的投资-整包列表
+				Method:  http.MethodPost,
+				Path:    "/getPackageOrderList",
+				Handler: order.GetPackageOrderListHandler(serverCtx),
 			},
 		},
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/person"),
+		rest.WithPrefix("/order"),
 	)
 
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodPost,
-				Path:    "/getPackageProjectList",
-				Handler: package_project.GetPackageProjectListHandler(serverCtx),
-			},
-			{
+				// 整包空投-项目列表
 				Method:  http.MethodPost,
 				Path:    "/buyPackageProject",
 				Handler: package_project.BuyPackageProjectHandler(serverCtx),
+			},
+			{
+				// 整包空投-项目列表
+				Method:  http.MethodPost,
+				Path:    "/getPackageProjectList",
+				Handler: package_project.GetPackageProjectListHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/packageProject"),
@@ -97,46 +100,59 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/getLinkProjectList",
-				Handler: link_project.GetLinkProjectListHandler(serverCtx),
+				Path:    "/adminLogin",
+				Handler: person.AdminLoginHandler(serverCtx),
 			},
 			{
+				// 登录签名
+				Method:  http.MethodGet,
+				Path:    "/getNonce",
+				Handler: person.NonceHandler(serverCtx),
+			},
+			{
+				// C端登录
 				Method:  http.MethodPost,
-				Path:    "/buyPackageProject",
-				Handler: link_project.BuyLinkProjectHandler(serverCtx),
+				Path:    "/login",
+				Handler: person.LoginHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/linkProject"),
+		rest.WithPrefix("/person"),
 	)
 
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				// 设置自己的邀请码
 				Method:  http.MethodPost,
-				Path:    "/getOrderInfo",
-				Handler: order.GetOrderInfoHandler(serverCtx),
+				Path:    "/inviteCode/changeSelf",
+				Handler: person.InviteCodeChangeSelfHandler(serverCtx),
 			},
 			{
+				// 填写邀请人的邀请码
 				Method:  http.MethodPost,
-				Path:    "/getPackageOrderList",
-				Handler: order.GetPackageOrderListHandler(serverCtx),
+				Path:    "/inviteCode/input",
+				Handler: person.InviteCodeInputHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodPost,
-				Path:    "/getLinkOrderList",
-				Handler: order.GetLinkOrderListHandler(serverCtx),
+				// 获取自己的邀请人列表
+				Method:  http.MethodGet,
+				Path:    "/inviteList",
+				Handler: person.InviteListHandler(serverCtx),
 			},
 			{
+				// 个人信息
 				Method:  http.MethodPost,
-				Path:    "/applyLinkEarnings",
-				Handler: order.ApplyLinkEarningsHandler(serverCtx),
+				Path:    "/personInfo",
+				Handler: person.PersonInfoHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodPost,
-				Path:    "/getApplyLinkLogList",
-				Handler: order.GetApplyLinkEarningsListHandler(serverCtx),
+				// 佣金记录、回报记录
+				Method:  http.MethodGet,
+				Path:    "/walletLogList",
+				Handler: person.WalletLogListHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/order"),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/person"),
 	)
 }
