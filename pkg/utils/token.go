@@ -2,7 +2,6 @@ package utils
 
 import (
 	"context"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -14,7 +13,7 @@ type GenTokenResponse struct {
 	Sign         string
 }
 
-func GenToken(accessSecret, tokenAddress string, accessExpire int64, isAdmin bool) (*GenTokenResponse, error) {
+func GenToken(accessSecret string, userId int64, tokenAddress string, accessExpire int64, isAdmin bool) (*GenTokenResponse, error) {
 	now := time.Now().Unix()
 	claims := make(jwt.MapClaims)
 	claims["exp"] = now + accessExpire
@@ -24,6 +23,7 @@ func GenToken(accessSecret, tokenAddress string, accessExpire int64, isAdmin boo
 		claims["admin_address"] = tokenAddress
 	} else {
 		claims["token_address"] = tokenAddress
+		claims["token_uid"] = userId
 	}
 
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -56,5 +56,13 @@ func GetTokenAddress(ctx context.Context) string {
 	if ok := ctx.Value("token_address"); ok == nil {
 		return ""
 	}
-	return strings.ToLower(ctx.Value("token_address").(string))
+	return ctx.Value("token_address").(string)
+}
+
+// GetTokenUid user login address
+func GetTokenUid(ctx context.Context) int64 {
+	if ok := ctx.Value("token_Uid"); ok == nil {
+		return int64(0)
+	}
+	return ctx.Value("token_Uid").(int64)
 }

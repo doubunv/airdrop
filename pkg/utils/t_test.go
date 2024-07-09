@@ -42,7 +42,7 @@ func TestVerifyLoginAddress(t *testing.T) {
 
 func TestGenToken(t *testing.T) {
 	//token, err := GenToken("1234abcd", "0x273b32e2ef27273597bd553e77ef0b05fd7e0e0f", 60*60*360, false)
-	token, err := GenToken("1234abcd", "0x273b32e2ef27273597bd553e77ef0b05fd7e0e0f", 60*60*360, true)
+	token, err := GenToken("1234abcd", 1, "0x273b32e2ef27273597bd553e77ef0b05fd7e0e0f", 60*60*360, true)
 	if err != nil {
 		return
 	}
