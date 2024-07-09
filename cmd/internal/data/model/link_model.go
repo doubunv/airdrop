@@ -26,15 +26,23 @@ func (m *LinkModel) FindById(id int64) (res schema.ArLink, err error) {
 	return
 }
 
-func (m *LinkModel) GetList(model *schema.ArLink, startTime, endTime string, page, pageSize int) (list []*schema.ArLink, total int64, err error) {
+func (m *LinkModel) GetList(model *schema.ArLink, startTime, endTime int64, page, pageSize int) (list []*schema.ArLink, total int64, err error) {
 	q := m.db.Model(&schema.ArLink{})
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
+	return
+}
+
+func (m *LinkModel) FindByIds(ids []int64) (res []schema.ArLink, err error) {
+	if len(ids) == 0 {
+		return
+	}
+	err = m.db.Find(&res, "id in ?", ids).Error
 	return
 }

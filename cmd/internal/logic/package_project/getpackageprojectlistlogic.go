@@ -3,6 +3,8 @@ package package_project
 import (
 	"air-drop/cmd/internal/data/schema"
 	"context"
+	"strconv"
+	"strings"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -39,13 +41,31 @@ func (l *GetPackageProjectListLogic) GetPackageProjectList(req *types.GetPackage
 	resp.Total = total
 
 	for _, v := range list {
+		ids := make([]int64, 0)
+		for _, v := range strings.Split(v.ChildId, ",") {
+			parseInt, _ := strconv.ParseInt(v, 10, 64)
+			ids = append(ids, parseInt)
+		}
+
+		byIds, err := l.svcCtx.PackageChildModel.FindByIds(ids)
+		if err != nil {
+			return nil, err
+		}
+		childList := make([]types.PackageProjectChildListItem, 0)
+		for _, v := range byIds {
+			tt := types.PackageProjectChildListItem{
+				Id:   v.ID,
+				Name: v.Name,
+			}
+			childList = append(childList, tt)
+		}
 
 		t := types.GetPackageProjectList{
 			Id:    v.ID,
 			Name:  v.Name,
 			Price: v.Price,
 			Month: v.Month,
-			List:  nil,
+			List:  childList,
 		}
 		copier.Copy(&t, v)
 		resp.List = append(resp.List, t)

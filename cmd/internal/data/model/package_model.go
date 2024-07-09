@@ -38,3 +38,11 @@ func (m *PackageModel) GetList(model *schema.AirPackage, startTime, endTime int6
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
 	return
 }
+
+func (m *PackageModel) FindByIds(ids []int64) (res []schema.AirPackage, err error) {
+	if len(ids) == 0 {
+		return
+	}
+	err = m.db.Find(&res, "id in ?", ids).Error
+	return
+}

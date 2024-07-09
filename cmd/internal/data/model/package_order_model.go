@@ -26,15 +26,15 @@ func (m *PackageOrderModel) FindById(id int64) (res schema.PackageOrder, err err
 	return
 }
 
-func (m *PackageOrderModel) GetList(user *schema.PackageOrder, startTime, endTime string, page, pageSize int) (list []*schema.PackageOrder, total int64, err error) {
+func (m *PackageOrderModel) GetList(user *schema.PackageOrder, startTime, endTime int64, page, pageSize int) (list []*schema.PackageOrder, total int64, err error) {
 	q := m.db.Model(&schema.PackageOrder{})
 	if user.UserId != 0 {
 		q = q.Where("user_id = ?", user.UserId)
 	}
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error

@@ -26,15 +26,15 @@ func (m *LinkOrderModel) FindById(id int64) (res schema.LinkOrder, err error) {
 	return
 }
 
-func (m *LinkOrderModel) GetList(model *schema.LinkOrder, startTime, endTime string, page, pageSize int) (list []*schema.LinkOrder, total int64, err error) {
+func (m *LinkOrderModel) GetList(model *schema.LinkOrder, startTime, endTime int64, page, pageSize int) (list []*schema.LinkOrder, total int64, err error) {
 	q := m.db.Model(&schema.LinkOrder{})
 	if model.UserId != 0 {
 		q = q.Where("user_id = ?", model.UserId)
 	}
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error

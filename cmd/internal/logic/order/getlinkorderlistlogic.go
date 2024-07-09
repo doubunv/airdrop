@@ -1,6 +1,8 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/schema"
+	"air-drop/pkg/utils"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +26,49 @@ func NewGetLinkOrderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq) (resp *types.GetLinkOrderListResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetLinkOrderListResp{
+		List:     make([]types.GetLinkOrderListItem, 0),
+		Page:     req.Page,
+		PageSize: req.PageSize,
+		Total:    0,
+	}
+
+	rq := &schema.LinkOrder{
+		UserId: utils.GetTokenUid(l.ctx),
+	}
+	list, total, err := l.svcCtx.LinkOrderModel.GetList(rq, int64(0), int64(0), int(req.Page), int(req.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	resp.Total = total
+
+	dicLinkIds := make([]int64, 0)
+	for _, v := range list {
+		dicLinkIds = append(dicLinkIds, v.LinkId)
+	}
+	linkIds, err := l.svcCtx.LinkModel.FindByIds(dicLinkIds)
+	if err != nil {
+		return nil, err
+	}
+	dic := make(map[int64]schema.ArLink, 0)
+	for _, v := range linkIds {
+		dic[v.ID] = v
+	}
+
+	for _, v := range list {
+		t := types.GetLinkOrderListItem{
+			CreatedAt: v.CreatedAt,
+			Name:      "",
+			BuyNumber: int32(v.BuyNumber),
+			BuyAmount: v.BuyAmount,
+			DropTime:  v.DropTime,
+			Status:    int32(v.Status),
+		}
+		if data, ok := dic[v.LinkId]; ok {
+			t.Name = data.Name
+		}
+		resp.List = append(resp.List, t)
+	}
 
 	return
 }

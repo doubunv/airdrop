@@ -241,8 +241,8 @@ type GetPackageOrderListResp struct {
 }
 
 type GetLinkOrderListReq struct {
-	Page     int64 `json:"page"`      // 页码
-	PageSize int64 `json:"page_size"` // 每页数量
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
 }
 
 type GetLinkOrderListItem struct {

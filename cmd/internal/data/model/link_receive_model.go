@@ -26,7 +26,7 @@ func (m *LinkReceiveModel) FindById(id int64) (res schema.ArLinkReceive, err err
 	return
 }
 
-func (m *LinkReceiveModel) GetList(model *schema.ArLinkReceive, startTime, endTime string, page, pageSize int) (list []*schema.ArLinkReceive, total int64, err error) {
+func (m *LinkReceiveModel) GetList(model *schema.ArLinkReceive, startTime, endTime int64, page, pageSize int) (list []*schema.ArLinkReceive, total int64, err error) {
 	q := m.db.Model(&schema.ArLinkReceive{})
 	if model.UserId != 0 {
 		q = q.Where("user_id = ?", model.UserId)
@@ -34,10 +34,10 @@ func (m *LinkReceiveModel) GetList(model *schema.ArLinkReceive, startTime, endTi
 	if model.UAddress != "" {
 		q = q.Where("u_address = ?", model.UAddress)
 	}
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error

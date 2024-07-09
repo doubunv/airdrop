@@ -1,6 +1,7 @@
 package link_project
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,27 @@ func NewGetLinkProjectListLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *GetLinkProjectListLogic) GetLinkProjectList(req *types.GetLinkProjectListReq) (resp *types.GetLinkProjectListResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetLinkProjectListResp{
+		List:     make([]types.GetLinkProjectList, 0),
+		Page:     req.Page,
+		PageSize: req.PageSize,
+		Total:    0,
+	}
+
+	list, total, err := l.svcCtx.LinkModel.GetList(&schema.ArLink{}, int64(0), int64(0), int(req.Page), int(req.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	resp.Total = total
+	for _, v := range list {
+		tt := types.GetLinkProjectList{
+			Id:       v.ID,
+			Name:     v.Name,
+			Price:    v.Price,
+			DropTime: v.DropTime,
+		}
+		resp.List = append(resp.List, tt)
+	}
 
 	return
 }
