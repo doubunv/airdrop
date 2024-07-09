@@ -9,14 +9,14 @@ type (
     }
 
     GetLinkProjectListReq {
-        Page      int64 `json:"page"` // 页码
-    	PageSize  int64 `json:"page_size"` // 每页数量
+        Page      int32 `json:"page"` // 页码
+    	PageSize  int32 `json:"page_size"` // 每页数量
     }
 
     GetLinkProjectListResp {
         list []GetLinkProjectList `json:"list"`
-        Page int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
         Total    int64 `json:"total"` // 总数
     }
 

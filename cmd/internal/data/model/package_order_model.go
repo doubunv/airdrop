@@ -1,0 +1,43 @@
+package model
+
+import (
+	"air-drop/cmd/internal/data/schema"
+	"gorm.io/gorm"
+)
+
+type PackageOrderModel struct {
+	db *gorm.DB
+}
+
+func NewPackageOrderModel(db *gorm.DB) *PackageOrderModel {
+	return &PackageOrderModel{db: db}
+}
+
+func (m *PackageOrderModel) Insert(res *schema.PackageOrder) error {
+	return m.db.Create(res).Error
+}
+
+func (m *PackageOrderModel) UpdateSchema(data *schema.PackageOrder) error {
+	return m.db.Where("id = ?", data.ID).Save(data).Error
+}
+
+func (m *PackageOrderModel) FindById(id int64) (res schema.PackageOrder, err error) {
+	err = m.db.Find(&res, "id = ?", id).Error
+	return
+}
+
+func (m *PackageOrderModel) GetList(user *schema.PackageOrder, startTime, endTime string, page, pageSize int) (list []*schema.PackageOrder, total int64, err error) {
+	q := m.db.Model(&schema.PackageOrder{})
+	if user.UserId != 0 {
+		q = q.Where("user_id = ?", user.UserId)
+	}
+	if startTime != "" {
+		q = q.Where("create_at >= ?", startTime)
+	}
+	if endTime != "" {
+		q = q.Where("create_at <= ?", endTime)
+	}
+	err = q.Count(&total).Error
+	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
+	return
+}

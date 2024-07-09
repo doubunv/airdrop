@@ -1,7 +1,7 @@
 package schema
 
 type PackageOrder struct {
-	In         int64   `gorm:"column:in"`
+	ID         int64   `gorm:"column:id"`
 	UserId     int64   `gorm:"column:user_id"`
 	Type       int64   `gorm:"column:type"`
 	TargetId   int64   `gorm:"column:target_id"`

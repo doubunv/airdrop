@@ -12,8 +12,8 @@ type (
     }
 
     GetPackageOrderListReq {
-        Page    int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page    int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
     }
     GetPackageOrderListItem {
         Id int64 `json:"id"`
@@ -26,8 +26,8 @@ type (
     }
     GetPackageOrderListResp {
         list []GetPackageOrderListItem `json:"list"`
-        Page int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
         Total    int64 `json:"total"` // 总数
     }
 
@@ -47,8 +47,8 @@ type (
 
     GetLinkOrderListResp {
         list []GetLinkOrderListItem `json:"list"`
-        Page int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
         Total    int64 `json:"total"` // 总数
     }
 
@@ -63,8 +63,8 @@ type (
 
     GetApplyLinkLogListReq {
         Id int64 `json:"id"`
-        Page    int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page    int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
     }
     GetApplyLinkLogListItem {
         createdAt int64 `json:"createdAt"`
@@ -73,8 +73,8 @@ type (
     }
     GetApplyLinkLogListResp {
         list []GetApplyLinkLogListItem `json:"list"`
-        Page int64 `json:"page"` // 页码
-        PageSize  int64 `json:"page_size"` // 每页数量
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
         Total    int64 `json:"total"` // 总数
     }
 )

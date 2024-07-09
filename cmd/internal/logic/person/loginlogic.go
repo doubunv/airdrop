@@ -73,7 +73,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		}
 	}
 
-	token, err := utils.GenToken(l.svcCtx.Config.Auth.AccessSecret, req.UAddress, l.svcCtx.Config.Auth.AccessExpire, false)
+	token, err := utils.GenToken(l.svcCtx.Config.Auth.AccessSecret, user.ID, req.UAddress, l.svcCtx.Config.Auth.AccessExpire, false)
 	if err != nil {
 		return nil, xerr.NewErrMsg("token build error")
 	}
