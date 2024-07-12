@@ -1,6 +1,9 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/model"
+	"air-drop/cmd/internal/data/schema"
+	"air-drop/pkg/utils"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +27,18 @@ func NewApplyLinkEarningsLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 }
 
 func (l *ApplyLinkEarningsLogic) ApplyLinkEarnings(req *types.ApplyLinkEarningsReq) (resp *types.ApplyLinkEarningsResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.ApplyLinkEarningsResp{}
+	da := &schema.ArLinkReceive{
+		UserId:   utils.GetTokenUid(l.ctx),
+		UAddress: req.Address,
+		Amount:   req.Amount,
+		Status:   model.LinkReceiveStatus1,
+	}
+
+	err = l.svcCtx.LinkReceiveModel.Insert(da)
+	if err != nil {
+		return nil, err
+	}
 
 	return
 }

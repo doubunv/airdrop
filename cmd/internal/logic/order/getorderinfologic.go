@@ -41,6 +41,7 @@ func (l *GetOrderInfoLogic) GetOrderInfo(req *types.GetOrderInfoReq) (resp *type
 		return nil, err
 	}
 	resp.TotalBuyAmount = userInfo.PayAmount
+	resp.CommissionEarnings = userInfo.TotalCommission
 
 	sumSendEarnings, err := l.svcCtx.PackageOrderModel.SumSendEarnings(tokenUid)
 	resp.ReceivePackageEarnings = sumSendEarnings.SendEarnings
