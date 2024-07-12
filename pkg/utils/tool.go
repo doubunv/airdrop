@@ -97,3 +97,14 @@ func TimeIntToStrSce(timeInt int64) string {
 	}
 	return time.Unix(timeInt, 0).Format("2006-01-02 15:04:05")
 }
+
+// 计算2个时间戳相差多少天
+func DiffDays(s, e int64) int32 {
+	// 定义两个时间戳
+	startTime := time.Unix(s, 0) // 第一个时间戳，单位为秒
+	endTime := time.Unix(e, 0)   // 第二个时间戳，单位为秒
+
+	// 计算天数差异
+	duration := endTime.Sub(startTime)
+	return int32(duration.Hours() / 24)
+}

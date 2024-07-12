@@ -20,6 +20,11 @@ func (m *UserModel) GetUserByUAddress(uAddress string) (res schema.User, err err
 	return
 }
 
+func (m *UserModel) GetUserById(id int64) (res schema.User, err error) {
+	err = m.db.Find(&res, "id = ?", id).Error
+	return
+}
+
 func (m *UserModel) GetUnique(inviteCode string) schema.User {
 	var res schema.User
 	err := m.db.First(&res, "invite_code = ?", inviteCode).Error

@@ -24,6 +24,7 @@ type User struct {
 	Level              int64     `gorm:"column:level"`
 	ParentAddress      string    `gorm:"column:parent_address"`
 	Amount             float64   `gorm:"column:amount"`
+	PayAmount          float64   `gorm:"column:pay_amount"`
 	Version            int       `gorm:"column:version"`
 	TeamLevel          int64     `gorm:"column:team_level"`
 	InviteCode         string    `gorm:"column:invite_code"`

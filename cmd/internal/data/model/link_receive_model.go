@@ -9,6 +9,10 @@ type LinkReceiveModel struct {
 	db *gorm.DB
 }
 
+const LinkReceiveStatus1 = 1
+const LinkReceiveStatus2 = 2
+const LinkReceiveStatus3 = 3
+
 func NewLinkReceiveModel(db *gorm.DB) *LinkReceiveModel {
 	return &LinkReceiveModel{db: db}
 }
@@ -42,5 +46,17 @@ func (m *LinkReceiveModel) GetList(model *schema.ArLinkReceive, startTime, endTi
 	}
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
+	return
+}
+
+func (m *LinkReceiveModel) SumLinkReceive(data *schema.ArLinkReceive) (resp *schema.ArLinkReceive, err error) {
+	q := m.db.Model(&schema.ArLinkReceive{})
+	if data.UserId != 0 {
+		q.Where("user_id", data.UserId)
+	}
+	if data.Status != 0 {
+		q.Where("status", data.Status)
+	}
+	err = q.Select("sum(amount) as amount").Find(&resp).Error
 	return
 }

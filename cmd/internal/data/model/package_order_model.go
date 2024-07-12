@@ -41,3 +41,9 @@ func (m *PackageOrderModel) GetList(user *schema.PackageOrder, startTime, endTim
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
 	return
 }
+
+func (m *PackageOrderModel) SumSendEarnings(userId int64) (resp *schema.PackageOrder, err error) {
+	q := m.db.Model(&schema.PackageOrder{}).Where("user_id", userId)
+	err = q.Select("sum(send_earnings) as send_earnings").Find(&resp).Error
+	return
+}

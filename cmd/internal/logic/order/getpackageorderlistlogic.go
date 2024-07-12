@@ -53,7 +53,7 @@ func (l *GetPackageOrderListLogic) GetPackageOrderList(req *types.GetPackageOrde
 			Created_at:      v.CreatedAt,
 			Amount:          v.Amount,
 			Month:           int32(v.BuyMonth),
-			LeftDay:         0, //todo 计算
+			LeftDay:         utils.DiffDays(v.CreatedAt, v.EndTime),
 			SendEarnings:    v.SendEarnings,
 			MaxEarningsRate: v.MaxEarningsRate,
 		}
