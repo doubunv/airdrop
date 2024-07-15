@@ -1,0 +1,53 @@
+syntax = "v1"
+
+type (
+    GetUserListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    GetUserListitem {
+        Id int64 `json:"id"`
+        UAddress string `json:"u_address"`
+        InviteCode string `json:"invite_code"`
+        CreatedAt int64 `json:"created_at"`
+    }
+    GetUserListResp {
+        list []GetUserListitem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    AdminWalletLogListReq {
+        typeId int32  `json:"type_id"` //1-佣金记录， 2-回报记录
+        Page    int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+    }
+    AdminWalletLogListItem {
+        CreatedAt int64 `json:"createdAt"` //创建时间
+        Amount float64 `json:"amount"` //佣金金额
+        TargetAddress string `json:"target_address"` //发送用户
+        UAddress string `json:"u_address"`//接收用户
+    }
+    AdminWalletLogListResp {
+        list []AdminWalletLogListItem `json:"list"`
+        Page int64 `json:"page"` // 页码
+        PageSize  int64 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+)
+
+@server (
+    prefix: /admin/user
+    group:  admin/user
+)
+service Main {
+
+    @doc "用户列表"
+    @handler getUserList
+    get /getUserList(GetUserListReq) returns (GetUserListResp)
+
+    @doc "用户佣金记录"
+    @handler walletLogList
+    get /walletLogList (AdminWalletLogListReq) returns (AdminWalletLogListResp)
+}

@@ -1,0 +1,50 @@
+syntax = "v1"
+
+type (
+    AdminGetPackageProjectListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+
+    AdminPackageProjectChildListItem {
+        Id int64 `json:"id"` //子项目ID
+        Name string `json:"name"` //子项目名字
+    }
+
+    GetPackageProjectListItem {
+        Id int64 `json:"id"` //项目ID
+        Name string `json:"name"` //项目名字
+        Price float64 `json:"price"` //价格
+        Month int64 `json:"month"` //服务周期
+        List []AdminPackageProjectChildListItem `json:"list"`
+    }
+
+    AdminGetPackageProjectListResp {
+        list []GetPackageProjectListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    AddOrUpdatePackageProjectReq {
+       ProjectIds []AdminPackageProjectChildListItem `json:"project_ids"`
+    
+    }
+    AddOrUpdatePackageProjectResp {
+
+    }
+)
+
+@server (
+    prefix: /admin/packageProject
+    group:  admin/PackageProject
+)
+service Main {
+    @doc "项目管理列表"
+    @handler getPackageProjectList
+    get /getPackageProjectList(AdminGetPackageProjectListReq) returns (AdminGetPackageProjectListResp)
+
+    @doc "添加or修改项目管理"
+    @handler addOrUpdatePackageProject
+    get /addOrUpdatePackageProjectList(AddOrUpdatePackageProjectReq) returns (AddOrUpdatePackageProjectResp)
+}

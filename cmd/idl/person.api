@@ -61,22 +61,6 @@ type (
         CreatedAt int64 `json:"created_at"`
     }
 
-    UserListReq {
-        PageNo int `form:"pageNo"`
-        PageSize int `form:"pageSize"`
-        UAddress string `form:"uAddress,optional"`
-        PAddress string `form:"pAddress,optional"`
-        StartTime string `form:"startTime,optional"`
-        EndTime string `form:"endTime,optional"`
-        InviteCode string `form:"inviteCode,optional"`
-    }
-
-    UserListResp {
-        List []UserItem `json:"list"`
-        PageNo int64 `json:"pageNo"`
-        PageSize int64 `json:"pageSize"`
-        Total int64 `json:"total"`
-    }
     UserItem {
         Id int64 `json:"id"`
         UAddress string `json:"u_address"`
@@ -128,10 +112,7 @@ service Main {
 //    @doc "获取自己的邀请人数"
 //    @handler inviteCount
 //    get /invite/count returns (InviteCountResp)
-//
-//    @handler userList
-//    get /userList (UserListReq) returns (UserListResp)
-//
+
 //    @handler checkAddressRegister
 //    get /userAddress/Register (UserAddressResgiterReq) returns (UserAddressResgiterResp)
 

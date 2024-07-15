@@ -1,0 +1,55 @@
+syntax = "v1"
+
+type (
+    GetSettingListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    GetSettingListItem {
+        Key string `json:"key"`
+        Value string `json:"value"`
+    }
+    GetSettingListResp {
+        list []GetSettingListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    GetSettingKeyReq {
+        Key string `json:"key"`
+    }
+
+    GetSettingKeyResp {
+        Key string `json:"key"`
+        Value string `json:"value"`
+    }
+
+    SetSettingKeyReq {
+        Key string `json:"key"`
+        Value string `json:"value"`
+    }
+    SetSettingKeyResp {
+
+    }
+)
+
+
+@server (
+    prefix: /admin/setting
+    group:  admin/setting
+)
+
+service Main {
+    @doc "系统设置列表"
+    @handler getSettingList
+    get /getSettingList(GetSettingListReq) returns (GetSettingListResp)
+
+    @doc "根据Key获取设置"
+    @handler getSettingKey
+    get /getSettingKey(GetSettingKeyReq) returns (GetSettingKeyResp)
+
+    @doc "根据Key设置值"
+    @handler setSettingKey
+    get /setSettingKey(SetSettingKeyReq) returns (SetSettingKeyResp)
+}

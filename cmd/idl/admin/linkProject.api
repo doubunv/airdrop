@@ -1,0 +1,56 @@
+syntax = "v1"
+
+type (
+    AdminGetLinkProjectListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+
+    GetLinkProjectListItem {
+        Id int64 `json:"id"` //序号
+        ProjectId int64 `json:"project_id"` //项目ID
+        Name string `json:"name"` //名字
+        Icon string `json:"icon"` //图标
+        Price float64 `json:"price"` //售价
+        DropAmount float64 `json:"drop_amount"` //代币数量
+        SellEndTime int64 `json:"sell_end_time"` //销售结束时间
+        DropTime int64 `json:"drop_time"` //发币时间
+        CreatedAt int64 `json:"created_at"`
+    }
+
+    AdminGetLinkProjectListResp {
+        list []GetLinkProjectListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    AddOrUpdateLinkProjectReq {
+        Id int64 `json:"id,optional"`
+        ProjectId int64 `json:"project_id"`
+        Price float64 `json:"price"` //售价
+        DropAmount float64 `json:"drop_amount"` //代币数量
+        SellEndTime int64 `json:"sell_end_time"` //销售结束时间
+        DropTime int64 `json:"drop_time"` //发币时间
+        IsDeleted int32 `json:"is_deleted"` //1-删除
+        Status int32 `json:"status,optional"` // 1-上架 ，2 下架
+    }
+
+    AddOrUpdateLinkProjectResp {
+
+    }
+)
+
+@server (
+    prefix: /admin/linkproject
+    group:  admin/linkproject
+)
+service Main {
+    @doc "全链路空投管理列表"
+    @handler getLinkProjectList
+    get /getLinkProjectList(AdminGetLinkProjectListReq) returns (AdminGetLinkProjectListResp)
+
+    @doc "添加or修改全链路空头管理"
+    @handler addOrUpdateLinkProject
+    get /addOrUpdateLinkProjectList(AddOrUpdateLinkProjectReq) returns (AddOrUpdateLinkProjectResp)
+}

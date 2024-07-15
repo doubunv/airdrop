@@ -42,7 +42,7 @@ func (l *GetPackageProjectListLogic) GetPackageProjectList(req *types.GetPackage
 
 	for _, v := range list {
 		ids := make([]int64, 0)
-		for _, v := range strings.Split(v.ChildId, ",") {
+		for _, v := range strings.Split(v.ProjectIds, ",") {
 			parseInt, _ := strconv.ParseInt(v, 10, 64)
 			ids = append(ids, parseInt)
 		}

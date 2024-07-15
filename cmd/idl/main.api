@@ -6,6 +6,12 @@ import (
 	"package_project.api"
 	"link_project.api"
 	"order.api"
+	"admin/linkProject.api"
+	"admin/orderList.api"
+	"admin/packageProject.api"
+	"admin/project.api"
+	"admin/setting.api"
+	"admin/user.api"
 )
 
 // 定义 HTTP 服务

@@ -1,0 +1,44 @@
+syntax = "v1"
+
+type (
+    GetProjectListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    GetProjectListItem {
+
+    }
+    GetProjectListResp {
+        list []GetProjectListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    AddOrUpdateProjectReq {
+        Icon string `json:"icon"` //logo ,base64
+        Name string `json:"name"` //项目名
+        Content string `json:"content"` //项目介绍
+    }
+    AddOrUpdateProjectResp {
+        Id int64 `json:"id,optional"`
+        Icon string `json:"icon"` //logo ,base64
+        Name string `json:"name"` //项目名
+        Content string `json:"content"` //项目介绍
+        IsDeleted int `json:"is_deleted,optional"` // 1-删除标记
+    }
+)
+
+@server (
+    prefix: /admin/project
+    group:  admin/project
+)
+service Main {
+    @doc "项目管理列表"
+    @handler getProjectList
+    get /getProjectList(GetProjectListReq) returns (GetProjectListResp)
+
+    @doc "添加or修改项目管理"
+    @handler addOrUpdateProject
+    get /addOrUpdateProjectList(AddOrUpdateProjectReq) returns (AddOrUpdateProjectResp)
+}

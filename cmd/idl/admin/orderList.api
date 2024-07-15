@@ -1,0 +1,96 @@
+syntax = "v1"
+
+type (
+    GetLinkProjectOrderListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    GetLinkProjectOrderListItem {
+        Id int64 `json:"id"` //订单号
+        UserId int64 `json:"user_id"` //订单号
+        name string `json:"name"` //项目名字
+        UAddress string `json:"u_address"` //订单用户
+        Amount float64 `json:"amount"` //订单金额
+        CreatedAt int64 `json:"created_at"` //订单时间
+        Status int32 `json:"status"` //提币状态 0-全部 1-待发放 2-已发放待领取 3-已领取'
+    }
+    GetLinkProjectListOrderResp {
+        list []GetLinkProjectOrderListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    GetPackageProjectOrderListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    GetPackageProjectOrderListItem {
+        Id int64 `json:"id"` //订单号
+        UserId int64 `json:"user_id"` //订单号
+        UAddress string `json:"u_address"` //订单用户
+        Amount float64 `json:"amount"` //订单金额
+        BuyMonth int32 `json:"buy_month"` //服务周期
+        LeftDay int32 `json:"left_day"` //剩余回报时间
+        SendEarnings float64 `json:"send_earnings"` //已回报金额
+        CreatedAt int64 `json:"created_at"` //订单时间
+    }
+    GetPackageProjectListOrderResp {
+        list []GetPackageProjectOrderListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    DropLinkApplyLinkProjectReq {
+        Id int64 `json:"id"` //订单号
+        UAddress string `json:"u_address"` //订单用户
+        Amount float64 `json:"amount"` //发放数量
+    }
+    DropApplyLinkProjectResp {
+    }
+
+    DropApplyPackageProjectReq {
+        Id int64 `json:"id"` //订单号
+        Amount float64 `json:"amount"` //发放数量
+    }
+    DropApplyPackageProjectResp {
+
+    }
+
+    DropApplyPackageListProjectReq {
+        Id int64 `json:"id"` //订单号
+    }
+    DropApplyPackageListProjectResp {
+        Id int64 `json:"id"`
+        UAddress string `json:"u_address"` //订单用户
+        Amount float64 `json:"amount"` //发放数量
+        CreatedAt int64 `json:"created_at"` //发放时间
+    }
+)
+
+@server (
+    prefix: /admin/order
+    group:  admin/order
+)
+service Main {
+    @doc "全链路订单列表"
+    @handler getLinkProjectOrderList
+    get /getLinkProjectOrderList(GetLinkProjectOrderListReq) returns (GetLinkProjectListOrderResp)
+
+    @doc "整包订单列表"
+    @handler getPackageProjectOrderList
+    get /getPackageProjectOrderList(GetPackageProjectOrderListReq) returns (GetPackageProjectListOrderResp)
+
+    @doc "全链路空投发币"
+    @handler dropLinkApplyLinkProject
+    get /dropLinkApplyLinkProject(DropLinkApplyLinkProjectReq) returns (DropApplyLinkProjectResp)
+
+    @doc "整包空投发币"
+    @handler dropApplyPackageProject
+    get /dropApplyPackageProject(DropApplyPackageProjectReq) returns (DropApplyPackageProjectResp)
+
+    @doc "整包空投发币记录"
+    @handler dropApplyPackageListProject
+    get /dropApplyPackageListProject(DropApplyPackageListProjectReq) returns (DropApplyPackageListProjectResp)
+}

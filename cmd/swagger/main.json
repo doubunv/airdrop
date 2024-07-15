@@ -656,12 +656,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         }
       },
@@ -683,12 +683,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         },
         "total": {
@@ -773,12 +773,12 @@
       "properties": {
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         }
       },
@@ -799,12 +799,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         },
         "total": {
@@ -857,12 +857,12 @@
       "properties": {
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         }
       },
@@ -883,12 +883,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         },
         "total": {
@@ -1013,12 +1013,12 @@
       "properties": {
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         }
       },
@@ -1039,12 +1039,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         },
         "total": {
@@ -1104,12 +1104,12 @@
       "properties": {
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         }
       },
@@ -1130,12 +1130,12 @@
         },
         "page": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 页码"
         },
         "page_size": {
           "type": "integer",
-          "format": "int64",
+          "format": "int32",
           "description": " 每页数量"
         },
         "total": {
@@ -1459,69 +1459,6 @@
         "invite_code",
         "path",
         "create_at"
-      ]
-    },
-    "UserListReq": {
-      "type": "object",
-      "properties": {
-        "pageNo": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "uAddress": {
-          "type": "string"
-        },
-        "pAddress": {
-          "type": "string"
-        },
-        "startTime": {
-          "type": "string"
-        },
-        "endTime": {
-          "type": "string"
-        },
-        "inviteCode": {
-          "type": "string"
-        }
-      },
-      "title": "UserListReq",
-      "required": [
-        "pageNo",
-        "pageSize"
-      ]
-    },
-    "UserListResp": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserItem"
-          }
-        },
-        "pageNo": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "UserListResp",
-      "required": [
-        "list",
-        "pageNo",
-        "pageSize",
-        "total"
       ]
     },
     "WalletLogListItem": {

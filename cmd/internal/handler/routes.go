@@ -4,6 +4,12 @@ package handler
 import (
 	"net/http"
 
+	adminPackageProject "air-drop/cmd/internal/handler/admin/PackageProject"
+	adminlinkproject "air-drop/cmd/internal/handler/admin/linkproject"
+	adminorder "air-drop/cmd/internal/handler/admin/order"
+	adminproject "air-drop/cmd/internal/handler/admin/project"
+	adminsetting "air-drop/cmd/internal/handler/admin/setting"
+	adminuser "air-drop/cmd/internal/handler/admin/user"
 	link_project "air-drop/cmd/internal/handler/link_project"
 	order "air-drop/cmd/internal/handler/order"
 	package_project "air-drop/cmd/internal/handler/package_project"
@@ -138,5 +144,121 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/order"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getLinkProjectList",
+				Handler: adminlinkproject.GetLinkProjectListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/addOrUpdateLinkProjectList",
+				Handler: adminlinkproject.AddOrUpdateLinkProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/linkproject"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getLinkProjectOrderList",
+				Handler: adminorder.GetLinkProjectOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/getPackageProjectOrderList",
+				Handler: adminorder.GetPackageProjectOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/dropLinkApplyLinkProject",
+				Handler: adminorder.DropLinkApplyLinkProjectHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/dropApplyPackageProject",
+				Handler: adminorder.DropApplyPackageProjectHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/dropApplyPackageListProject",
+				Handler: adminorder.DropApplyPackageListProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/order"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getPackageProjectList",
+				Handler: adminPackageProject.GetPackageProjectListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/addOrUpdatePackageProjectList",
+				Handler: adminPackageProject.AddOrUpdatePackageProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/packageProject"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getProjectList",
+				Handler: adminproject.GetProjectListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/addOrUpdateProjectList",
+				Handler: adminproject.AddOrUpdateProjectHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/project"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getSettingList",
+				Handler: adminsetting.GetSettingListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/getSettingKey",
+				Handler: adminsetting.GetSettingKeyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/setSettingKey",
+				Handler: adminsetting.SetSettingKeyHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/setting"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/getUserList",
+				Handler: adminuser.GetUserListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/walletLogList",
+				Handler: adminuser.WalletLogListHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/admin/user"),
 	)
 }

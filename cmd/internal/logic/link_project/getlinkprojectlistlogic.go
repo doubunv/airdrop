@@ -3,6 +3,7 @@ package link_project
 import (
 	"air-drop/cmd/internal/data/schema"
 	"context"
+	"strconv"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -36,13 +37,16 @@ func (l *GetLinkProjectListLogic) GetLinkProjectList(req *types.GetLinkProjectLi
 	if err != nil {
 		return nil, err
 	}
+
 	resp.Total = total
 	for _, v := range list {
+		parseInt, _ := strconv.ParseInt(v.ProjectIds, 10, 64)
+		childInfo, _ := l.svcCtx.PackageChildModel.FindById(parseInt)
 		tt := types.GetLinkProjectList{
 			Id:       v.ID,
-			Name:     v.Name,
 			Price:    v.Price,
 			DropTime: v.DropTime,
+			Name:     childInfo.Name,
 		}
 		resp.List = append(resp.List, tt)
 	}

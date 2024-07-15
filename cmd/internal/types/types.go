@@ -93,23 +93,6 @@ type UserInviteItem struct {
 	CreatedAt int64  `json:"created_at"`
 }
 
-type UserListReq struct {
-	PageNo     int    `form:"pageNo"`
-	PageSize   int    `form:"pageSize"`
-	UAddress   string `form:"uAddress,optional"`
-	PAddress   string `form:"pAddress,optional"`
-	StartTime  string `form:"startTime,optional"`
-	EndTime    string `form:"endTime,optional"`
-	InviteCode string `form:"inviteCode,optional"`
-}
-
-type UserListResp struct {
-	List     []UserItem `json:"list"`
-	PageNo   int64      `json:"pageNo"`
-	PageSize int64      `json:"pageSize"`
-	Total    int64      `json:"total"`
-}
-
 type UserItem struct {
 	Id            int64   `json:"id"`
 	UAddress      string  `json:"u_address"`
@@ -287,4 +270,249 @@ type GetApplyLinkLogListResp struct {
 	Page     int32                     `json:"page"`      // 页码
 	PageSize int32                     `json:"page_size"` // 每页数量
 	Total    int64                     `json:"total"`     // 总数
+}
+
+type AdminGetLinkProjectListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetLinkProjectListItem struct {
+	Id          int64   `json:"id"`            //序号
+	ProjectId   int64   `json:"project_id"`    //项目ID
+	Name        string  `json:"name"`          //名字
+	Icon        string  `json:"icon"`          //图标
+	Price       float64 `json:"price"`         //售价
+	DropAmount  float64 `json:"drop_amount"`   //代币数量
+	SellEndTime int64   `json:"sell_end_time"` //销售结束时间
+	DropTime    int64   `json:"drop_time"`     //发币时间
+	CreatedAt   int64   `json:"created_at"`
+}
+
+type AdminGetLinkProjectListResp struct {
+	List     []GetLinkProjectListItem `json:"list"`
+	Page     int32                    `json:"page"`      // 页码
+	PageSize int32                    `json:"page_size"` // 每页数量
+	Total    int64                    `json:"total"`     // 总数
+}
+
+type AddOrUpdateLinkProjectReq struct {
+	Id          int64   `json:"id,optional"`
+	ProjectId   int64   `json:"project_id"`
+	Price       float64 `json:"price"`           //售价
+	DropAmount  float64 `json:"drop_amount"`     //代币数量
+	SellEndTime int64   `json:"sell_end_time"`   //销售结束时间
+	DropTime    int64   `json:"drop_time"`       //发币时间
+	IsDeleted   int32   `json:"is_deleted"`      //1-删除
+	Status      int32   `json:"status,optional"` // 1-上架 ，2 下架
+}
+
+type AddOrUpdateLinkProjectResp struct {
+}
+
+type GetLinkProjectOrderListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetLinkProjectOrderListItem struct {
+	Id        int64   `json:"id"`         //订单号
+	UserId    int64   `json:"user_id"`    //订单号
+	Name      string  `json:"name"`       //项目名字
+	UAddress  string  `json:"u_address"`  //订单用户
+	Amount    float64 `json:"amount"`     //订单金额
+	CreatedAt int64   `json:"created_at"` //订单时间
+	Status    int32   `json:"status"`     //提币状态 0-全部 1-待发放 2-已发放待领取 3-已领取'
+}
+
+type GetLinkProjectListOrderResp struct {
+	List     []GetLinkProjectOrderListItem `json:"list"`
+	Page     int32                         `json:"page"`      // 页码
+	PageSize int32                         `json:"page_size"` // 每页数量
+	Total    int64                         `json:"total"`     // 总数
+}
+
+type GetPackageProjectOrderListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetPackageProjectOrderListItem struct {
+	Id           int64   `json:"id"`            //订单号
+	UserId       int64   `json:"user_id"`       //订单号
+	UAddress     string  `json:"u_address"`     //订单用户
+	Amount       float64 `json:"amount"`        //订单金额
+	BuyMonth     int32   `json:"buy_month"`     //服务周期
+	LeftDay      int32   `json:"left_day"`      //剩余回报时间
+	SendEarnings float64 `json:"send_earnings"` //已回报金额
+	CreatedAt    int64   `json:"created_at"`    //订单时间
+}
+
+type GetPackageProjectListOrderResp struct {
+	List     []GetPackageProjectOrderListItem `json:"list"`
+	Page     int32                            `json:"page"`      // 页码
+	PageSize int32                            `json:"page_size"` // 每页数量
+	Total    int64                            `json:"total"`     // 总数
+}
+
+type DropLinkApplyLinkProjectReq struct {
+	Id       int64   `json:"id"`        //订单号
+	UAddress string  `json:"u_address"` //订单用户
+	Amount   float64 `json:"amount"`    //发放数量
+}
+
+type DropApplyLinkProjectResp struct {
+}
+
+type DropApplyPackageProjectReq struct {
+	Id     int64   `json:"id"`     //订单号
+	Amount float64 `json:"amount"` //发放数量
+}
+
+type DropApplyPackageProjectResp struct {
+}
+
+type DropApplyPackageListProjectReq struct {
+	Id int64 `json:"id"` //订单号
+}
+
+type DropApplyPackageListProjectResp struct {
+	Id        int64   `json:"id"`
+	UAddress  string  `json:"u_address"`  //订单用户
+	Amount    float64 `json:"amount"`     //发放数量
+	CreatedAt int64   `json:"created_at"` //发放时间
+}
+
+type AdminGetPackageProjectListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type AdminPackageProjectChildListItem struct {
+	Id   int64  `json:"id"`   //子项目ID
+	Name string `json:"name"` //子项目名字
+}
+
+type GetPackageProjectListItem struct {
+	Id    int64                              `json:"id"`    //项目ID
+	Name  string                             `json:"name"`  //项目名字
+	Price float64                            `json:"price"` //价格
+	Month int64                              `json:"month"` //服务周期
+	List  []AdminPackageProjectChildListItem `json:"list"`
+}
+
+type AdminGetPackageProjectListResp struct {
+	List     []GetPackageProjectListItem `json:"list"`
+	Page     int32                       `json:"page"`      // 页码
+	PageSize int32                       `json:"page_size"` // 每页数量
+	Total    int64                       `json:"total"`     // 总数
+}
+
+type AddOrUpdatePackageProjectReq struct {
+	ProjectIds []AdminPackageProjectChildListItem `json:"project_ids"`
+}
+
+type AddOrUpdatePackageProjectResp struct {
+}
+
+type GetProjectListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetProjectListItem struct {
+}
+
+type GetProjectListResp struct {
+	List     []GetProjectListItem `json:"list"`
+	Page     int32                `json:"page"`      // 页码
+	PageSize int32                `json:"page_size"` // 每页数量
+	Total    int64                `json:"total"`     // 总数
+}
+
+type AddOrUpdateProjectReq struct {
+	Icon    string `json:"icon"`    //logo ,base64
+	Name    string `json:"name"`    //项目名
+	Content string `json:"content"` //项目介绍
+}
+
+type AddOrUpdateProjectResp struct {
+	Id        int64  `json:"id,optional"`
+	Icon      string `json:"icon"`                //logo ,base64
+	Name      string `json:"name"`                //项目名
+	Content   string `json:"content"`             //项目介绍
+	IsDeleted int    `json:"is_deleted,optional"` // 1-删除标记
+}
+
+type GetSettingListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetSettingListItem struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+type GetSettingListResp struct {
+	List     []GetSettingListItem `json:"list"`
+	Page     int32                `json:"page"`      // 页码
+	PageSize int32                `json:"page_size"` // 每页数量
+	Total    int64                `json:"total"`     // 总数
+}
+
+type GetSettingKeyReq struct {
+	Key string `json:"key"`
+}
+
+type GetSettingKeyResp struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+type SetSettingKeyReq struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+type SetSettingKeyResp struct {
+}
+
+type GetUserListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetUserListitem struct {
+	Id         int64  `json:"id"`
+	UAddress   string `json:"u_address"`
+	InviteCode string `json:"invite_code"`
+	CreatedAt  int64  `json:"created_at"`
+}
+
+type GetUserListResp struct {
+	List     []GetUserListitem `json:"list"`
+	Page     int32             `json:"page"`      // 页码
+	PageSize int32             `json:"page_size"` // 每页数量
+	Total    int64             `json:"total"`     // 总数
+}
+
+type AdminWalletLogListReq struct {
+	TypeId   int32 `json:"type_id"`   //1-佣金记录， 2-回报记录
+	Page     int64 `json:"page"`      // 页码
+	PageSize int64 `json:"page_size"` // 每页数量
+}
+
+type AdminWalletLogListItem struct {
+	CreatedAt     int64   `json:"createdAt"`      //创建时间
+	Amount        float64 `json:"amount"`         //佣金金额
+	TargetAddress string  `json:"target_address"` //发送用户
+	UAddress      string  `json:"u_address"`      //接收用户
+}
+
+type AdminWalletLogListResp struct {
+	List     []AdminWalletLogListItem `json:"list"`
+	Page     int64                    `json:"page"`      // 页码
+	PageSize int64                    `json:"page_size"` // 每页数量
+	Total    int64                    `json:"total"`     // 总数
 }

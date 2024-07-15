@@ -21,7 +21,6 @@ func (p UserPath) Append(pid int64) UserPath {
 type User struct {
 	ID                 int64     `gorm:"column:id"`
 	UAddress           string    `gorm:"column:u_address"`
-	Level              int64     `gorm:"column:level"`
 	ParentAddress      string    `gorm:"column:parent_address"`
 	Amount             float64   `gorm:"column:amount"`
 	PayAmount          float64   `gorm:"column:pay_amount"`
