@@ -15,6 +15,770 @@
     "application/json"
   ],
   "paths": {
+    "/admin/linkproject/addOrUpdateLinkProjectList": {
+      "get": {
+        "summary": "添加or修改全链路空头管理",
+        "operationId": "addOrUpdateLinkProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AddOrUpdateLinkProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price",
+            "description": "售价",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "drop_amount",
+            "description": "代币数量",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "sell_end_time",
+            "description": "销售结束时间",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "drop_time",
+            "description": "发币时间",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_deleted",
+            "description": "1-删除",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": " 1-上架 ，2 下架",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "admin/linkproject"
+        ]
+      }
+    },
+    "/admin/linkproject/getLinkProjectList": {
+      "get": {
+        "summary": "全链路空投管理列表",
+        "operationId": "getLinkProjectList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminGetLinkProjectListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "description": "模糊查询",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/linkproject"
+        ]
+      }
+    },
+    "/admin/order/dropApplyPackageListProject": {
+      "get": {
+        "summary": "整包空投发币记录",
+        "operationId": "dropApplyPackageListProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DropApplyPackageListProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "订单号",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "admin/order"
+        ]
+      }
+    },
+    "/admin/order/dropApplyPackageProject": {
+      "get": {
+        "summary": "整包空投发币",
+        "operationId": "dropApplyPackageProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DropApplyPackageProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "订单号",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "amount",
+            "description": "发放数量",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "tags": [
+          "admin/order"
+        ]
+      }
+    },
+    "/admin/order/dropLinkApplyLinkProject": {
+      "get": {
+        "summary": "全链路空投发币",
+        "operationId": "dropLinkApplyLinkProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DropApplyLinkProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "订单号",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "u_address",
+            "description": "订单用户",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "amount",
+            "description": "发放数量",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "tags": [
+          "admin/order"
+        ]
+      }
+    },
+    "/admin/order/getLinkProjectOrderList": {
+      "get": {
+        "summary": "全链路订单列表",
+        "operationId": "getLinkProjectOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetLinkProjectListOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "u_address",
+            "description": "用户地址",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/order"
+        ]
+      }
+    },
+    "/admin/order/getPackageProjectOrderList": {
+      "get": {
+        "summary": "整包订单列表",
+        "operationId": "getPackageProjectOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPackageProjectListOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "admin/order"
+        ]
+      }
+    },
+    "/admin/packageProject/addOrUpdatePackageProjectList": {
+      "get": {
+        "summary": "添加or修改项目管理",
+        "operationId": "addOrUpdatePackageProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AddOrUpdatePackageProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "project_ids",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "admin/PackageProject"
+        ]
+      }
+    },
+    "/admin/packageProject/getPackageProjectList": {
+      "get": {
+        "summary": "项目管理列表",
+        "operationId": "getPackageProjectList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminGetPackageProjectListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "description": "模糊查询",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/PackageProject"
+        ]
+      }
+    },
+    "/admin/project/addOrUpdateProjectList": {
+      "get": {
+        "summary": "添加or修改项目管理",
+        "operationId": "addOrUpdateProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AddOrUpdateProjectResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "icon",
+            "description": "logo ,base64",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "description": "项目名",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "description": "项目介绍",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/project"
+        ]
+      }
+    },
+    "/admin/project/getProjectList": {
+      "get": {
+        "summary": "项目管理列表",
+        "operationId": "getProjectList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetProjectListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "name",
+            "description": "模糊查询",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/project"
+        ]
+      }
+    },
+    "/admin/setting/getSettingKey": {
+      "get": {
+        "summary": "根据Key获取设置",
+        "operationId": "getSettingKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSettingKeyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/setting"
+        ]
+      }
+    },
+    "/admin/setting/getSettingList": {
+      "get": {
+        "summary": "系统设置列表",
+        "operationId": "getSettingList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSettingListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "admin/setting"
+        ]
+      }
+    },
+    "/admin/setting/setSettingKey": {
+      "get": {
+        "summary": "根据Key设置值",
+        "operationId": "setSettingKey",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SetSettingKeyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "admin/setting"
+        ]
+      }
+    },
+    "/admin/user/getUserList": {
+      "get": {
+        "summary": "用户列表",
+        "operationId": "getUserList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "s_time",
+            "description": "开始时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "e_time",
+            "description": "结束时间",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "u_address",
+            "description": "用户地址",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "p_address",
+            "description": "邀请者地址",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "invite_code",
+            "description": "邀请码",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "description": "用户ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "admin/user"
+        ]
+      }
+    },
+    "/admin/user/walletLogList": {
+      "get": {
+        "summary": "用户佣金记录",
+        "operationId": "walletLogList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminWalletLogListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type_id",
+            "description": "1-佣金记录， 2-回报记录",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "description": " 页码",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page_size",
+            "description": " 每页数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "admin/user"
+        ]
+      }
+    },
     "/linkProject/buyPackageProject": {
       "post": {
         "summary": "全链路-购买",
@@ -529,6 +1293,378 @@
     }
   },
   "definitions": {
+    "AddOrUpdateLinkProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "project_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "售价"
+        },
+        "drop_amount": {
+          "type": "number",
+          "format": "double",
+          "description": "代币数量"
+        },
+        "sell_end_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "销售结束时间"
+        },
+        "drop_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发币时间"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1-删除"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-上架 ，2 下架"
+        }
+      },
+      "title": "AddOrUpdateLinkProjectReq",
+      "required": [
+        "project_id",
+        "price",
+        "drop_amount",
+        "sell_end_time",
+        "drop_time",
+        "is_deleted"
+      ]
+    },
+    "AddOrUpdateLinkProjectResp": {
+      "type": "object",
+      "title": "AddOrUpdateLinkProjectResp"
+    },
+    "AddOrUpdatePackageProjectReq": {
+      "type": "object",
+      "properties": {
+        "project_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminPackageProjectChildListItem"
+          }
+        }
+      },
+      "title": "AddOrUpdatePackageProjectReq",
+      "required": [
+        "project_ids"
+      ]
+    },
+    "AddOrUpdatePackageProjectResp": {
+      "type": "object",
+      "title": "AddOrUpdatePackageProjectResp"
+    },
+    "AddOrUpdateProjectReq": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "type": "string",
+          "description": "logo ,base64"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名"
+        },
+        "content": {
+          "type": "string",
+          "description": "项目介绍"
+        }
+      },
+      "title": "AddOrUpdateProjectReq",
+      "required": [
+        "icon",
+        "name",
+        "content"
+      ]
+    },
+    "AddOrUpdateProjectResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "icon": {
+          "type": "string",
+          "description": "logo ,base64"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名"
+        },
+        "content": {
+          "type": "string",
+          "description": "项目介绍"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-删除标记"
+        }
+      },
+      "title": "AddOrUpdateProjectResp",
+      "required": [
+        "icon",
+        "name",
+        "content"
+      ]
+    },
+    "AdminGetLinkProjectListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "name": {
+          "type": "string",
+          "description": "模糊查询"
+        }
+      },
+      "title": "AdminGetLinkProjectListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "AdminGetLinkProjectListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetLinkProjectListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AdminGetLinkProjectListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "AdminGetPackageProjectListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "name": {
+          "type": "string",
+          "description": "模糊查询"
+        }
+      },
+      "title": "AdminGetPackageProjectListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "AdminGetPackageProjectListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetPackageProjectListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AdminGetPackageProjectListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "AdminPackageProjectChildListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "子项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "子项目名字"
+        }
+      },
+      "title": "AdminPackageProjectChildListItem",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "AdminWalletLogListItem": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "佣金金额"
+        },
+        "target_address": {
+          "type": "string",
+          "description": "发送用户"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "接收用户"
+        }
+      },
+      "title": "AdminWalletLogListItem",
+      "required": [
+        "createdAt",
+        "amount",
+        "target_address",
+        "u_address"
+      ]
+    },
+    "AdminWalletLogListReq": {
+      "type": "object",
+      "properties": {
+        "type_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1-佣金记录， 2-回报记录"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每页数量"
+        }
+      },
+      "title": "AdminWalletLogListReq",
+      "required": [
+        "type_id",
+        "page",
+        "page_size"
+      ]
+    },
+    "AdminWalletLogListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminWalletLogListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AdminWalletLogListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
     "ApplyLinkEarningsReq": {
       "type": "object",
       "properties": {
@@ -623,6 +1759,103 @@
         "order_id",
         "Amount",
         "sign"
+      ]
+    },
+    "DropApplyLinkProjectResp": {
+      "type": "object",
+      "title": "DropApplyLinkProjectResp"
+    },
+    "DropApplyPackageListProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        }
+      },
+      "title": "DropApplyPackageListProjectReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DropApplyPackageListProjectResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "订单用户"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "发放数量"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发放时间"
+        }
+      },
+      "title": "DropApplyPackageListProjectResp",
+      "required": [
+        "id",
+        "u_address",
+        "amount",
+        "created_at"
+      ]
+    },
+    "DropApplyPackageProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "发放数量"
+        }
+      },
+      "title": "DropApplyPackageProjectReq",
+      "required": [
+        "id",
+        "amount"
+      ]
+    },
+    "DropApplyPackageProjectResp": {
+      "type": "object",
+      "title": "DropApplyPackageProjectResp"
+    },
+    "DropLinkApplyLinkProjectReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "订单用户"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "发放数量"
+        }
+      },
+      "title": "DropLinkApplyLinkProjectReq",
+      "required": [
+        "id",
+        "u_address",
+        "amount"
       ]
     },
     "GetApplyLinkLogListItem": {
@@ -852,6 +2085,98 @@
         "drop_time"
       ]
     },
+    "GetLinkProjectListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "序号"
+        },
+        "project_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "名字"
+        },
+        "icon": {
+          "type": "string",
+          "description": "图标"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "售价"
+        },
+        "drop_amount": {
+          "type": "number",
+          "format": "double",
+          "description": "代币数量"
+        },
+        "sell_end_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "销售结束时间"
+        },
+        "drop_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发币时间"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetLinkProjectListItem",
+      "required": [
+        "id",
+        "project_id",
+        "name",
+        "icon",
+        "price",
+        "drop_amount",
+        "sell_end_time",
+        "drop_time",
+        "created_at"
+      ]
+    },
+    "GetLinkProjectListOrderResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetLinkProjectOrderListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetLinkProjectListOrderResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
     "GetLinkProjectListReq": {
       "type": "object",
       "properties": {
@@ -903,6 +2228,89 @@
         "page",
         "page_size",
         "total"
+      ]
+    },
+    "GetLinkProjectOrderListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名字"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "订单用户"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "订单金额"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "提币状态 0-全部 1-待发放 2-已发放待领取 3-已领取'"
+        }
+      },
+      "title": "GetLinkProjectOrderListItem",
+      "required": [
+        "id",
+        "user_id",
+        "name",
+        "u_address",
+        "amount",
+        "created_at",
+        "status"
+      ]
+    },
+    "GetLinkProjectOrderListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "用户地址"
+        }
+      },
+      "title": "GetLinkProjectOrderListReq",
+      "required": [
+        "page",
+        "page_size",
+        "u_address"
       ]
     },
     "GetNonceResp": {
@@ -1099,6 +2507,77 @@
         "list"
       ]
     },
+    "GetPackageProjectListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名字"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "价格"
+        },
+        "month": {
+          "type": "integer",
+          "format": "int64",
+          "description": "服务周期"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminPackageProjectChildListItem"
+          }
+        }
+      },
+      "title": "GetPackageProjectListItem",
+      "required": [
+        "id",
+        "name",
+        "price",
+        "month",
+        "list"
+      ]
+    },
+    "GetPackageProjectListOrderResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetPackageProjectOrderListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetPackageProjectListOrderResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
     "GetPackageProjectListReq": {
       "type": "object",
       "properties": {
@@ -1150,6 +2629,384 @@
         "page",
         "page_size",
         "total"
+      ]
+    },
+    "GetPackageProjectOrderListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单号"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "订单用户"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "订单金额"
+        },
+        "buy_month": {
+          "type": "integer",
+          "format": "int32",
+          "description": "服务周期"
+        },
+        "left_day": {
+          "type": "integer",
+          "format": "int32",
+          "description": "剩余回报时间"
+        },
+        "send_earnings": {
+          "type": "number",
+          "format": "double",
+          "description": "已回报金额"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单时间"
+        }
+      },
+      "title": "GetPackageProjectOrderListItem",
+      "required": [
+        "id",
+        "user_id",
+        "u_address",
+        "amount",
+        "buy_month",
+        "left_day",
+        "send_earnings",
+        "created_at"
+      ]
+    },
+    "GetPackageProjectOrderListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        }
+      },
+      "title": "GetPackageProjectOrderListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "GetProjectListItem": {
+      "type": "object",
+      "title": "GetProjectListItem"
+    },
+    "GetProjectListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "name": {
+          "type": "string",
+          "description": "模糊查询"
+        }
+      },
+      "title": "GetProjectListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "GetProjectListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetProjectListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetProjectListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "GetSettingKeyReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "title": "GetSettingKeyReq",
+      "required": [
+        "key"
+      ]
+    },
+    "GetSettingKeyResp": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "GetSettingKeyResp",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "GetSettingListItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "GetSettingListItem",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "GetSettingListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        }
+      },
+      "title": "GetSettingListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "GetSettingListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetSettingListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetSettingListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "GetUserListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "用户地址"
+        },
+        "p_address": {
+          "type": "string",
+          "description": "邀请者地址"
+        },
+        "invite_code": {
+          "type": "string",
+          "description": "邀请码"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        }
+      },
+      "title": "GetUserListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "GetUserListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetUserListitem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetUserListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "GetUserListitem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "用户地址"
+        },
+        "invite_code": {
+          "type": "string",
+          "description": "邀请码"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "p_address": {
+          "type": "string",
+          "description": "邀请者地址"
+        }
+      },
+      "title": "GetUserListitem",
+      "required": [
+        "id",
+        "u_address",
+        "invite_code",
+        "created_at",
+        "p_address"
       ]
     },
     "InviteCodeReq": {
@@ -1371,6 +3228,26 @@
         "invite_code",
         "create_at"
       ]
+    },
+    "SetSettingKeyReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "SetSettingKeyReq",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "SetSettingKeyResp": {
+      "type": "object",
+      "title": "SetSettingKeyResp"
     },
     "UserAddressResgiterReq": {
       "type": "object",

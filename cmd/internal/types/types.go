@@ -273,8 +273,11 @@ type GetApplyLinkLogListResp struct {
 }
 
 type AdminGetLinkProjectListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32  `json:"page"`            // 页码
+	PageSize int32  `json:"page_size"`       // 每页数量
+	STime    int64  `json:"s_time,optional"` //开始时间
+	ETime    int64  `json:"e_time,optional"` //结束时间
+	Name     string `json:"name,optional"`   //模糊查询
 }
 
 type GetLinkProjectListItem struct {
@@ -311,8 +314,11 @@ type AddOrUpdateLinkProjectResp struct {
 }
 
 type GetLinkProjectOrderListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32  `json:"page"`            // 页码
+	PageSize int32  `json:"page_size"`       // 每页数量
+	STime    int64  `json:"s_time,optional"` //开始时间
+	ETime    int64  `json:"e_time,optional"` //结束时间
+	UAddress string `json:"u_address"`       //用户地址
 }
 
 type GetLinkProjectOrderListItem struct {
@@ -333,8 +339,10 @@ type GetLinkProjectListOrderResp struct {
 }
 
 type GetPackageProjectOrderListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32 `json:"page"`            // 页码
+	PageSize int32 `json:"page_size"`       // 每页数量
+	STime    int64 `json:"s_time,optional"` //开始时间
+	ETime    int64 `json:"e_time,optional"` //结束时间
 }
 
 type GetPackageProjectOrderListItem struct {
@@ -384,8 +392,11 @@ type DropApplyPackageListProjectResp struct {
 }
 
 type AdminGetPackageProjectListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32  `json:"page"`            // 页码
+	PageSize int32  `json:"page_size"`       // 每页数量
+	STime    int64  `json:"s_time,optional"` //开始时间
+	ETime    int64  `json:"e_time,optional"` //结束时间
+	Name     string `json:"name,optional"`   //模糊查询
 }
 
 type AdminPackageProjectChildListItem struct {
@@ -416,8 +427,11 @@ type AddOrUpdatePackageProjectResp struct {
 }
 
 type GetProjectListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32  `json:"page"`            // 页码
+	PageSize int32  `json:"page_size"`       // 每页数量
+	STime    int64  `json:"s_time,optional"` //开始时间
+	ETime    int64  `json:"e_time,optional"` //结束时间
+	Name     string `json:"name,optional"`   //模糊查询
 }
 
 type GetProjectListItem struct {
@@ -445,8 +459,10 @@ type AddOrUpdateProjectResp struct {
 }
 
 type GetSettingListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page     int32 `json:"page"`            // 页码
+	PageSize int32 `json:"page_size"`       // 每页数量
+	STime    int64 `json:"s_time,optional"` //开始时间
+	ETime    int64 `json:"e_time,optional"` //结束时间
 }
 
 type GetSettingListItem struct {
@@ -479,15 +495,22 @@ type SetSettingKeyResp struct {
 }
 
 type GetUserListReq struct {
-	Page     int32 `json:"page"`      // 页码
-	PageSize int32 `json:"page_size"` // 每页数量
+	Page       int32  `json:"page"`                 // 页码
+	PageSize   int32  `json:"page_size"`            // 每页数量
+	STime      int64  `json:"s_time,optional"`      //开始时间
+	ETime      int64  `json:"e_time,optional"`      //结束时间
+	UAddress   string `json:"u_address,optional"`   //用户地址
+	PAddress   string `json:"p_address,optional"`   //邀请者地址
+	InviteCode string `json:"invite_code,optional"` //邀请码
+	Id         int64  `json:"id,optional"`          //用户ID
 }
 
 type GetUserListitem struct {
-	Id         int64  `json:"id"`
-	UAddress   string `json:"u_address"`
-	InviteCode string `json:"invite_code"`
-	CreatedAt  int64  `json:"created_at"`
+	Id         int64  `json:"id"`          //用户ID
+	UAddress   string `json:"u_address"`   //用户地址
+	InviteCode string `json:"invite_code"` //邀请码
+	CreatedAt  int64  `json:"created_at"`  //创建时间
+	PAddress   string `json:"p_address"`   //邀请者地址
 }
 
 type GetUserListResp struct {

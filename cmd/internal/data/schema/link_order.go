@@ -3,6 +3,7 @@ package schema
 type LinkOrder struct {
 	ID        int64   `gorm:"column:id"`
 	UserId    int64   `gorm:"column:user_id"`
+	UAddress  string  `gorm:"column:u_address"`
 	LinkId    int64   `gorm:"column:link_id"`
 	BuyAmount float64 `gorm:"column:buy_amount"`
 	DropTime  int64   `gorm:"column:drop_time"`

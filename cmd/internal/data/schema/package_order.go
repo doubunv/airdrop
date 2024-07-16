@@ -3,6 +3,7 @@ package schema
 type PackageOrder struct {
 	ID              int64   `gorm:"column:id"`
 	UserId          int64   `gorm:"column:user_id"`
+	UAddress        string  `gorm:"column:u_address"`
 	PackageId       int64   `gorm:"column:package_id"`
 	Amount          float64 `gorm:"column:amount"`
 	BuyMonth        int64   `gorm:"column:buy_month"`

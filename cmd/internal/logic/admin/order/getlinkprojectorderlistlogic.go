@@ -1,6 +1,7 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,17 @@ func NewGetLinkProjectOrderListLogic(ctx context.Context, svcCtx *svc.ServiceCon
 }
 
 func (l *GetLinkProjectOrderListLogic) GetLinkProjectOrderList(req *types.GetLinkProjectOrderListReq) (resp *types.GetLinkProjectListOrderResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetLinkProjectListOrderResp{
+		List:     make([]types.GetLinkProjectOrderListItem, 0),
+		Page:     req.Page,
+		PageSize: req.PageSize,
+		Total:    0,
+	}
+
+	rq := &schema.LinkOrder{
+		UAddress: req.UAddress,
+	}
+	l.svcCtx.LinkOrderModel.GetList(rq, req.STime, req.ETime, int(req.Page), int(req.PageSize))
 
 	return
 }
