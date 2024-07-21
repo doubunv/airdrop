@@ -7,15 +7,15 @@ RUN go mod tidy
 RUN go mod download
 
 WORKDIR /src/cmd
-RUN go build -o /src/bin/main
+RUN go build -o bin/main
 
-COPY ./cmd/etc /src/bin/etc
-COPY ./cmd/swagger /src/bin/swagger
+COPY ./cmd/etc bin/etc
+COPY ./cmd/swagger bin/swagger
 RUN ls -al
 
 
 FROM alpine:latest
-COPY --from=builder /src/bin /app
+COPY --from=builder /src/cmd/bin /app
 WORKDIR /app
 CMD ["./main", "-f", "etc/main.yaml"]
 
