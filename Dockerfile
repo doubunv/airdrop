@@ -7,32 +7,14 @@ RUN go mod tidy
 RUN go mod download
 
 WORKDIR /src/cmd
-RUN go build -o bin/main
+RUN cd /src/cmd
+RUN mkdir bin
 
-COPY ./etc ./bin/etc
-COPY ./swagger ./bin/swagger
-RUN ls -al
+COPY cmd/etc ./bin/etc
+COPY cmd/swagger ./bin/swagger
+RUN go build -o ./bin/main
 
-CMD ["./src/cmd/bin/main", "-f", "etc/main.yaml"]
-
-
-#FROM alpine:latest
-#COPY --from=builder /src/cmd/bin /app
-#WORKDIR /app
-#CMD ["./main", "-f", "etc/main.yaml"]
-
-#
-#RUN apt-get update && apt-get install curl -y && apt-get install -y --no-install-recommends \
-#		ca-certificates  \
-#        netbase \
-#        && rm -rf /var/lib/apt/lists/
-
-#COPY --from=builder /src/bin /app
-#WORKDIR /app
-#
-#EXPOSE 8080
-#VOLUME /data/conf
-
-#ENTRYPOINT ["/app/docker-entrypoint.sh"]
-
-#CMD ["./listener-service", "-f", "/data/conf/mm-test.yaml"]
+FROM alpine:latest
+COPY --from=builder /src/cmd/bin /app
+WORKDIR /app
+CMD ["./main", "-f", "etc/main.yaml"]
