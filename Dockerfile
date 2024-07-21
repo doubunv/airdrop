@@ -9,8 +9,8 @@ RUN go mod download
 WORKDIR /src/cmd
 RUN go build -o bin/main
 
-COPY etc bin/etc
-COPY swagger bin/swagger
+COPY ./etc ./bin/etc
+COPY ./swagger ./bin/swagger
 RUN ls -al
 
 CMD ["./bin/main", "-f", "etc/main.yaml"]
