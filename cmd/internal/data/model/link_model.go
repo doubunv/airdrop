@@ -43,7 +43,7 @@ func (m *LinkModel) GetList(model *schema.ArLink, startTime, endTime int64, page
 	return
 }
 
-func (m *LinkModel) FindByIds(ids []int64) (res []schema.ArLink, err error) {
+func (m *LinkModel) FindByIds(ids []int64) (res []dto.LinkDetail, err error) {
 	if len(ids) == 0 {
 		return
 	}

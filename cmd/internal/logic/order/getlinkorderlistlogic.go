@@ -1,6 +1,7 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/dto"
 	"air-drop/cmd/internal/data/schema"
 	"air-drop/pkg/utils"
 	"context"
@@ -50,7 +51,7 @@ func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq)
 	if err != nil {
 		return nil, err
 	}
-	dic := make(map[int64]schema.ArLink, 0)
+	dic := make(map[int64]dto.LinkDetail, 0)
 	for _, v := range linkIds {
 		dic[v.ID] = v
 	}
@@ -65,7 +66,7 @@ func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq)
 			Status:    int32(v.Status),
 		}
 		if data, ok := dic[v.LinkId]; ok {
-			t.Name = data.Name
+			t.Name = data.ProjectName
 		}
 		resp.List = append(resp.List, t)
 	}
