@@ -8,4 +8,4 @@ services:
     ports:
       - 8080:80
     volumes:
-      - home/ec2-user/ar-drop/airdrop-config:/etc
+      - /home/ec2-user/ar-drop/airdrop-config:/etc
