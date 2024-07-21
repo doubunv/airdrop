@@ -13,11 +13,13 @@ COPY etc bin/etc
 COPY swagger bin/swagger
 RUN ls -al
 
+CMD ["./bin/main", "-f", "etc/main.yaml"]
 
-FROM alpine:latest
-COPY --from=builder /src/cmd/bin /app
-WORKDIR /app
-CMD ["./main", "-f", "etc/main.yaml"]
+
+#FROM alpine:latest
+#COPY --from=builder /src/cmd/bin /app
+#WORKDIR /app
+#CMD ["./main", "-f", "etc/main.yaml"]
 
 #
 #RUN apt-get update && apt-get install curl -y && apt-get install -y --no-install-recommends \
