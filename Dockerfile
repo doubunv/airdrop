@@ -4,12 +4,15 @@ COPY . /src
 WORKDIR /src
 
 RUN go mod tidy
-RUN go mod download && go build -o bin/main
-COPY ./cmd/etc bin/etc
-COPY ./cmd/swagger bin/swagger
+RUN go mod download
+
+WORKDIR /src/cmd
+RUN go build -o /src/bin/main
+COPY ./cmd/etc /src/bin/etc
+COPY ./cmd/swagger /src/bin/swagger
 
 FROM alpine:latest
-COPY --from=builder /www/bin /app
+COPY --from=builder /src/bin /home/ec2-user/ar-drop
 WORKDIR /app
 CMD ["./main", "-f", "etc/main.yaml"]
 
