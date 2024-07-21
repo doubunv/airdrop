@@ -64,7 +64,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		user = schema.User{
 			ParentAddress: user.ParentAddress,
 			UAddress:      req.UAddress,
-			CreateAt:      time.Now(),
+			CreatedAt:     time.Now().Unix(),
 		}
 		err = l.svcCtx.UserModel.Insert(&user)
 		if err != nil {
