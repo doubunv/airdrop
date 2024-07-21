@@ -8,11 +8,14 @@ RUN go mod download
 
 WORKDIR /src/cmd
 RUN go build -o /src/bin/main
+
 COPY ./cmd/etc /src/bin/etc
 COPY ./cmd/swagger /src/bin/swagger
+RUN ls -al
+
 
 FROM alpine:latest
-COPY --from=builder /src/bin /home/ec2-user/ar-drop
+COPY --from=builder /src/bin /app
 WORKDIR /app
 CMD ["./main", "-f", "etc/main.yaml"]
 
