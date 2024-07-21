@@ -13,7 +13,7 @@ COPY ./etc ./bin/etc
 COPY ./swagger ./bin/swagger
 RUN ls -al
 
-CMD ["./bin/main", "-f", "etc/main.yaml"]
+CMD ["./src/cmd/bin/main", "-f", "etc/main.yaml"]
 
 
 #FROM alpine:latest
