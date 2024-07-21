@@ -37,6 +37,7 @@ type (
         DropTime int64 `json:"drop_time"` //发币时间
         IsDeleted int32 `json:"is_deleted"` //1-删除
         Status int32 `json:"status,optional"` // 1-上架 ，2 下架
+
     }
 
     AddOrUpdateLinkProjectResp {

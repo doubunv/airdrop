@@ -1,8 +1,10 @@
 package model
 
 import (
+	"air-drop/cmd/internal/data/dto"
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type LinkModel struct {
@@ -14,6 +16,7 @@ func NewLinkModel(db *gorm.DB) *LinkModel {
 }
 
 func (m *LinkModel) Insert(res *schema.ArLink) error {
+	res.CreatedAt = time.Now().Unix()
 	return m.db.Create(res).Error
 }
 
@@ -34,6 +37,7 @@ func (m *LinkModel) GetList(model *schema.ArLink, startTime, endTime int64, page
 	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
+	q = q.Where("deleted_at is null")
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
 	return
@@ -44,5 +48,10 @@ func (m *LinkModel) FindByIds(ids []int64) (res []schema.ArLink, err error) {
 		return
 	}
 	err = m.db.Find(&res, "id in ?", ids).Error
+	return
+}
+
+func (m *LinkModel) FindDetailById(id int64) (res dto.LinkDetail, err error) {
+	err = m.db.Find(&res, "id = ?", id).Error
 	return
 }

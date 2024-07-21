@@ -35,7 +35,27 @@ func (l *GetLinkProjectOrderListLogic) GetLinkProjectOrderList(req *types.GetLin
 	rq := &schema.LinkOrder{
 		UAddress: req.UAddress,
 	}
-	l.svcCtx.LinkOrderModel.GetList(rq, req.STime, req.ETime, int(req.Page), int(req.PageSize))
+	list, total, err := l.svcCtx.LinkOrderModel.GetList(rq, req.STime, req.ETime, int(req.Page), int(req.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	resp.Total = total
+
+	for _, v := range list {
+		linkDetail, _ := l.svcCtx.LinkModel.FindDetailById(v.LinkId)
+		//appInfo, _ := l.svcCtx.LinkReceiveModel.FindByOrderId(v.ID)
+		t := types.GetLinkProjectOrderListItem{
+			Id:        v.ID,
+			UserId:    v.UserId,
+			Name:      linkDetail.ProjectName,
+			UAddress:  v.UAddress,
+			Amount:    v.BuyAmount,
+			CreatedAt: v.CreatedAt,
+			Status:    int32(v.Status),
+			Icno:      linkDetail.ProjectIcon,
+		}
+		resp.List = append(resp.List, t)
+	}
 
 	return
 }

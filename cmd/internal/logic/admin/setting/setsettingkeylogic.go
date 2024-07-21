@@ -1,6 +1,7 @@
 package setting
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,14 @@ func NewSetSettingKeyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Set
 }
 
 func (l *SetSettingKeyLogic) SetSettingKey(req *types.SetSettingKeyReq) (resp *types.SetSettingKeyResp, err error) {
-	// todo: add your logic here and delete this line
-
+	resp = &types.SetSettingKeyResp{}
+	kd := &schema.Setting{
+		Key:   req.Key,
+		Value: req.Value,
+	}
+	err = l.svcCtx.SettingModel.Insert(kd)
+	if err != nil {
+		return nil, err
+	}
 	return
 }

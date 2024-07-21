@@ -5,6 +5,7 @@ import (
 	"air-drop/cmd/internal/data/schema"
 	"github.com/zeromicro/go-zero/core/logx"
 	"gorm.io/gorm"
+	"time"
 )
 
 type UserModel struct {
@@ -45,6 +46,7 @@ func (m *UserModel) GetIsOwnerByParentAddress(parentAddress string) (res []int64
 }
 
 func (m *UserModel) Insert(res *schema.User) error {
+	res.CreatedAt = time.Now().Unix()
 	return m.db.Create(res).Error
 }
 
@@ -58,7 +60,7 @@ func (m *UserModel) CountInvite(userAddress string) int64 {
 	return count
 }
 
-func (m *UserModel) GetUserList(user *schema.User, startTime, endTime string, page, pageSize int) (list []*schema.User, total int64, err error) {
+func (m *UserModel) GetUserList(user *schema.User, startTime, endTime int64, page, pageSize int) (list []*schema.User, total int64, err error) {
 	q := m.db.Model(&schema.User{})
 	if user.UAddress != "" {
 		q = q.Where("u_address = ?", user.UAddress)
@@ -69,10 +71,10 @@ func (m *UserModel) GetUserList(user *schema.User, startTime, endTime string, pa
 	if user.InviteCode != "" {
 		q = q.Where("invite_code = ?", user.InviteCode)
 	}
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error

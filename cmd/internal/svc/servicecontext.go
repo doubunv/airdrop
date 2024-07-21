@@ -21,6 +21,7 @@ type ServiceContext struct {
 	*model.PackageChildModel
 	*model.PackageModel
 	*model.PackageOrderModel
+	*model.SettingModel
 }
 
 var SCtx *ServiceContext
@@ -46,6 +47,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		PackageChildModel:     model.NewPackageChildModel(db),
 		PackageModel:          model.NewPackageModel(db),
 		PackageOrderModel:     model.NewPackageOrderModel(db),
+		SettingModel:          model.NewSettingModel(db),
 	}
 
 	return SCtx

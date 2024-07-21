@@ -24,7 +24,15 @@ func NewGetSettingKeyLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Get
 }
 
 func (l *GetSettingKeyLogic) GetSettingKey(req *types.GetSettingKeyReq) (resp *types.GetSettingKeyResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetSettingKeyResp{
+		Key:   req.Key,
+		Value: "",
+	}
+	key, err := l.svcCtx.SettingModel.FindByKey(req.Key)
+	if err != nil {
+		return nil, err
+	}
+	resp.Value = key.Value
 
 	return
 }

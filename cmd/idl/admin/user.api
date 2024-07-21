@@ -26,9 +26,14 @@ type (
     }
 
     AdminWalletLogListReq {
-        typeId int32  `json:"type_id"` //1-佣金记录， 2-回报记录
+        typeId int32  `json:"type_id,optional"` //0-全部，1-佣金记录， 2-回报记录
         Page    int64 `json:"page"` // 页码
         PageSize  int64 `json:"page_size"` // 每页数量
+        UserId int64 `json:"user_id,optional"`
+        UAddress string `json:"u_address,optional"`
+        STime int64 `json:"s_time,optional"` //开始时间
+        ETime int64 `json:"e_time,optional"` //结束时间
+
     }
     AdminWalletLogListItem {
         CreatedAt int64 `json:"createdAt"` //创建时间

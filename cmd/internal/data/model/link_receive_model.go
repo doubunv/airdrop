@@ -60,3 +60,8 @@ func (m *LinkReceiveModel) SumLinkReceive(data *schema.ArLinkReceive) (resp *sch
 	err = q.Select("sum(amount) as amount").Find(&resp).Error
 	return
 }
+
+func (m *LinkReceiveModel) FindByOrderId(orderId int64) (res schema.ArLinkReceive, err error) {
+	err = m.db.Find(&res, "order_id = ?", orderId).Error
+	return
+}

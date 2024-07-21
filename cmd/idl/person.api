@@ -120,7 +120,7 @@ service Main {
     @handler inviteList
     get /inviteList (InviteUserReq) returns (InviteUserResp)
 
-    @doc "佣金记录、回报记录"
+    @doc "佣金记录、整包回报记录"
     @handler walletLogList
     get /walletLogList (WalletLogListReq) returns (WalletLogListResp)
 

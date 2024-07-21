@@ -1,6 +1,7 @@
 package user
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,35 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.GetUserListResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetUserListResp{
+		List:     make([]types.GetUserListitem, 0),
+		Page:     0,
+		PageSize: 0,
+		Total:    0,
+	}
+
+	rq := &schema.User{
+		UAddress:      req.UAddress,
+		ParentAddress: req.PAddress,
+		InviteCode:    req.InviteCode,
+	}
+	list, total, err := l.svcCtx.UserModel.GetUserList(rq, req.STime, req.ETime, int(req.Page), int(req.PageSize))
+	if err != nil {
+		return nil, err
+	}
+
+	resp.Total = total
+
+	for _, v := range list {
+		t := types.GetUserListitem{
+			Id:         v.ID,
+			UAddress:   v.UAddress,
+			InviteCode: v.InviteCode,
+			CreatedAt:  v.CreatedAt,
+			PAddress:   v.ParentAddress,
+		}
+		resp.List = append(resp.List, t)
+	}
 
 	return
 }

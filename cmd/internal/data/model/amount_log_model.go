@@ -3,6 +3,7 @@ package model
 import (
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type AmountLogModel struct {
@@ -14,6 +15,7 @@ func NewAmountLogModel(db *gorm.DB) *AmountLogModel {
 }
 
 func (m *AmountLogModel) Insert(res *schema.AmountLog) error {
+	res.CreatedAt = time.Now().Unix()
 	return m.db.Create(res).Error
 }
 
@@ -26,15 +28,15 @@ func (m *AmountLogModel) FindById(id int64) (res schema.AmountLog, err error) {
 	return
 }
 
-func (m *AmountLogModel) GetList(model *schema.AmountLog, startTime, endTime string, page, pageSize int) (list []*schema.AmountLog, total int64, err error) {
+func (m *AmountLogModel) GetList(model *schema.AmountLog, startTime, endTime int64, page, pageSize int) (list []*schema.AmountLog, total int64, err error) {
 	q := m.db.Model(&schema.AmountLog{})
 	if model.UAddress != "" {
 		q = q.Where("u_address = ?", model.UAddress)
 	}
-	if startTime != "" {
+	if startTime != 0 {
 		q = q.Where("create_at >= ?", startTime)
 	}
-	if endTime != "" {
+	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error

@@ -1,7 +1,10 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
+	"errors"
+	"time"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -24,7 +27,37 @@ func NewDropLinkApplyLinkProjectLogic(ctx context.Context, svcCtx *svc.ServiceCo
 }
 
 func (l *DropLinkApplyLinkProjectLogic) DropLinkApplyLinkProject(req *types.DropLinkApplyLinkProjectReq) (resp *types.DropApplyLinkProjectResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.DropApplyLinkProjectResp{}
 
+	orderInfo, err := l.svcCtx.LinkReceiveModel.FindByOrderId(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	if orderInfo.ID == 0 {
+		return nil, errors.New("order not find")
+	}
+
+	if orderInfo.Status != 1 {
+		return nil, errors.New("order status not wait drop ")
+	}
+
+	lo := &schema.ArLinkReceive{
+		Status:   2,
+		DropTime: time.Now().Unix(),
+	}
+	err = l.svcCtx.LinkReceiveModel.UpdateSchema(lo)
+	if err != nil {
+		return nil, err
+	}
+
+	lk := &schema.LinkOrder{
+		ID:     req.Id,
+		Status: 2,
+	}
+	err = l.svcCtx.LinkOrderModel.UpdateSchema(lk)
+	if err != nil {
+		return nil, err
+	}
 	return
 }

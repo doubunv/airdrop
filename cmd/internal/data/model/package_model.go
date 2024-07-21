@@ -3,6 +3,7 @@ package model
 import (
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type PackageModel struct {
@@ -14,6 +15,7 @@ func NewPackageModel(db *gorm.DB) *PackageModel {
 }
 
 func (m *PackageModel) Insert(res *schema.AirPackage) error {
+	res.CreatedAt = time.Now().Unix()
 	return m.db.Create(res).Error
 }
 
@@ -34,6 +36,7 @@ func (m *PackageModel) GetList(model *schema.AirPackage, startTime, endTime int6
 	if endTime != 0 {
 		q = q.Where("create_at <= ?", endTime)
 	}
+	q = q.Where("deleted_at is null")
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
 	return

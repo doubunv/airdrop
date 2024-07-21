@@ -1,10 +1,12 @@
 package project
 
 import (
-	"context"
-
+	"air-drop/cmd/internal/data/schema"
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
+	"context"
+	"gorm.io/plugin/soft_delete"
+	"time"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,7 +26,27 @@ func NewAddOrUpdateProjectLogic(ctx context.Context, svcCtx *svc.ServiceContext)
 }
 
 func (l *AddOrUpdateProjectLogic) AddOrUpdateProject(req *types.AddOrUpdateProjectReq) (resp *types.AddOrUpdateProjectResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.AddOrUpdateProjectResp{}
+
+	ap := &schema.AirPackageChild{
+		Icon:    req.Icon,
+		Name:    req.Name,
+		Content: req.Content,
+	}
+	if req.Id == 0 {
+		err = l.svcCtx.PackageChildModel.Insert(ap)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		if req.IsDeleted == 1 {
+			ap.DeletedAt = soft_delete.DeletedAt(time.Now().Unix())
+		}
+		err = l.svcCtx.PackageChildModel.UpdateSchema(ap)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	return
 }

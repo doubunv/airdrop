@@ -1,7 +1,9 @@
 package order
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
+	"errors"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -24,7 +26,31 @@ func NewDropApplyPackageProjectLogic(ctx context.Context, svcCtx *svc.ServiceCon
 }
 
 func (l *DropApplyPackageProjectLogic) DropApplyPackageProject(req *types.DropApplyPackageProjectReq) (resp *types.DropApplyPackageProjectResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.DropApplyPackageProjectResp{}
+	if req.Id == 0 {
+		return nil, errors.New("id is none")
+	}
+
+	orderInfo, err := l.svcCtx.PackageOrderModel.FindById(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	if orderInfo.ID == 0 {
+		return nil, errors.New("order not find")
+	}
+
+	am := &schema.AmountLog{
+		UserId:   orderInfo.UserId,
+		UAddress: orderInfo.UAddress,
+		Balance:  orderInfo.Amount,
+		TargetId: orderInfo.UserId,
+		TypeId:   2, //1-佣金记录， 2-回报记录
+		Mark:     "send by admin",
+	}
+	err = l.svcCtx.AmountLogModel.Insert(am)
+	if err != nil {
+		return nil, err
+	}
 
 	return
 }

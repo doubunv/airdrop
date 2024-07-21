@@ -9,7 +9,10 @@ type (
         Name string `json:"name,optional"` //模糊查询
     }
     GetProjectListItem {
-
+        Id int64 `json:"id,optional"`
+        Icon string `json:"icon"`
+        Name string `json:"name"`
+        Content string `json:"content"`
     }
     GetProjectListResp {
         list []GetProjectListItem `json:"list"`
@@ -19,16 +22,14 @@ type (
     }
 
     AddOrUpdateProjectReq {
-        Icon string `json:"icon"` //logo ,base64
-        Name string `json:"name"` //项目名
-        Content string `json:"content"` //项目介绍
-    }
-    AddOrUpdateProjectResp {
         Id int64 `json:"id,optional"`
         Icon string `json:"icon"` //logo ,base64
         Name string `json:"name"` //项目名
         Content string `json:"content"` //项目介绍
         IsDeleted int `json:"is_deleted,optional"` // 1-删除标记
+    }
+    AddOrUpdateProjectResp {
+
     }
 )
 

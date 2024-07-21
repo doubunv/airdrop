@@ -1,6 +1,7 @@
 package project
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,29 @@ func NewGetProjectListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 }
 
 func (l *GetProjectListLogic) GetProjectList(req *types.GetProjectListReq) (resp *types.GetProjectListResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.GetProjectListResp{
+		List:     make([]types.GetProjectListItem, 0),
+		Page:     0,
+		PageSize: 0,
+		Total:    0,
+	}
+
+	rq := &schema.AirPackageChild{}
+	list, total, err := l.svcCtx.PackageChildModel.GetList(rq, req.STime, req.ETime, int(req.Page), int(req.PageSize))
+	if err != nil {
+		return nil, err
+	}
+	resp.Total = total
+
+	for _, v := range list {
+		t := types.GetProjectListItem{
+			Id:      v.ID,
+			Icon:    v.Icon,
+			Name:    v.Name,
+			Content: v.Content,
+		}
+		resp.List = append(resp.List, t)
+	}
 
 	return
 }

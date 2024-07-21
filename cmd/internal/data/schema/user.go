@@ -2,7 +2,6 @@ package schema
 
 import (
 	"fmt"
-	"time"
 )
 
 type UserPath string
@@ -19,19 +18,18 @@ func (p UserPath) Append(pid int64) UserPath {
 }
 
 type User struct {
-	ID                 int64     `gorm:"column:id"`
-	UAddress           string    `gorm:"column:u_address"`
-	ParentAddress      string    `gorm:"column:parent_address"`
-	Amount             float64   `gorm:"column:amount"`
-	PayAmount          float64   `gorm:"column:pay_amount"`
-	TotalCommission    float64   `gorm:"column:total_commission"`
-	Version            int       `gorm:"column:version"`
-	TeamLevel          int64     `gorm:"column:team_level"`
-	InviteCode         string    `gorm:"column:invite_code"`
-	Path               UserPath  `gorm:"column:path"`
-	InvitePathDistance int       `gorm:"column:invite_path_distance"`
-	CreateAt           time.Time `gorm:"column:create_at"`
-	UpdatedAt          time.Time `gorm:"column:updated_at"`
+	ID                 int64    `gorm:"column:id"`
+	UAddress           string   `gorm:"column:u_address"`
+	ParentAddress      string   `gorm:"column:parent_address"`
+	Amount             float64  `gorm:"column:amount"`
+	PayAmount          float64  `gorm:"column:pay_amount"`
+	TotalCommission    float64  `gorm:"column:total_commission"`
+	Version            int      `gorm:"column:version"`
+	InviteCode         string   `gorm:"column:invite_code"`
+	Path               UserPath `gorm:"column:path"`
+	InvitePathDistance int      `gorm:"column:invite_path_distance"`
+	CreatedAt          int64    `gorm:"column:created_at"`
+	UpdatedAt          int64    `gorm:"column:updated_at"`
 }
 
 func (u User) TableName() string {
