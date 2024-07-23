@@ -33,7 +33,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getNonce",
 				Handler: person.NonceHandler(serverCtx),
 			},
@@ -69,12 +69,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: person.InviteCodeChangeSelfHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/inviteList",
 				Handler: person.InviteListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/walletLogList",
 				Handler: person.WalletLogListHandler(serverCtx),
 			},
@@ -149,12 +149,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getLinkProjectList",
 				Handler: adminlinkproject.GetLinkProjectListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/addOrUpdateLinkProjectList",
 				Handler: adminlinkproject.AddOrUpdateLinkProjectHandler(serverCtx),
 			},
@@ -165,27 +165,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getLinkProjectOrderList",
 				Handler: adminorder.GetLinkProjectOrderListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getPackageProjectOrderList",
 				Handler: adminorder.GetPackageProjectOrderListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/dropLinkApplyLinkProject",
 				Handler: adminorder.DropLinkApplyLinkProjectHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/dropApplyPackageProject",
 				Handler: adminorder.DropApplyPackageProjectHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/dropApplyPackageListProject",
 				Handler: adminorder.DropApplyPackageListProjectHandler(serverCtx),
 			},
@@ -196,12 +196,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getPackageProjectList",
 				Handler: adminPackageProject.GetPackageProjectListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/addOrUpdatePackageProjectList",
 				Handler: adminPackageProject.AddOrUpdatePackageProjectHandler(serverCtx),
 			},
@@ -212,12 +212,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getProjectList",
 				Handler: adminproject.GetProjectListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/addOrUpdateProjectList",
 				Handler: adminproject.AddOrUpdateProjectHandler(serverCtx),
 			},
@@ -228,17 +228,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getSettingList",
 				Handler: adminsetting.GetSettingListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getSettingKey",
 				Handler: adminsetting.GetSettingKeyHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/setSettingKey",
 				Handler: adminsetting.SetSettingKeyHandler(serverCtx),
 			},
@@ -249,12 +249,12 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/getUserList",
 				Handler: adminuser.GetUserListHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodGet,
+				Method:  http.MethodPost,
 				Path:    "/walletLogList",
 				Handler: adminuser.WalletLogListHandler(serverCtx),
 			},

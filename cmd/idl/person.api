@@ -38,7 +38,7 @@ type (
     }
 
     UserAddressResgiterReq {
-        UAddress string `form:"uAddress"`
+        UAddress string `json:"uAddress"`
     }
     UserAddressResgiterResp {
         UAddress string `json:"uAddress"`
@@ -46,8 +46,8 @@ type (
     }
 
     InviteUserReq {
-        PageNo int64 `form:"pageNo"`
-        PageSize int64 `form:"pageSize"`
+        PageNo int64 `json:"pageNo"`
+        PageSize int64 `json:"pageSize"`
     }
     InviteUserResp {
        List []UserInviteItem `json:"list"`
@@ -118,11 +118,11 @@ service Main {
 
     @doc "获取自己的邀请人列表"
     @handler inviteList
-    get /inviteList (InviteUserReq) returns (InviteUserResp)
+    post /inviteList (InviteUserReq) returns (InviteUserResp)
 
     @doc "佣金记录、整包回报记录"
     @handler walletLogList
-    get /walletLogList (WalletLogListReq) returns (WalletLogListResp)
+    post /walletLogList (WalletLogListReq) returns (WalletLogListResp)
 
 }
 

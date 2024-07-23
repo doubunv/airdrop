@@ -67,7 +67,7 @@ type InviteCountResp struct {
 }
 
 type UserAddressResgiterReq struct {
-	UAddress string `form:"uAddress"`
+	UAddress string `json:"uAddress"`
 }
 
 type UserAddressResgiterResp struct {
@@ -76,8 +76,8 @@ type UserAddressResgiterResp struct {
 }
 
 type InviteUserReq struct {
-	PageNo   int64 `form:"pageNo"`
-	PageSize int64 `form:"pageSize"`
+	PageNo   int64 `json:"pageNo"`
+	PageSize int64 `json:"pageSize"`
 }
 
 type InviteUserResp struct {

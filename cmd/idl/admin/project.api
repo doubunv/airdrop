@@ -40,9 +40,9 @@ type (
 service Main {
     @doc "项目管理列表"
     @handler getProjectList
-    get /getProjectList(GetProjectListReq) returns (GetProjectListResp)
+    post /getProjectList(GetProjectListReq) returns (GetProjectListResp)
 
     @doc "添加or修改项目管理"
     @handler addOrUpdateProject
-    get /addOrUpdateProjectList(AddOrUpdateProjectReq) returns (AddOrUpdateProjectResp)
+    post /addOrUpdateProjectList(AddOrUpdateProjectReq) returns (AddOrUpdateProjectResp)
 }

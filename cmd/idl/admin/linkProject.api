@@ -52,9 +52,9 @@ type (
 service Main {
     @doc "全链路空投管理列表"
     @handler getLinkProjectList
-    get /getLinkProjectList(AdminGetLinkProjectListReq) returns (AdminGetLinkProjectListResp)
+    post /getLinkProjectList(AdminGetLinkProjectListReq) returns (AdminGetLinkProjectListResp)
 
     @doc "添加or修改全链路空头管理"
     @handler addOrUpdateLinkProject
-    get /addOrUpdateLinkProjectList(AddOrUpdateLinkProjectReq) returns (AddOrUpdateLinkProjectResp)
+    post /addOrUpdateLinkProjectList(AddOrUpdateLinkProjectReq) returns (AddOrUpdateLinkProjectResp)
 }

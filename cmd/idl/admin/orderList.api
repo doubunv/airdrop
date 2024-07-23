@@ -96,21 +96,21 @@ type (
 service Main {
     @doc "全链路订单列表"
     @handler getLinkProjectOrderList
-    get /getLinkProjectOrderList(GetLinkProjectOrderListReq) returns (GetLinkProjectListOrderResp)
+    post /getLinkProjectOrderList(GetLinkProjectOrderListReq) returns (GetLinkProjectListOrderResp)
 
     @doc "整包订单列表"
     @handler getPackageProjectOrderList
-    get /getPackageProjectOrderList(GetPackageProjectOrderListReq) returns (GetPackageProjectListOrderResp)
+    post /getPackageProjectOrderList(GetPackageProjectOrderListReq) returns (GetPackageProjectListOrderResp)
 
     @doc "全链路空投发币"
     @handler dropLinkApplyLinkProject
-    get /dropLinkApplyLinkProject(DropLinkApplyLinkProjectReq) returns (DropApplyLinkProjectResp)
+    post /dropLinkApplyLinkProject(DropLinkApplyLinkProjectReq) returns (DropApplyLinkProjectResp)
 
     @doc "整包空投发币"
     @handler dropApplyPackageProject
-    get /dropApplyPackageProject(DropApplyPackageProjectReq) returns (DropApplyPackageProjectResp)
+    post /dropApplyPackageProject(DropApplyPackageProjectReq) returns (DropApplyPackageProjectResp)
 
     @doc "整包空投发币记录"
     @handler dropApplyPackageListProject
-    get /dropApplyPackageListProject(DropApplyPackageListProjectReq) returns (DropApplyPackageListProjectResp)
+    post /dropApplyPackageListProject(DropApplyPackageListProjectReq) returns (DropApplyPackageListProjectResp)
 }

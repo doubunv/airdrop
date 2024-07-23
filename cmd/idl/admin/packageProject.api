@@ -52,9 +52,9 @@ type (
 service Main {
     @doc "项目管理列表"
     @handler getPackageProjectList
-    get /getPackageProjectList(AdminGetPackageProjectListReq) returns (AdminGetPackageProjectListResp)
+    post /getPackageProjectList(AdminGetPackageProjectListReq) returns (AdminGetPackageProjectListResp)
 
     @doc "添加or修改项目管理"
     @handler addOrUpdatePackageProject
-    get /addOrUpdatePackageProjectList(AddOrUpdatePackageProjectReq) returns (AddOrUpdatePackageProjectResp)
+    post /addOrUpdatePackageProjectList(AddOrUpdatePackageProjectReq) returns (AddOrUpdatePackageProjectResp)
 }

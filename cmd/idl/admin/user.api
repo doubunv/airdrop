@@ -57,9 +57,9 @@ service Main {
 
     @doc "用户列表"
     @handler getUserList
-    get /getUserList(GetUserListReq) returns (GetUserListResp)
+    post /getUserList(GetUserListReq) returns (GetUserListResp)
 
     @doc "用户佣金记录"
     @handler walletLogList
-    get /walletLogList (AdminWalletLogListReq) returns (AdminWalletLogListResp)
+    post /walletLogList (AdminWalletLogListReq) returns (AdminWalletLogListResp)
 }
