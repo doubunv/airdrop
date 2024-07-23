@@ -6,7 +6,7 @@ type (
         PageSize  int32 `json:"page_size"` // 每页数量
         STime int64 `json:"s_time,optional"` //开始时间
         ETime int64 `json:"e_time,optional"` //结束时间
-        UAddress string `json:"u_address"` //用户地址
+        UAddress string `json:"u_address,optional"` //用户地址
     }
     GetLinkProjectOrderListItem {
         Id int64 `json:"id"` //订单号

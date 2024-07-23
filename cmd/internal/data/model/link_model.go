@@ -32,10 +32,10 @@ func (m *LinkModel) FindById(id int64) (res schema.ArLink, err error) {
 func (m *LinkModel) GetList(model *schema.ArLink, startTime, endTime int64, page, pageSize int) (list []*schema.ArLink, total int64, err error) {
 	q := m.db.Model(&schema.ArLink{})
 	if startTime != 0 {
-		q = q.Where("create_at >= ?", startTime)
+		q = q.Where("created_at >= ?", startTime)
 	}
 	if endTime != 0 {
-		q = q.Where("create_at <= ?", endTime)
+		q = q.Where("created_at <= ?", endTime)
 	}
 	q = q.Where("deleted_at is null")
 	err = q.Count(&total).Error

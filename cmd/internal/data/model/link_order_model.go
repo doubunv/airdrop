@@ -32,10 +32,10 @@ func (m *LinkOrderModel) GetList(model *schema.LinkOrder, startTime, endTime int
 		q = q.Where("user_id = ?", model.UserId)
 	}
 	if startTime != 0 {
-		q = q.Where("create_at >= ?", startTime)
+		q = q.Where("created_at >= ?", startTime)
 	}
 	if endTime != 0 {
-		q = q.Where("create_at <= ?", endTime)
+		q = q.Where("created_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error

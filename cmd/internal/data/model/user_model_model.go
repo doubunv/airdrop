@@ -72,10 +72,10 @@ func (m *UserModel) GetUserList(user *schema.User, startTime, endTime int64, pag
 		q = q.Where("invite_code = ?", user.InviteCode)
 	}
 	if startTime != 0 {
-		q = q.Where("create_at >= ?", startTime)
+		q = q.Where("created_at >= ?", startTime)
 	}
 	if endTime != 0 {
-		q = q.Where("create_at <= ?", endTime)
+		q = q.Where("created_at <= ?", endTime)
 	}
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
@@ -92,7 +92,7 @@ func (m *UserModel) GetInviteList(userAddress string, page, pageSize int) (res [
 func (m *UserModel) GetInviteCountList(userAddress string, page, pageSize int) (res []userDto.InviteData, total int64, err error) {
 	q := m.db.Model(&schema.User{}).Where("parent_address = ?", userAddress).
 		Joins("left join mm_user_team on mm_user.u_address = mm_user_team.user_address").Select(
-		"mm_user.id,mm_user.u_address,mm_user.team_level,mm_user.create_at,mm_user_team.team_spend_amount,mm_user_team.spend_amount, mm_user_team.is_active, mm_user_team.total_team_spend_amount")
+		"mm_user.id,mm_user.u_address,mm_user.team_level,mm_user.created_at,mm_user_team.team_spend_amount,mm_user_team.spend_amount, mm_user_team.is_active, mm_user_team.total_team_spend_amount")
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&res).Error
 
@@ -122,27 +122,27 @@ type CountGroupByTime struct {
 }
 
 func (m *UserModel) GetTeamGroupByTime(userId int64, startTime, endTime string) (res []CountGroupByTime, err error) {
-	// err = m.db.Model(&User{}).Select("date(CONVERT_TZ(create_at, '+00:00','+08:00')) as day_time, count(1) as today_add").
-	err = m.db.Model(&schema.User{}).Select("date(create_at) as day_time, count(1) as today_add").
-		Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and create_at >= ? and create_at <= ?", userId, startTime, endTime).
+	// err = m.db.Model(&User{}).Select("date(CONVERT_TZ(created_at, '+00:00','+08:00')) as day_time, count(1) as today_add").
+	err = m.db.Model(&schema.User{}).Select("date(created_at) as day_time, count(1) as today_add").
+		Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and created_at >= ? and created_at <= ?", userId, startTime, endTime).
 		Group("day_time").Order("day_time asc").Scan(&res).Error
 	return
 }
 
 func (m *UserModel) CountTeamMembersByTime(userId int64, startTime, endTime string) (res int64, err error) {
-	err = m.db.Model(&schema.User{}).Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and create_at >= ? and create_at <= ?", userId, startTime, endTime).Count(&res).Error
+	err = m.db.Model(&schema.User{}).Where("id in (SELECT id FROM mm_user WHERE FIND_IN_SET(?,path) > 0) and created_at >= ? and created_at <= ?", userId, startTime, endTime).Count(&res).Error
 	return
 }
 
 func (m *UserModel) GetInviteGroupByTime(address string, startTime, endTime string) (res []CountGroupByTime, err error) {
-	err = m.db.Model(&schema.User{}).Select("date(create_at) as day_time, count(1) as today_add").
-		Where("id in (SELECT id FROM mm_user WHERE parent_address = ?) and create_at >= ? and create_at <= ?", address, startTime, endTime).
+	err = m.db.Model(&schema.User{}).Select("date(created_at) as day_time, count(1) as today_add").
+		Where("id in (SELECT id FROM mm_user WHERE parent_address = ?) and created_at >= ? and created_at <= ?", address, startTime, endTime).
 		Group("day_time").Order("day_time asc").Scan(&res).Error
 	return
 }
 
 func (m *UserModel) CountInviteByTime(address string, startTime, endTime string) (res int64, err error) {
-	err = m.db.Model(&schema.User{}).Where("parent_address = ? and create_at >= ? and create_at <= ?", address, startTime, endTime).Count(&res).Error
+	err = m.db.Model(&schema.User{}).Where("parent_address = ? and created_at >= ? and created_at <= ?", address, startTime, endTime).Count(&res).Error
 	return
 }
 

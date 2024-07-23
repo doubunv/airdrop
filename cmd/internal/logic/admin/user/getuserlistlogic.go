@@ -27,8 +27,8 @@ func NewGetUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserListLogic) GetUserList(req *types.GetUserListReq) (resp *types.GetUserListResp, err error) {
 	resp = &types.GetUserListResp{
 		List:     make([]types.GetUserListitem, 0),
-		Page:     0,
-		PageSize: 0,
+		Page:     req.Page,
+		PageSize: req.PageSize,
 		Total:    0,
 	}
 

@@ -38,7 +38,7 @@ type PersonInfoResp struct {
 	UAddress      string `json:"u_address"`      //钱包地址
 	ParentAddress string `json:"parent_address"` //邀请者地址
 	InviteCode    string `json:"invite_code"`    //邀请码
-	CreateAt      int64  `json:"create_at"`      //注册时间
+	CreateAt      int64  `json:"created_at"`     //注册时间
 }
 
 type InviteReq struct {
@@ -100,7 +100,7 @@ type UserItem struct {
 	Amount        float64 `json:"amount"`
 	InviteCode    string  `json:"invite_code"`
 	Path          string  `json:"path"`
-	CreateAt      string  `json:"create_at"`
+	CreateAt      string  `json:"created_at"`
 }
 
 type WalletLogListReq struct {
@@ -314,11 +314,11 @@ type AddOrUpdateLinkProjectResp struct {
 }
 
 type GetLinkProjectOrderListReq struct {
-	Page     int32  `json:"page"`            // 页码
-	PageSize int32  `json:"page_size"`       // 每页数量
-	STime    int64  `json:"s_time,optional"` //开始时间
-	ETime    int64  `json:"e_time,optional"` //结束时间
-	UAddress string `json:"u_address"`       //用户地址
+	Page     int32  `json:"page"`               // 页码
+	PageSize int32  `json:"page_size"`          // 每页数量
+	STime    int64  `json:"s_time,optional"`    //开始时间
+	ETime    int64  `json:"e_time,optional"`    //结束时间
+	UAddress string `json:"u_address,optional"` //用户地址
 }
 
 type GetLinkProjectOrderListItem struct {

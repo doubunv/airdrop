@@ -9,7 +9,7 @@ type (
         UAddress string `json:"u_address"` //钱包地址
         ParentAddress string `json:"parent_address"` //邀请者地址
         InviteCode string `json:"invite_code"` //邀请码
-        CreateAt int64 `json:"create_at"` //注册时间
+        CreateAt int64 `json:"created_at"` //注册时间
     }
 
     InviteReq {
@@ -68,7 +68,7 @@ type (
         Amount float64 `json:"amount"`
         InviteCode string `json:"invite_code"`
         Path string `json:"path"`
-        CreateAt string `json:"create_at"`
+        CreateAt string `json:"created_at"`
     }
 
     WalletLogListReq {

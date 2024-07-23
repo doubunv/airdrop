@@ -39,10 +39,10 @@ func (m *PackageChildModel) FindByIds(ids []int64) (res []schema.AirPackageChild
 func (m *PackageChildModel) GetList(model *schema.AirPackageChild, startTime, endTime int64, page, pageSize int) (list []*schema.AirPackageChild, total int64, err error) {
 	q := m.db.Model(&schema.AirPackageChild{})
 	if startTime != 0 {
-		q = q.Where("create_at >= ?", startTime)
+		q = q.Where("created_at >= ?", startTime)
 	}
 	if endTime != 0 {
-		q = q.Where("create_at <= ?", endTime)
+		q = q.Where("created_at <= ?", endTime)
 	}
 	q = q.Where("deleted_at is null")
 	err = q.Count(&total).Error

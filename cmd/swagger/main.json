@@ -2047,8 +2047,7 @@
       "title": "GetLinkProjectOrderListReq",
       "required": [
         "page",
-        "page_size",
-        "u_address"
+        "page_size"
       ]
     },
     "GetNonceResp": {
@@ -2988,7 +2987,7 @@
           "type": "string",
           "description": "邀请码"
         },
-        "create_at": {
+        "created_at": {
           "type": "integer",
           "format": "int64",
           "description": "注册时间"
@@ -2999,7 +2998,7 @@
         "u_address",
         "parent_address",
         "invite_code",
-        "create_at"
+        "created_at"
       ]
     },
     "SetSettingKeyReq": {
@@ -3096,7 +3095,7 @@
         "path": {
           "type": "string"
         },
-        "create_at": {
+        "created_at": {
           "type": "string"
         }
       },
@@ -3108,7 +3107,7 @@
         "amount",
         "invite_code",
         "path",
-        "create_at"
+        "created_at"
       ]
     },
     "WalletLogListItem": {
