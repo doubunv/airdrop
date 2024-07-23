@@ -16,5 +16,5 @@ type ArLink struct {
 }
 
 func (m ArLink) TableName() string {
-	return "air_link"
+	return "ar_link"
 }

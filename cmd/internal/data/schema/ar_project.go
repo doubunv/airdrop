@@ -13,5 +13,5 @@ type AirPackageChild struct {
 }
 
 func (m AirPackageChild) TableName() string {
-	return "air_package_child"
+	return "ar_project"
 }

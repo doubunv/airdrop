@@ -36,7 +36,7 @@ type (
        ProjectIds []AdminPackageProjectChildListItem `json:"project_ids"`
        Month int64 `json:"month"` //服务周期
        Price float64 `json:"price"` //价格
-       Id int64 `json:"id"` //项目ID
+       Id int64 `json:"id,optional"` //项目ID
        Status int32 `json:"status"` //状态 1-上架 2-下架
        IsDeleted int `json:"is_deleted,optional"` // 1-删除标记
     }
