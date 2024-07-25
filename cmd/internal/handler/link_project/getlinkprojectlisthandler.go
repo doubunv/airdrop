@@ -1,6 +1,7 @@
 package link_project
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 
 	"air-drop/cmd/internal/logic/link_project"
@@ -13,16 +14,16 @@ func GetLinkProjectListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.GetLinkProjectListReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 			return
 		}
 
 		l := link_project.NewGetLinkProjectListLogic(r.Context(), svcCtx)
 		resp, err := l.GetLinkProjectList(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			result.HttpSuccessResult(r.Context(), w, resp)
 		}
 	}
 }

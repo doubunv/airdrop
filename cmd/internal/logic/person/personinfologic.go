@@ -1,7 +1,9 @@
 package person
 
 import (
+	"air-drop/pkg/utils"
 	"context"
+	"errors"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -24,7 +26,26 @@ func NewPersonInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Person
 }
 
 func (l *PersonInfoLogic) PersonInfo(req *types.PersonInfoReq) (resp *types.PersonInfoResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.PersonInfoResp{
+		UAddress:      "",
+		ParentAddress: "",
+		InviteCode:    "",
+		CreateAt:      0,
+	}
 
+	addr := utils.GetTokenAddress(l.ctx)
+	userInfo, err := l.svcCtx.UserModel.GetUserByUAddress(addr)
+	if err != nil {
+		return nil, err
+	}
+
+	if userInfo.ID == 0 {
+		return nil, errors.New("user not find")
+	}
+
+	resp.CreateAt = userInfo.CreatedAt
+	resp.ParentAddress = userInfo.ParentAddress
+	resp.InviteCode = userInfo.InviteCode
+	resp.UAddress = userInfo.UAddress
 	return
 }

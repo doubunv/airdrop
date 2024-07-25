@@ -76,14 +76,14 @@ type UserAddressResgiterResp struct {
 }
 
 type InviteUserReq struct {
-	PageNo   int64 `json:"pageNo"`
-	PageSize int64 `json:"pageSize"`
+	PageNo   int64 `json:"page"`
+	PageSize int64 `json:"page_size"`
 }
 
 type InviteUserResp struct {
 	List     []UserInviteItem `json:"list"`
-	PageNo   int64            `json:"pageNo"`
-	PageSize int64            `json:"pageSize"`
+	PageNo   int64            `json:"page"`
+	PageSize int64            `json:"page_size"`
 	Total    int64            `json:"total"`
 }
 
@@ -107,6 +107,9 @@ type WalletLogListReq struct {
 	TypeId   int32 `json:"type_id"`   //1-佣金记录， 2-回报记录
 	Page     int64 `json:"page"`      // 页码
 	PageSize int64 `json:"page_size"` // 每页数量
+	TargetId int64 `json:"target_id"`
+	STime    int64 `json:"s_time,optional"` //开始时间
+	ETime    int64 `json:"e_time,optional"` //结束时间
 }
 
 type WalletLogListItem struct {
@@ -129,6 +132,7 @@ type InviteCodeResp struct {
 type PackageProjectChildListItem struct {
 	Id   int64  `json:"id"`   //子项目ID
 	Name string `json:"name"` //子项目名字
+	Icon string `json:"icon"`
 }
 
 type GetPackageProjectList struct {
@@ -166,6 +170,7 @@ type GetLinkProjectList struct {
 	Name     string  `json:"name"`      //项目名字
 	Price    float64 `json:"price"`     //价格
 	DropTime int64   `json:"drop_time"` //法币时间
+	Icon     string  `json:"icon"`
 }
 
 type GetLinkProjectListReq struct {
@@ -199,6 +204,7 @@ type GetOrderInfoResp struct {
 	ReceivePackageEarnings float64 `json:"receive_package_earnings"` //已发放私募空投
 	WaitPackageEarnings    float64 `json:"wait_package_earnings"`    //待领取的私募空投
 	CommissionEarnings     float64 `json:"commission_earnings"`      //佣金奖励
+	AIOrderRunningNumber   float64 `json:"ai_earnings"`              //ai算力已购买未到期的订单数量
 }
 
 type GetPackageOrderListReq struct {
@@ -257,6 +263,7 @@ type GetApplyLinkLogListReq struct {
 	Id       int64 `json:"id"`
 	Page     int32 `json:"page"`      // 页码
 	PageSize int32 `json:"page_size"` // 每页数量
+	Status   int32 `json:"status"`    //'1 未发放 2 已发放待领取 3 已领取',
 }
 
 type GetApplyLinkLogListItem struct {

@@ -47,6 +47,7 @@ func (l *GetLinkProjectListLogic) GetLinkProjectList(req *types.GetLinkProjectLi
 			Price:    v.Price,
 			DropTime: v.DropTime,
 			Name:     childInfo.Name,
+			Icon:     childInfo.Icon,
 		}
 		resp.List = append(resp.List, tt)
 	}

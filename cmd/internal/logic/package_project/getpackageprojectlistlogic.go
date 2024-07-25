@@ -56,6 +56,7 @@ func (l *GetPackageProjectListLogic) GetPackageProjectList(req *types.GetPackage
 			tt := types.PackageProjectChildListItem{
 				Id:   v.ID,
 				Name: v.Name,
+				Icon: v.Icon,
 			}
 			childList = append(childList, tt)
 		}

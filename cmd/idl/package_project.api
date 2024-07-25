@@ -4,6 +4,7 @@ type (
     PackageProjectChildListItem {
         Id int64 `json:"id"` //子项目ID
         Name string `json:"name"` //子项目名字
+        Icon string `json:"icon"`
     }
 
     GetPackageProjectList {
@@ -40,6 +41,7 @@ type (
 @server (
 	prefix: /packageProject
 	group:  package_project
+    jwt: Auth
 )
 service Main {
     @doc "整包空投-项目列表"

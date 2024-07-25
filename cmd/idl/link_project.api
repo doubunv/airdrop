@@ -6,6 +6,7 @@ type (
         Name string `json:"name"` //项目名字
         Price float64 `json:"price"` //价格
         DropTime int64 `json:"drop_time"` //法币时间
+        Icon string `json:"icon"`
     }
 
     GetLinkProjectListReq {
@@ -34,6 +35,7 @@ type (
 @server (
 	prefix: /linkProject
 	group:  link_project
+    jwt: Auth
 )
 service Main {
     @doc "全链路-项目列表"

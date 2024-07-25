@@ -1,6 +1,7 @@
 package person
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 
 	"air-drop/cmd/internal/logic/person"
@@ -13,14 +14,14 @@ func InviteCodeInputHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.InviteCodeReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 			return
 		}
 
 		l := person.NewInviteCodeInputLogic(r.Context(), svcCtx)
 		err := l.InviteCodeInput(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 		} else {
 			httpx.Ok(w)
 		}

@@ -33,6 +33,7 @@ func (l *GetOrderInfoLogic) GetOrderInfo(req *types.GetOrderInfoReq) (resp *type
 		ReceivePackageEarnings: 0, //已发放私募空投
 		WaitPackageEarnings:    0, //待领取的私募空投
 		CommissionEarnings:     0, //佣金奖励
+		AIOrderRunningNumber:   0, //已购买未到期的订单数量
 	}
 
 	tokenUid := utils.GetTokenUid(l.ctx)

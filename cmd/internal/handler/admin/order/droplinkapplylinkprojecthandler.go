@@ -1,6 +1,7 @@
 package order
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 
 	"air-drop/cmd/internal/logic/admin/order"
@@ -13,16 +14,16 @@ func DropLinkApplyLinkProjectHandler(svcCtx *svc.ServiceContext) http.HandlerFun
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.DropLinkApplyLinkProjectReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 			return
 		}
 
 		l := order.NewDropLinkApplyLinkProjectLogic(r.Context(), svcCtx)
 		resp, err := l.DropLinkApplyLinkProject(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			result.HttpSuccessResult(r.Context(), w, resp)
 		}
 	}
 }

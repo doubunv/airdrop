@@ -471,6 +471,11 @@
         ],
         "tags": [
           "link_project"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -498,6 +503,11 @@
         ],
         "tags": [
           "link_project"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -525,6 +535,11 @@
         ],
         "tags": [
           "order"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -552,6 +567,11 @@
         ],
         "tags": [
           "order"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -579,6 +599,11 @@
         ],
         "tags": [
           "order"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -606,6 +631,11 @@
         ],
         "tags": [
           "order"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -633,6 +663,11 @@
         ],
         "tags": [
           "order"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -660,6 +695,11 @@
         ],
         "tags": [
           "package_project"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -687,6 +727,11 @@
         ],
         "tags": [
           "package_project"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -1629,13 +1674,19 @@
           "type": "integer",
           "format": "int32",
           "description": " 每页数量"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "'1 未发放 2 已发放待领取 3 已领取',"
         }
       },
       "title": "GetApplyLinkLogListReq",
       "required": [
         "id",
         "page",
-        "page_size"
+        "page_size",
+        "status"
       ]
     },
     "GetApplyLinkLogListResp": {
@@ -1808,6 +1859,9 @@
           "type": "integer",
           "format": "int64",
           "description": "法币时间"
+        },
+        "icon": {
+          "type": "string"
         }
       },
       "title": "GetLinkProjectList",
@@ -1815,7 +1869,8 @@
         "id",
         "name",
         "price",
-        "drop_time"
+        "drop_time",
+        "icon"
       ]
     },
     "GetLinkProjectListItem": {
@@ -2093,6 +2148,11 @@
           "type": "number",
           "format": "double",
           "description": "佣金奖励"
+        },
+        "ai_earnings": {
+          "type": "number",
+          "format": "double",
+          "description": "ai算力已购买未到期的订单数量"
         }
       },
       "title": "GetOrderInfoResp",
@@ -2101,7 +2161,8 @@
         "link_earnings",
         "receive_package_earnings",
         "wait_package_earnings",
-        "commission_earnings"
+        "commission_earnings",
+        "ai_earnings"
       ]
     },
     "GetPackageOrderListItem": {
@@ -2853,19 +2914,19 @@
     "InviteUserReq": {
       "type": "object",
       "properties": {
-        "pageNo": {
+        "page": {
           "type": "integer",
           "format": "int64"
         },
-        "pageSize": {
+        "page_size": {
           "type": "integer",
           "format": "int64"
         }
       },
       "title": "InviteUserReq",
       "required": [
-        "pageNo",
-        "pageSize"
+        "page",
+        "page_size"
       ]
     },
     "InviteUserResp": {
@@ -2877,11 +2938,11 @@
             "$ref": "#/definitions/UserInviteItem"
           }
         },
-        "pageNo": {
+        "page": {
           "type": "integer",
           "format": "int64"
         },
-        "pageSize": {
+        "page_size": {
           "type": "integer",
           "format": "int64"
         },
@@ -2893,8 +2954,8 @@
       "title": "InviteUserResp",
       "required": [
         "list",
-        "pageNo",
-        "pageSize",
+        "page",
+        "page_size",
         "total"
       ]
     },
@@ -2960,12 +3021,16 @@
         "name": {
           "type": "string",
           "description": "子项目名字"
+        },
+        "icon": {
+          "type": "string"
         }
       },
       "title": "PackageProjectChildListItem",
       "required": [
         "id",
-        "name"
+        "name",
+        "icon"
       ]
     },
     "PersonInfoReq": {
@@ -3157,13 +3222,28 @@
           "type": "integer",
           "format": "int64",
           "description": " 每页数量"
+        },
+        "target_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
         }
       },
       "title": "WalletLogListReq",
       "required": [
         "type_id",
         "page",
-        "page_size"
+        "page_size",
+        "target_id"
       ]
     },
     "WalletLogListResp": {

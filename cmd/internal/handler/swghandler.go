@@ -1,12 +1,12 @@
 package handler
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 	"os"
 	"path/filepath"
 
 	"air-drop/cmd/internal/svc"
-	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
 func swgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
@@ -16,7 +16,7 @@ func swgHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		_, err := os.Stat(s)
 		if err != nil {
 			if os.IsNotExist(err) {
-				httpx.ErrorCtx(r.Context(), w, err)
+				result.HttpErrorResult(r.Context(), w, err)
 				return
 			}
 		}

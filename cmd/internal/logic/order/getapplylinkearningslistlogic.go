@@ -35,6 +35,7 @@ func (l *GetApplyLinkEarningsListLogic) GetApplyLinkEarningsList(req *types.GetA
 
 	rq := &schema.ArLinkReceive{
 		UserId: utils.GetTokenUid(l.ctx),
+		Status: int64(req.Status),
 	}
 	list, total, err := l.svcCtx.LinkReceiveModel.GetList(rq, int64(0), int64(0), int(req.Page), int(req.PageSize))
 	if err != nil {

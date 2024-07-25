@@ -33,6 +33,9 @@ func (m *AmountLogModel) GetList(model *schema.AmountLog, startTime, endTime int
 	if model.UAddress != "" {
 		q = q.Where("u_address = ?", model.UAddress)
 	}
+	if model.TargetId != 0 {
+		q = q.Where("target_id = ?", model.TargetId)
+	}
 	if startTime != 0 {
 		q = q.Where("created_at >= ?", startTime)
 	}

@@ -1,6 +1,7 @@
 package order
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 
 	"air-drop/cmd/internal/logic/admin/order"
@@ -13,16 +14,16 @@ func GetLinkProjectOrderListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.GetLinkProjectOrderListReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 			return
 		}
 
 		l := order.NewGetLinkProjectOrderListLogic(r.Context(), svcCtx)
 		resp, err := l.GetLinkProjectOrderList(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			result.HttpSuccessResult(r.Context(), w, resp)
 		}
 	}
 }

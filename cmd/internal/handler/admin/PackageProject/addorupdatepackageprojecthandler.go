@@ -1,6 +1,7 @@
 package PackageProject
 
 import (
+	"air-drop/pkg/result"
 	"net/http"
 
 	"air-drop/cmd/internal/logic/admin/PackageProject"
@@ -13,16 +14,16 @@ func AddOrUpdatePackageProjectHandler(svcCtx *svc.ServiceContext) http.HandlerFu
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.AddOrUpdatePackageProjectReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 			return
 		}
 
 		l := PackageProject.NewAddOrUpdatePackageProjectLogic(r.Context(), svcCtx)
 		resp, err := l.AddOrUpdatePackageProject(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.HttpErrorResult(r.Context(), w, err)
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			result.HttpSuccessResult(r.Context(), w, resp)
 		}
 	}
 }
