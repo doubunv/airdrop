@@ -104,10 +104,10 @@ type UserItem struct {
 }
 
 type WalletLogListReq struct {
-	TypeId   int32 `json:"type_id"`   //1-佣金记录， 2-回报记录
-	Page     int64 `json:"page"`      // 页码
-	PageSize int64 `json:"page_size"` // 每页数量
-	TargetId int64 `json:"target_id"`
+	TypeId   int32 `json:"type_id"`         //1-佣金记录， 2-回报记录 3-AI算力回报记录
+	Page     int64 `json:"page"`            // 页码
+	PageSize int64 `json:"page_size"`       // 每页数量
+	TargetId int64 `json:"target_id"`       //对应的业务ID
 	STime    int64 `json:"s_time,optional"` //开始时间
 	ETime    int64 `json:"e_time,optional"` //结束时间
 }
@@ -572,4 +572,162 @@ type AdminWalletLogListResp struct {
 	Page     int64                    `json:"page"`      // 页码
 	PageSize int64                    `json:"page_size"` // 每页数量
 	Total    int64                    `json:"total"`     // 总数
+}
+
+type AdminGetAiComputingListItem struct {
+	Id                  int64   `json:"id"`    //项目ID
+	Name                string  `json:"name"`  //项目名字
+	Price               float64 `json:"price"` //价格
+	Icon                string  `json:"icon"`
+	Content             string  `json:"content"`               //描述
+	ServiceMonth        string  `json:"service_month"`         //有效期
+	ComputingPowerUnit  string  `json:"computing_power_unit"`  //算力单位
+	ComputingPowerValue int64   `json:"computing_power_value"` //算力值
+	CreatedAt           int64   `json:"created_at"`
+	Status              int32   `json:"status"` // 1-上架 2-下架
+}
+
+type AdminGetAiComputingListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type AdminGetAiComputingListResp struct {
+	List     []AdminGetAiComputingListItem `json:"list"`
+	Page     int32                         `json:"page"`      // 页码
+	PageSize int32                         `json:"page_size"` // 每页数量
+	Total    int64                         `json:"total"`     // 总数
+}
+
+type AdminAiComputingOrderListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type AdminAiComputingOrderListItem struct {
+	Id                 int64   `json:"id"`
+	Name               int64   `json:"name"`                 //项目名字
+	Amount             float64 `json:"amount"`               //投资额度
+	ComputingPowerUnit int64   `json:"computing_power_unit"` //算力单位
+	ServiceMonth       int64   `json:"service_month"`        //服务周期
+	LeftDay            int64   `json:"left_day"`             //剩余回报时间
+	SendAmount         float64 `json:"send_amount"`
+	CreatedAt          int64   `json:"created_at"`
+}
+
+type AdminAiComputingOrderListResp struct {
+	List     []AdminAiComputingOrderListItem `json:"list"`
+	Page     int32                           `json:"page"`      // 页码
+	PageSize int32                           `json:"page_size"` // 每页数量
+	Total    int64                           `json:"total"`     // 总数
+}
+
+type AddOrUpdateAiComputingReq struct {
+	Id                  int64   `json:"id,optional"` //项目ID
+	Name                string  `json:"name"`        //项目名字
+	Price               float64 `json:"price"`       //价格
+	Icon                string  `json:"icon"`
+	Content             string  `json:"content,optional"`      //描述
+	ServiceMonth        string  `json:"service_month"`         //服务周期
+	ComputingPowerUnit  string  `json:"computing_power_unit"`  //算力单位
+	ComputingPowerValue int64   `json:"computing_power_value"` //算力数
+	Status              int32   `json:"status"`                // 1-上架 2-下架
+	IsDeleted           int     `json:"is_deleted,optional"`   // 1-删除
+}
+
+type AddOrUpdateAiComputingResp struct {
+}
+
+type DropAiComputingApplyReq struct {
+	Id     int64   `json:"id"`     //申请记录ID
+	Amount float64 `json:"amount"` //发放金额
+}
+
+type DropAiComputingApplyResp struct {
+}
+
+type DropAiComputingApplyListReq struct {
+	Id       int64 `json:"id"`        //订单ID
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type DropAiComputingApplyListItem struct {
+	UAddress  string  `json:"u_address"`  //申请地址
+	Amount    float64 `json:"amount"`     //申请数量
+	CreatedAt int64   `json:"created_at"` //申请时间
+	Status    int32   `json:"status"`     //申请状态 1 申请中 2 已发放
+}
+
+type DropAiComputingApplyListResp struct {
+	List     []DropAiComputingApplyListItem `json:"list"`
+	Page     int32                          `json:"page"`      // 页码
+	PageSize int32                          `json:"page_size"` // 每页数量
+	Total    int64                          `json:"total"`     // 总数
+}
+
+type GetAiComputingListItem struct {
+	Id                  int64   `json:"id"`    //项目ID
+	Name                string  `json:"name"`  //项目名字
+	Price               float64 `json:"price"` //价格
+	Icon                string  `json:"icon"`
+	Content             string  `json:"content"`               //描述
+	ServiceMonth        string  `json:"service_month"`         //有效期
+	ComputingPowerUnit  string  `json:"computing_power_unit"`  //算力单位
+	ComputingPowerValue int64   `json:"computing_power_value"` //算力值
+}
+
+type GetAiComputingListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type GetAiComputingListResp struct {
+	List     []GetAiComputingListItem `json:"list"`
+	Page     int32                    `json:"page"`      // 页码
+	PageSize int32                    `json:"page_size"` // 每页数量
+	Total    int64                    `json:"total"`     // 总数
+}
+
+type BuyAiComputingReq struct {
+	Id int64 `json:"id"`
+}
+
+type BuyAiComputingResp struct {
+	OrderId   int64   `json:"order_id"`
+	Amount    float64 `json:"Amount"`
+	Sign      string  `json:"sign"`
+	CreatedAt int64   `json:"created_at"`
+}
+
+type AiComputingOrderListReq struct {
+	Page     int32 `json:"page"`      // 页码
+	PageSize int32 `json:"page_size"` // 每页数量
+}
+
+type AiComputingOrderListItem struct {
+	Id                 int64   `json:"id"`
+	Name               int64   `json:"name"`                 //项目名字
+	Amount             float64 `json:"amount"`               //投资额度
+	ComputingPowerUnit int64   `json:"computing_power_unit"` //算力单位
+	ServiceMonth       int64   `json:"service_month"`        //服务周期
+	LeftDay            int64   `json:"left_day"`             //剩余回报时间
+	WithdrawAmount     float64 `json:"withdraw_amount"`      //可提现
+	CreatedAt          int64   `json:"created_at"`
+}
+
+type AiComputingOrderListResp struct {
+	List     []AiComputingOrderListItem `json:"list"`
+	Page     int32                      `json:"page"`      // 页码
+	PageSize int32                      `json:"page_size"` // 每页数量
+	Total    int64                      `json:"total"`     // 总数
+}
+
+type ApplyAiComputingReq struct {
+	Id      int64   `json:"id"`      //订单ID
+	Address string  `json:"address"` //地址
+	Amount  float64 `json:"amount"`  //数量
+}
+
+type ApplyAiComputingResp struct {
 }

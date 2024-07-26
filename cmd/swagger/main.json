@@ -15,6 +15,166 @@
     "application/json"
   ],
   "paths": {
+    "/admin/aiComputing/addOrUpdateAiComputing": {
+      "post": {
+        "summary": "算力-新增or修改",
+        "operationId": "AddOrUpdateAiComputing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/addOrUpdateAiComputingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addOrUpdateAiComputingReq"
+            }
+          }
+        ],
+        "tags": [
+          "admin/ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/admin/aiComputing/adminGetAiComputingList": {
+      "post": {
+        "summary": "算力-项目列表",
+        "operationId": "AdminGetAiComputingList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminGetAiComputingListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminGetAiComputingListReq"
+            }
+          }
+        ],
+        "tags": [
+          "admin/ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/admin/aiComputing/aiComputingOrderList": {
+      "post": {
+        "summary": "算力-订单列表",
+        "operationId": "AiComputingOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminAiComputingOrderListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminAiComputingOrderListReq"
+            }
+          }
+        ],
+        "tags": [
+          "admin/ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/admin/aiComputing/dropAiComputingApply": {
+      "post": {
+        "summary": "算力-订单-发币",
+        "operationId": "DropAiComputingApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DropAiComputingApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DropAiComputingApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "admin/ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/admin/aiComputing/dropAiComputingApplyList": {
+      "post": {
+        "summary": "算力-订单-发币",
+        "operationId": "DropAiComputingApplyList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DropAiComputingApplyListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DropAiComputingApplyListReq"
+            }
+          }
+        ],
+        "tags": [
+          "admin/ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
     "/admin/linkproject/addOrUpdateLinkProjectList": {
       "post": {
         "summary": "添加or修改全链路空头管理",
@@ -444,6 +604,134 @@
         ],
         "tags": [
           "admin/user"
+        ]
+      }
+    },
+    "/aiComputing/aiComputingOrderList": {
+      "post": {
+        "summary": "算力-订单列表",
+        "operationId": "AiComputingOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AiComputingOrderListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AiComputingOrderListReq"
+            }
+          }
+        ],
+        "tags": [
+          "ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/aiComputing/applyAiComputing": {
+      "post": {
+        "summary": "算力-申请提现",
+        "operationId": "ApplyAiComputing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyAiComputingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplyAiComputingReq"
+            }
+          }
+        ],
+        "tags": [
+          "ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/aiComputing/buyAiComputing": {
+      "post": {
+        "summary": "算力-购买",
+        "operationId": "BuyAiComputing",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BuyAiComputingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BuyAiComputingReq"
+            }
+          }
+        ],
+        "tags": [
+          "ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/aiComputing/getAiComputingList": {
+      "post": {
+        "summary": "算力-项目列表",
+        "operationId": "GetAiComputingList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAiComputingListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetAiComputingListReq"
+            }
+          }
+        ],
+        "tags": [
+          "ai_computing"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
         ]
       }
     },
@@ -935,7 +1223,7 @@
     },
     "/person/walletLogList": {
       "post": {
-        "summary": "佣金记录、整包回报记录",
+        "summary": "佣金记录、整包回报记录、算力回报记录",
         "operationId": "walletLogList",
         "responses": {
           "200": {
@@ -1119,6 +1407,226 @@
     "AddOrUpdateProjectResp": {
       "type": "object",
       "title": "AddOrUpdateProjectResp"
+    },
+    "AdminAiComputingOrderListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目名字"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "投资额度"
+        },
+        "computing_power_unit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "算力单位"
+        },
+        "service_month": {
+          "type": "integer",
+          "format": "int64",
+          "description": "服务周期"
+        },
+        "left_day": {
+          "type": "integer",
+          "format": "int64",
+          "description": "剩余回报时间"
+        },
+        "send_amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AdminAiComputingOrderListItem",
+      "required": [
+        "id",
+        "name",
+        "amount",
+        "computing_power_unit",
+        "service_month",
+        "left_day",
+        "send_amount",
+        "created_at"
+      ]
+    },
+    "AdminAiComputingOrderListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "AdminAiComputingOrderListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "AdminAiComputingOrderListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminAiComputingOrderListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AdminAiComputingOrderListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "AdminGetAiComputingListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名字"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "价格"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "description": "描述"
+        },
+        "service_month": {
+          "type": "string",
+          "description": "有效期"
+        },
+        "computing_power_unit": {
+          "type": "string",
+          "description": "算力单位"
+        },
+        "computing_power_value": {
+          "type": "integer",
+          "format": "int64",
+          "description": "算力值"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-上架 2-下架"
+        }
+      },
+      "title": "AdminGetAiComputingListItem",
+      "required": [
+        "id",
+        "name",
+        "price",
+        "icon",
+        "content",
+        "service_month",
+        "computing_power_unit",
+        "computing_power_value",
+        "created_at",
+        "status"
+      ]
+    },
+    "AdminGetAiComputingListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "AdminGetAiComputingListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "AdminGetAiComputingListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminGetAiComputingListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AdminGetAiComputingListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
     },
     "AdminGetLinkProjectListReq": {
       "type": "object",
@@ -1388,6 +1896,142 @@
         "total"
       ]
     },
+    "AiComputingOrderListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目名字"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "投资额度"
+        },
+        "computing_power_unit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "算力单位"
+        },
+        "service_month": {
+          "type": "integer",
+          "format": "int64",
+          "description": "服务周期"
+        },
+        "left_day": {
+          "type": "integer",
+          "format": "int64",
+          "description": "剩余回报时间"
+        },
+        "withdraw_amount": {
+          "type": "number",
+          "format": "double",
+          "description": "可提现"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AiComputingOrderListItem",
+      "required": [
+        "id",
+        "name",
+        "amount",
+        "computing_power_unit",
+        "service_month",
+        "left_day",
+        "withdraw_amount",
+        "created_at"
+      ]
+    },
+    "AiComputingOrderListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "AiComputingOrderListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "AiComputingOrderListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AiComputingOrderListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "AiComputingOrderListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "ApplyAiComputingReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单ID"
+        },
+        "address": {
+          "type": "string",
+          "description": "地址"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "数量"
+        }
+      },
+      "title": "ApplyAiComputingReq",
+      "required": [
+        "id",
+        "address",
+        "amount"
+      ]
+    },
+    "ApplyAiComputingResp": {
+      "type": "object",
+      "title": "ApplyAiComputingResp"
+    },
     "ApplyLinkEarningsReq": {
       "type": "object",
       "properties": {
@@ -1413,6 +2057,46 @@
     "ApplyLinkEarningsResp": {
       "type": "object",
       "title": "ApplyLinkEarningsResp"
+    },
+    "BuyAiComputingReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "BuyAiComputingReq",
+      "required": [
+        "id"
+      ]
+    },
+    "BuyAiComputingResp": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "Amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "sign": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "BuyAiComputingResp",
+      "required": [
+        "order_id",
+        "Amount",
+        "sign",
+        "created_at"
+      ]
     },
     "BuyLinkProjectReq": {
       "type": "object",
@@ -1483,6 +2167,120 @@
         "Amount",
         "sign"
       ]
+    },
+    "DropAiComputingApplyListItem": {
+      "type": "object",
+      "properties": {
+        "u_address": {
+          "type": "string",
+          "description": "申请地址"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "申请数量"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "申请状态 1 申请中 2 已发放"
+        }
+      },
+      "title": "DropAiComputingApplyListItem",
+      "required": [
+        "u_address",
+        "amount",
+        "created_at",
+        "status"
+      ]
+    },
+    "DropAiComputingApplyListReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单ID"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "DropAiComputingApplyListReq",
+      "required": [
+        "id",
+        "page",
+        "page_size"
+      ]
+    },
+    "DropAiComputingApplyListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DropAiComputingApplyListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "DropAiComputingApplyListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
+      ]
+    },
+    "DropAiComputingApplyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请记录ID"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "发放金额"
+        }
+      },
+      "title": "DropAiComputingApplyReq",
+      "required": [
+        "id",
+        "amount"
+      ]
+    },
+    "DropAiComputingApplyResp": {
+      "type": "object",
+      "title": "DropAiComputingApplyResp"
     },
     "DropApplyLinkProjectResp": {
       "type": "object",
@@ -1634,6 +2432,109 @@
         "id",
         "u_address",
         "amount"
+      ]
+    },
+    "GetAiComputingListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名字"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "价格"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "description": "描述"
+        },
+        "service_month": {
+          "type": "string",
+          "description": "有效期"
+        },
+        "computing_power_unit": {
+          "type": "string",
+          "description": "算力单位"
+        },
+        "computing_power_value": {
+          "type": "integer",
+          "format": "int64",
+          "description": "算力值"
+        }
+      },
+      "title": "GetAiComputingListItem",
+      "required": [
+        "id",
+        "name",
+        "price",
+        "icon",
+        "content",
+        "service_month",
+        "computing_power_unit",
+        "computing_power_value"
+      ]
+    },
+    "GetAiComputingListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        }
+      },
+      "title": "GetAiComputingListReq",
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "GetAiComputingListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetAiComputingListItem"
+          }
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 页码"
+        },
+        "page_size": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 每页数量"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 总数"
+        }
+      },
+      "title": "GetAiComputingListResp",
+      "required": [
+        "list",
+        "page",
+        "page_size",
+        "total"
       ]
     },
     "GetApplyLinkLogListItem": {
@@ -3211,7 +4112,7 @@
         "type_id": {
           "type": "integer",
           "format": "int32",
-          "description": "1-佣金记录， 2-回报记录"
+          "description": "1-佣金记录， 2-回报记录 3-AI算力回报记录"
         },
         "page": {
           "type": "integer",
@@ -3225,7 +4126,8 @@
         },
         "target_id": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "对应的业务ID"
         },
         "s_time": {
           "type": "integer",
@@ -3278,6 +4180,69 @@
         "page_size",
         "total"
       ]
+    },
+    "addOrUpdateAiComputingReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "项目ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "项目名字"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "description": "价格"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "description": "描述"
+        },
+        "service_month": {
+          "type": "string",
+          "description": "服务周期"
+        },
+        "computing_power_unit": {
+          "type": "string",
+          "description": "算力单位"
+        },
+        "computing_power_value": {
+          "type": "integer",
+          "format": "int64",
+          "description": "算力数"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-上架 2-下架"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-删除"
+        }
+      },
+      "title": "addOrUpdateAiComputingReq",
+      "required": [
+        "name",
+        "price",
+        "icon",
+        "service_month",
+        "computing_power_unit",
+        "computing_power_value",
+        "status"
+      ]
+    },
+    "addOrUpdateAiComputingResp": {
+      "type": "object",
+      "title": "addOrUpdateAiComputingResp"
     },
     "adminLoginReq": {
       "type": "object",

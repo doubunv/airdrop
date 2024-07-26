@@ -5,11 +5,13 @@ import (
 	"net/http"
 
 	adminPackageProject "air-drop/cmd/internal/handler/admin/PackageProject"
+	adminai_computing "air-drop/cmd/internal/handler/admin/ai_computing"
 	adminlinkproject "air-drop/cmd/internal/handler/admin/linkproject"
 	adminorder "air-drop/cmd/internal/handler/admin/order"
 	adminproject "air-drop/cmd/internal/handler/admin/project"
 	adminsetting "air-drop/cmd/internal/handler/admin/setting"
 	adminuser "air-drop/cmd/internal/handler/admin/user"
+	ai_computing "air-drop/cmd/internal/handler/ai_computing"
 	link_project "air-drop/cmd/internal/handler/link_project"
 	order "air-drop/cmd/internal/handler/order"
 	package_project "air-drop/cmd/internal/handler/package_project"
@@ -263,5 +265,64 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/admin/user"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/addOrUpdateAiComputing",
+				Handler: adminai_computing.AddOrUpdateAiComputingHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/adminGetAiComputingList",
+				Handler: adminai_computing.AdminGetAiComputingListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/aiComputingOrderList",
+				Handler: adminai_computing.AiComputingOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/dropAiComputingApply",
+				Handler: adminai_computing.DropAiComputingApplyHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/dropAiComputingApplyList",
+				Handler: adminai_computing.DropAiComputingApplyListHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/admin/aiComputing"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/getAiComputingList",
+				Handler: ai_computing.GetAiComputingListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/buyAiComputing",
+				Handler: ai_computing.BuyAiComputingHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/aiComputingOrderList",
+				Handler: ai_computing.AiComputingOrderListHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/applyAiComputing",
+				Handler: ai_computing.ApplyAiComputingHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/aiComputing"),
 	)
 }

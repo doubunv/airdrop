@@ -1,0 +1,93 @@
+syntax = "v1"
+
+
+type (
+    GetAiComputingListItem {
+        Id int64 `json:"id"` //项目ID
+        Name string `json:"name"` //项目名字
+        Price float64 `json:"price"` //价格
+        Icon string `json:"icon"`
+        Content string `json:"content"` //描述
+        ServiceMonth string `json:"service_month"` //有效期
+        ComputingPowerUnit string `json:"computing_power_unit"` //算力单位
+        ComputingPowerValue int64 `json:"computing_power_value"` //算力值
+    }
+
+    GetAiComputingListReq {
+        Page      int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+
+    GetAiComputingListResp {
+        list []GetAiComputingListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    BuyAiComputingReq {
+        Id int64 `json:"id"`
+    }
+
+    BuyAiComputingResp {
+        OrderId int64 `json:"order_id"`
+        Amount float64 `json:"Amount"`
+        Sign string `json:"sign"`
+        CreatedAt int64 `json:"created_at"`
+    }
+
+    AiComputingOrderListReq {
+        Page    int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+    }
+    AiComputingOrderListItem {
+        Id int64 `json:"id"`
+        Name int64 `json:"name"` //项目名字
+        Amount float64 `json:"amount"` //投资额度
+        ComputingPowerUnit int64 `json:"computing_power_unit"` //算力单位
+        ServiceMonth int64 `json:"service_month"` //服务周期
+        LeftDay int64 `json:"left_day"` //剩余回报时间
+        WithdrawAmount float64 `json:"withdraw_amount"` //可提现
+        CreatedAt int64 `json:"created_at"`
+    }
+    AiComputingOrderListResp {
+        list []AiComputingOrderListItem `json:"list"`
+        Page int32 `json:"page"` // 页码
+        PageSize  int32 `json:"page_size"` // 每页数量
+        Total    int64 `json:"total"` // 总数
+    }
+
+    ApplyAiComputingReq {
+        Id int64 `json:"id"` //订单ID
+        Address string `json:"address"` //地址
+        Amount float64 `json:"amount"` //数量
+    }
+    ApplyAiComputingResp {
+    
+    }
+)
+
+
+@server (
+    prefix: /aiComputing
+    group:  ai_computing
+    jwt: Auth
+)
+
+service Main {
+    @doc "算力-项目列表"
+    @handler GetAiComputingList
+    post /getAiComputingList(GetAiComputingListReq) returns (GetAiComputingListResp)
+
+    @doc "算力-购买"
+    @handler BuyAiComputing
+    post /buyAiComputing(BuyAiComputingReq) returns (BuyAiComputingResp)
+
+    @doc "算力-订单列表"
+    @handler AiComputingOrderList
+    post /aiComputingOrderList(AiComputingOrderListReq) returns (AiComputingOrderListResp)
+
+    @doc "算力-申请提现"
+    @handler ApplyAiComputing
+    post /applyAiComputing(ApplyAiComputingReq) returns (ApplyAiComputingResp)
+}

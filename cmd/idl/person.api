@@ -72,10 +72,10 @@ type (
     }
 
     WalletLogListReq {
-        typeId int32  `json:"type_id"` //1-佣金记录， 2-回报记录
+        typeId int32  `json:"type_id"` //1-佣金记录， 2-回报记录 3-AI算力回报记录
         Page    int64 `json:"page"` // 页码
         PageSize  int64 `json:"page_size"` // 每页数量
-        TargetId int64 `json:"target_id"`
+        TargetId int64 `json:"target_id"` //对应的业务ID
         STime int64 `json:"s_time,optional"` //开始时间
         ETime int64 `json:"e_time,optional"` //结束时间
     }
@@ -123,7 +123,7 @@ service Main {
     @handler inviteList
     post /inviteList (InviteUserReq) returns (InviteUserResp)
 
-    @doc "佣金记录、整包回报记录"
+    @doc "佣金记录、整包回报记录、算力回报记录"
     @handler walletLogList
     post /walletLogList (WalletLogListReq) returns (WalletLogListResp)
 

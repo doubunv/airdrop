@@ -12,6 +12,8 @@ import (
 	"admin/project.api"
 	"admin/setting.api"
 	"admin/user.api"
+	"admin/ai_computing.api"
+	"ai_computing.api"
 )
 
 // 定义 HTTP 服务
