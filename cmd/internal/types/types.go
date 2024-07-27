@@ -298,6 +298,7 @@ type GetLinkProjectListItem struct {
 	SellEndTime int64   `json:"sell_end_time"` //销售结束时间
 	DropTime    int64   `json:"drop_time"`     //发币时间
 	CreatedAt   int64   `json:"created_at"`
+	Status      int32   `json:"status"` // 1-上架 ，2 下架
 }
 
 type AdminGetLinkProjectListResp struct {

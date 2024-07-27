@@ -19,7 +19,7 @@ RUN go build -o ./bin/main
 WORKDIR /src/cmd/bin
 CMD ["./main", "-f", "etc/mm-test.yaml"]
 
-#docker cp jolly_kirch:/src/cmd/bin/main ~/Desktop
+#docker cp upbeat_varahamihira:/src/cmd/bin ~/Desktop
 
 #FROM alpine:latest
 #COPY --from=builder /src/cmd/bin /app

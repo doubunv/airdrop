@@ -52,6 +52,7 @@ func (l *GetLinkProjectListLogic) GetLinkProjectList(req *types.AdminGetLinkProj
 			SellEndTime: v.SellEndTime,
 			DropTime:    v.DropTime,
 			CreatedAt:   v.CreatedAt,
+			Status:      int32(v.Status),
 		}
 		resp.List = append(resp.List, tt)
 	}

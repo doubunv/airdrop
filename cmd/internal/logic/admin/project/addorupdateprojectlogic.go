@@ -39,6 +39,7 @@ func (l *AddOrUpdateProjectLogic) AddOrUpdateProject(req *types.AddOrUpdateProje
 			return nil, err
 		}
 	} else {
+		ap.ID = req.Id
 		if req.IsDeleted == 1 {
 			ap.DeletedAt = soft_delete.DeletedAt(time.Now().Unix())
 		}

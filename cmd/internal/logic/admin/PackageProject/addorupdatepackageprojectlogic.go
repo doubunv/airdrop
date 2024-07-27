@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"gorm.io/plugin/soft_delete"
+	"strconv"
 	"strings"
 	"time"
 
@@ -37,7 +38,7 @@ func (l *AddOrUpdatePackageProjectLogic) AddOrUpdatePackageProject(req *types.Ad
 
 	var projectIds = ""
 	for _, v := range req.ProjectIds {
-		projectIds = v.Name + "," + projectIds
+		projectIds = strconv.FormatInt(v.Id, 10) + "," + projectIds
 	}
 	projectIds = strings.TrimRight(projectIds, ",")
 
