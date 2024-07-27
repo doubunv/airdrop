@@ -35,6 +35,7 @@ type (
     GetLinkOrderListReq {
         Page    int32 `json:"page"` // 页码
         PageSize  int32 `json:"page_size"` // 每页数量
+        Ststus int32 `json:"ststus"` //
     }
 
     GetLinkOrderListItem {

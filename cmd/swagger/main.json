@@ -1223,7 +1223,7 @@
     },
     "/person/walletLogList": {
       "post": {
-        "summary": "佣金记录、整包回报记录、算力回报记录",
+        "summary": "佣金记录、整包回报记录",
         "operationId": "walletLogList",
         "responses": {
           "200": {
@@ -1416,8 +1416,7 @@
           "format": "int64"
         },
         "name": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": "项目名字"
         },
         "amount": {
@@ -1426,8 +1425,7 @@
           "description": "投资额度"
         },
         "computing_power_unit": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": "算力单位"
         },
         "service_month": {
@@ -1473,6 +1471,24 @@
           "type": "integer",
           "format": "int32",
           "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "name": {
+          "type": "string",
+          "description": "模糊查询"
+        },
+        "u_address": {
+          "type": "string",
+          "description": "用户地址"
         }
       },
       "title": "AdminAiComputingOrderListReq",
@@ -1539,7 +1555,8 @@
           "description": "描述"
         },
         "service_month": {
-          "type": "string",
+          "type": "integer",
+          "format": "int32",
           "description": "有效期"
         },
         "computing_power_unit": {
@@ -1587,6 +1604,20 @@
           "type": "integer",
           "format": "int32",
           "description": " 每页数量"
+        },
+        "s_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "e_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "name": {
+          "type": "string",
+          "description": "模糊查询"
         }
       },
       "title": "AdminGetAiComputingListReq",
@@ -1904,8 +1935,7 @@
           "format": "int64"
         },
         "name": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": "项目名字"
         },
         "amount": {
@@ -1914,8 +1944,7 @@
           "description": "投资额度"
         },
         "computing_power_unit": {
-          "type": "integer",
-          "format": "int64",
+          "type": "string",
           "description": "算力单位"
         },
         "service_month": {
@@ -2014,18 +2043,12 @@
         "address": {
           "type": "string",
           "description": "地址"
-        },
-        "amount": {
-          "type": "number",
-          "format": "double",
-          "description": "数量"
         }
       },
       "title": "ApplyAiComputingReq",
       "required": [
         "id",
-        "address",
-        "amount"
+        "address"
       ]
     },
     "ApplyAiComputingResp": {
@@ -2184,19 +2207,13 @@
           "type": "integer",
           "format": "int64",
           "description": "申请时间"
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32",
-          "description": "申请状态 1 申请中 2 已发放"
         }
       },
       "title": "DropAiComputingApplyListItem",
       "required": [
         "u_address",
         "amount",
-        "created_at",
-        "status"
+        "created_at"
       ]
     },
     "DropAiComputingApplyListReq": {
@@ -2459,7 +2476,8 @@
           "description": "描述"
         },
         "service_month": {
-          "type": "string",
+          "type": "integer",
+          "format": "int64",
           "description": "有效期"
         },
         "computing_power_unit": {
@@ -2698,12 +2716,17 @@
           "type": "integer",
           "format": "int32",
           "description": " 每页数量"
+        },
+        "ststus": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "GetLinkOrderListReq",
       "required": [
         "page",
-        "page_size"
+        "page_size",
+        "ststus"
       ]
     },
     "GetLinkOrderListResp": {
@@ -4112,7 +4135,7 @@
         "type_id": {
           "type": "integer",
           "format": "int32",
-          "description": "1-佣金记录， 2-回报记录 3-AI算力回报记录"
+          "description": "1-佣金记录， 2-回报记录"
         },
         "page": {
           "type": "integer",
@@ -4206,7 +4229,8 @@
           "description": "描述"
         },
         "service_month": {
-          "type": "string",
+          "type": "integer",
+          "format": "int32",
           "description": "服务周期"
         },
         "computing_power_unit": {

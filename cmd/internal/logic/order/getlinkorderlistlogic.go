@@ -36,6 +36,7 @@ func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq)
 
 	rq := &schema.LinkOrder{
 		UserId: utils.GetTokenUid(l.ctx),
+		Status: int64(req.Ststus),
 	}
 	list, total, err := l.svcCtx.LinkOrderModel.GetList(rq, int64(0), int64(0), int(req.Page), int(req.PageSize))
 	if err != nil {

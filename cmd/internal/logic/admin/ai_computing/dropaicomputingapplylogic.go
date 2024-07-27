@@ -1,6 +1,7 @@
 package ai_computing
 
 import (
+	"air-drop/cmd/internal/data/schema"
 	"context"
 
 	"air-drop/cmd/internal/svc"
@@ -24,7 +25,17 @@ func NewDropAiComputingApplyLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *DropAiComputingApplyLogic) DropAiComputingApply(req *types.DropAiComputingApplyReq) (resp *types.DropAiComputingApplyResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.DropAiComputingApplyResp{}
+
+	rd := &schema.AiComputingOrder{
+		ID:             req.Id,
+		WithdrawAmount: req.Amount,
+	}
+
+	err = l.svcCtx.AiComputingOrderModel.UpdateSchema(rd)
+	if err != nil {
+		return nil, err
+	}
 
 	return
 }

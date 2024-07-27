@@ -22,6 +22,9 @@ type ServiceContext struct {
 	*model.PackageModel
 	*model.PackageOrderModel
 	*model.SettingModel
+	*model.AiComputingModel
+	*model.AiApplyModel
+	*model.AiComputingOrderModel
 }
 
 var SCtx *ServiceContext
@@ -48,6 +51,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		PackageModel:          model.NewPackageModel(db),
 		PackageOrderModel:     model.NewPackageOrderModel(db),
 		SettingModel:          model.NewSettingModel(db),
+		AiApplyModel:          model.NewAiAiApplyModel(db),
+		AiComputingOrderModel: model.NewAiComputingOrderModel(db),
+		AiComputingModel:      model.NewAiComputingModel(db),
 	}
 
 	return SCtx

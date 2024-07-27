@@ -36,6 +36,9 @@ func (m *AiComputingOrderModel) GetList(model *schema.AiComputingOrder, startTim
 	if endTime != 0 {
 		q = q.Where("created_at <= ?", endTime)
 	}
+	if model.UAddress != "" {
+		q = q.Where("u_address = ?", model.UAddress)
+	}
 
 	err = q.Count(&total).Error
 	err = q.Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error

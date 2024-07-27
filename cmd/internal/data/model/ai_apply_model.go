@@ -28,7 +28,7 @@ func (m *AiApplyModel) FindById(id int64) (res schema.AiApply, err error) {
 	return
 }
 
-func (m *AiApplyModel) GetList(model *schema.AiComputing, startTime, endTime int64, page, pageSize int) (list []*schema.AiApply, total int64, err error) {
+func (m *AiApplyModel) GetList(model *schema.AiApply, startTime, endTime int64, page, pageSize int) (list []*schema.AiApply, total int64, err error) {
 	q := m.db.Model(&schema.AiApply{})
 	if startTime != 0 {
 		q = q.Where("created_at >= ?", startTime)

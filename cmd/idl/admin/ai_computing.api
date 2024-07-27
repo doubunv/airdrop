@@ -8,7 +8,7 @@ type (
         Price float64 `json:"price"` //价格
         Icon string `json:"icon"`
         Content string `json:"content"` //描述
-        ServiceMonth string `json:"service_month"` //有效期
+        ServiceMonth int32 `json:"service_month"` //有效期
         ComputingPowerUnit string `json:"computing_power_unit"` //算力单位
         ComputingPowerValue int64 `json:"computing_power_value"` //算力值
         CreatedAt int64 `json:"created_at"`
@@ -18,6 +18,9 @@ type (
     AdminGetAiComputingListReq {
         Page      int32 `json:"page"` // 页码
         PageSize  int32 `json:"page_size"` // 每页数量
+        STime int64 `json:"s_time,optional"` //开始时间
+        ETime int64 `json:"e_time,optional"` //结束时间
+        Name string `json:"name,optional"` //模糊查询
     }
 
     AdminGetAiComputingListResp {
@@ -30,12 +33,16 @@ type (
     AdminAiComputingOrderListReq {
         Page    int32 `json:"page"` // 页码
         PageSize  int32 `json:"page_size"` // 每页数量
+        STime int64 `json:"s_time,optional"` //开始时间
+        ETime int64 `json:"e_time,optional"` //结束时间
+        Name string `json:"name,optional"` //模糊查询
+        UAddress string `json:"u_address,optional"` //用户地址
     }
     AdminAiComputingOrderListItem {
         Id int64 `json:"id"`
-        Name int64 `json:"name"` //项目名字
+        Name string `json:"name"` //项目名字
         Amount float64 `json:"amount"` //投资额度
-        ComputingPowerUnit int64 `json:"computing_power_unit"` //算力单位
+        ComputingPowerUnit string `json:"computing_power_unit"` //算力单位
         ServiceMonth int64 `json:"service_month"` //服务周期
         LeftDay int64 `json:"left_day"` //剩余回报时间
         SendAmount float64 `json:"send_amount"`
@@ -54,7 +61,7 @@ type (
         Price float64 `json:"price"` //价格
         Icon string `json:"icon"`
         Content string `json:"content,optional"` //描述
-        ServiceMonth string `json:"service_month"` //服务周期
+        ServiceMonth int32 `json:"service_month"` //服务周期
         ComputingPowerUnit string `json:"computing_power_unit"` //算力单位
         ComputingPowerValue int64 `json:"computing_power_value"` //算力数
         Status int32 `json:"status"` // 1-上架 2-下架
@@ -83,7 +90,6 @@ type (
         UAddress string `json:"u_address"` //申请地址
         Amount float64  `json:"amount"` //申请数量
         CreatedAt int64 `json:"created_at"` //申请时间
-        Status int32 `json:"status"` //申请状态 1 申请中 2 已发放
     }
     DropAiComputingApplyListResp {
         list []DropAiComputingApplyListItem `json:"list"`
