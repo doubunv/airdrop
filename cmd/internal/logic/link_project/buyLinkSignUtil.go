@@ -3,6 +3,7 @@ package link_project
 import (
 	"air-drop/cmd/internal/config"
 	"air-drop/cmd/internal/data/schema"
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -10,6 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/signer/core/apitypes"
 	"github.com/shopspring/decimal"
 	"github.com/storyicon/sigverify"
+	"github.com/zeromicro/go-zero/core/logc"
 	"math/big"
 )
 
@@ -32,17 +34,21 @@ const buyLinkProjectSign = `{
                 "name":"verifyingContract",
                 "type":"address"
             }
-        ],
-        "Unstaking":[
+        ], 
+        "BuyLinkProject":[
             {
-                "name":"_asset",
-                "type":"address"
-            },
-			{
-                "name":"_tokenId",
+                "name":"_orderId",
                 "type":"uint256"
             },
-            {
+			{
+                "name":"_spentAmount",
+                "type":"uint256"
+            },
+			{
+                "name":"_orderTime",
+                "type":"uint256"
+            },
+			{
                 "name":"_from",
                 "type":"address"
             }
@@ -85,15 +91,18 @@ func BuildBoxUnStakingSign(config config.Config, order *schema.LinkOrder) (strin
 	fmt.Println(data)
 	var typedData apitypes.TypedData
 	if err := json.Unmarshal([]byte(data), &typedData); err != nil {
+		logc.Error(context.Background(), err.Error())
 		return "", ""
 	}
 
 	_, originHash, err := sigverify.HashTypedData(typedData)
 	if err != nil {
+		logc.Error(context.Background(), err.Error())
 		return "", ""
 	}
 	sig, err := crypto.Sign(originHash, privateKey)
 	if err != nil {
+		logc.Error(context.Background(), err.Error())
 		return "", ""
 	}
 	// 这里最容易出问题了
