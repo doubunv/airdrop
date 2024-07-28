@@ -190,9 +190,10 @@ type BuyLinkProjectReq struct {
 }
 
 type BuyLinkProjectResp struct {
-	OrderId int64   `json:"order_id"`
-	Amount  float64 `json:"Amount"`
-	Sign    string  `json:"sign"`
+	OrderId   int64  `json:"order_id"`
+	Amount    string `json:"amount"`
+	Sign      string `json:"sign"`
+	CreatedAt int64  `json:"created_at"`
 }
 
 type GetOrderInfoReq struct {

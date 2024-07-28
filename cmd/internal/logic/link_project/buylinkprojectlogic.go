@@ -1,7 +1,10 @@
 package link_project
 
 import (
+	"air-drop/cmd/internal/data/schema"
+	"air-drop/pkg/utils"
 	"context"
+	"errors"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -24,7 +27,38 @@ func NewBuyLinkProjectLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Bu
 }
 
 func (l *BuyLinkProjectLogic) BuyLinkProject(req *types.BuyLinkProjectReq) (resp *types.BuyLinkProjectResp, err error) {
-	// todo: add your logic here and delete this line
+	resp = &types.BuyLinkProjectResp{
+		OrderId:   0,
+		Amount:    "",
+		Sign:      "",
+		CreatedAt: 0,
+	}
 
+	linkInfo, err := l.svcCtx.LinkModel.FindById(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	if linkInfo.ID == 0 {
+		return nil, errors.New("link project not find")
+	}
+
+	rd := &schema.LinkOrder{
+		UserId:    utils.GetTokenUid(l.ctx),
+		UAddress:  utils.GetTokenAddress(l.ctx),
+		LinkId:    req.Id,
+		BuyAmount: linkInfo.DropAmount,
+		DropTime:  linkInfo.DropTime,
+		BuyNumber: 1,
+		Status:    1,
+	}
+	err = l.svcCtx.LinkOrderModel.Insert(rd)
+	if err != nil {
+		return nil, err
+	}
+
+	resp.Sign, resp.Amount = BuildBoxUnStakingSign(l.svcCtx.Config, rd)
+	resp.CreatedAt = rd.CreatedAt
+	resp.OrderId = rd.ID
 	return
 }

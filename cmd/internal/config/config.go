@@ -15,9 +15,21 @@ type Config struct {
 	DataSource string
 	Auth       Auth
 	Env        string
+	ChainInfo  ChainInfo
 }
 
 type Auth struct {
 	AccessSecret string
 	AccessExpire int64
+}
+
+type ChainInfo struct {
+	ChainID          int64
+	Rpc              string
+	Name             string
+	InitBlock        int64
+	PerLimit         int64
+	ConfirmByBlocks  int64
+	PrivateKey       string
+	ChainBootAddress string
 }

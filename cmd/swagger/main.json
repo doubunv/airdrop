@@ -2141,19 +2141,23 @@
           "type": "integer",
           "format": "int64"
         },
-        "Amount": {
-          "type": "number",
-          "format": "double"
+        "amount": {
+          "type": "string"
         },
         "sign": {
           "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "BuyLinkProjectResp",
       "required": [
         "order_id",
-        "Amount",
-        "sign"
+        "amount",
+        "sign",
+        "created_at"
       ]
     },
     "BuyPackageProjectReq": {
@@ -2841,6 +2845,11 @@
         "created_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 1-上架 ，2 下架"
         }
       },
       "title": "GetLinkProjectListItem",
@@ -2853,7 +2862,8 @@
         "drop_amount",
         "sell_end_time",
         "drop_time",
-        "created_at"
+        "created_at",
+        "status"
       ]
     },
     "GetLinkProjectListOrderResp": {
