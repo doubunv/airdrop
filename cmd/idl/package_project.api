@@ -33,8 +33,10 @@ type (
 
     BuyPackageProjectResp {
         OrderId int64 `json:"order_id"`
-        Amount float64 `json:"Amount"`
+        AmountStr string `json:"amount_str"`
         sign string `json:"sign"`
+        CreatedAt int64 `json:"created_at"`
+        Amount float64 `json:"amount"`
     }
 )
 

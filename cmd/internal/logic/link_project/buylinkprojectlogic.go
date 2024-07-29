@@ -29,9 +29,10 @@ func NewBuyLinkProjectLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Bu
 func (l *BuyLinkProjectLogic) BuyLinkProject(req *types.BuyLinkProjectReq) (resp *types.BuyLinkProjectResp, err error) {
 	resp = &types.BuyLinkProjectResp{
 		OrderId:   0,
-		Amount:    "",
+		Amount:    0,
 		Sign:      "",
 		CreatedAt: 0,
+		AmountStr: "",
 	}
 
 	linkInfo, err := l.svcCtx.LinkModel.FindById(req.Id)
@@ -57,7 +58,8 @@ func (l *BuyLinkProjectLogic) BuyLinkProject(req *types.BuyLinkProjectReq) (resp
 		return nil, err
 	}
 
-	resp.Sign, resp.Amount = BuildBoxUnStakingSign(l.svcCtx.Config, rd)
+	resp.Amount = rd.BuyAmount
+	resp.Sign, resp.AmountStr = BuildBoxUnStakingSign(l.svcCtx.Config, rd)
 	resp.CreatedAt = rd.CreatedAt
 	resp.OrderId = rd.ID
 	return

@@ -2101,7 +2101,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "Amount": {
+        "amount": {
           "type": "number",
           "format": "double"
         },
@@ -2111,14 +2111,18 @@
         "created_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "amount_str": {
+          "type": "string"
         }
       },
       "title": "BuyAiComputingResp",
       "required": [
         "order_id",
-        "Amount",
+        "amount",
         "sign",
-        "created_at"
+        "created_at",
+        "amount_str"
       ]
     },
     "BuyLinkProjectReq": {
@@ -2141,7 +2145,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "amount": {
+        "amount_str": {
           "type": "string"
         },
         "sign": {
@@ -2150,14 +2154,19 @@
         "created_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "BuyLinkProjectResp",
       "required": [
         "order_id",
-        "amount",
+        "amount_str",
         "sign",
-        "created_at"
+        "created_at",
+        "amount"
       ]
     },
     "BuyPackageProjectReq": {
@@ -2180,19 +2189,28 @@
           "type": "integer",
           "format": "int64"
         },
-        "Amount": {
-          "type": "number",
-          "format": "double"
+        "amount_str": {
+          "type": "string"
         },
         "sign": {
           "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "BuyPackageProjectResp",
       "required": [
         "order_id",
-        "Amount",
-        "sign"
+        "amount_str",
+        "sign",
+        "created_at",
+        "amount"
       ]
     },
     "DropAiComputingApplyListItem": {

@@ -160,9 +160,11 @@ type BuyPackageProjectReq struct {
 }
 
 type BuyPackageProjectResp struct {
-	OrderId int64   `json:"order_id"`
-	Amount  float64 `json:"Amount"`
-	Sign    string  `json:"sign"`
+	OrderId   int64   `json:"order_id"`
+	AmountStr string  `json:"amount_str"`
+	Sign      string  `json:"sign"`
+	CreatedAt int64   `json:"created_at"`
+	Amount    float64 `json:"amount"`
 }
 
 type GetLinkProjectList struct {
@@ -190,10 +192,11 @@ type BuyLinkProjectReq struct {
 }
 
 type BuyLinkProjectResp struct {
-	OrderId   int64  `json:"order_id"`
-	Amount    string `json:"amount"`
-	Sign      string `json:"sign"`
-	CreatedAt int64  `json:"created_at"`
+	OrderId   int64   `json:"order_id"`
+	AmountStr string  `json:"amount_str"`
+	Sign      string  `json:"sign"`
+	CreatedAt int64   `json:"created_at"`
+	Amount    float64 `json:"amount"`
 }
 
 type GetOrderInfoReq struct {
@@ -704,9 +707,10 @@ type BuyAiComputingReq struct {
 
 type BuyAiComputingResp struct {
 	OrderId   int64   `json:"order_id"`
-	Amount    float64 `json:"Amount"`
+	Amount    float64 `json:"amount"`
 	Sign      string  `json:"sign"`
 	CreatedAt int64   `json:"created_at"`
+	AmountStr string  `json:"amount_str"`
 }
 
 type AiComputingOrderListReq struct {
