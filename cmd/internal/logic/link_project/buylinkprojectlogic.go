@@ -59,8 +59,9 @@ func (l *BuyLinkProjectLogic) BuyLinkProject(req *types.BuyLinkProjectReq) (resp
 	}
 
 	resp.Amount = rd.BuyAmount
-	resp.Sign, resp.AmountStr = BuildBoxUnStakingSign(l.svcCtx.Config, rd)
+	resp.Sign, resp.AmountStr = BuildLinkSign(l.svcCtx.Config, rd)
 	resp.CreatedAt = rd.CreatedAt
 	resp.OrderId = rd.ID
+	resp.CreatedAt = rd.CreatedAt
 	return
 }

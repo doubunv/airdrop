@@ -1,4 +1,4 @@
-package link_project
+package package_project
 
 import (
 	"air-drop/cmd/internal/config"
@@ -15,7 +15,7 @@ import (
 	"math/big"
 )
 
-const buyLinkProjectSign = `{
+const buyPackageProjectSign = `{
     "types":{
         "EIP712Domain":[
           	{
@@ -35,7 +35,7 @@ const buyLinkProjectSign = `{
                 "type":"address"
             }
         ], 
-        "BuyLinkProject":[
+        "BuyPackageProjectSign":[
             {
                 "name":"_orderId",
                 "type":"uint256"
@@ -60,7 +60,7 @@ const buyLinkProjectSign = `{
         "chainId":"%d",
         "verifyingContract":"%s"
     },
-    "primaryType":"BuyLinkProject",
+    "primaryType":"BuyPackageProjectSign",
     "message":{
 		"_orderId":"%d",
  		"_spentAmount":"%d",
@@ -69,7 +69,7 @@ const buyLinkProjectSign = `{
     }
 }`
 
-func BuildLinkSign(config config.Config, order *schema.LinkOrder) (string, string) {
+func BuildPackageSign(config config.Config, order *schema.PackageOrder) (string, string) {
 	privateKeyStr := config.ChainInfo.PrivateKey
 	chainID := config.ChainInfo.ChainID
 	contractAddr := config.ChainInfo.ChainBootAddress
@@ -82,10 +82,10 @@ func BuildLinkSign(config config.Config, order *schema.LinkOrder) (string, strin
 		return "", ""
 	}
 
-	usdtNum := big.NewInt(decimal.NewFromFloat(order.BuyAmount).Mul(decimal.NewFromFloat(float64(100))).IntPart())
+	usdtNum := big.NewInt(decimal.NewFromFloat(order.Amount).Mul(decimal.NewFromFloat(float64(100))).IntPart())
 	usdtNum.Mul(usdtNum, big.NewInt(10).Exp(big.NewInt(10), big.NewInt(16), nil))
 
-	data := fmt.Sprintf(buyLinkProjectSign, chainID, contractAddr, order.ID, usdtNum, order.CreatedAt, order.UAddress)
+	data := fmt.Sprintf(buyPackageProjectSign, chainID, contractAddr, order.ID, usdtNum, order.CreatedAt, order.UAddress)
 	var typedData apitypes.TypedData
 	if err := json.Unmarshal([]byte(data), &typedData); err != nil {
 		logc.Error(context.Background(), err.Error())

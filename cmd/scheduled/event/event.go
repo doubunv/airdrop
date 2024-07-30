@@ -1,13 +1,13 @@
 package event
 
 import (
+	"air-drop/cmd/internal/data/model"
+	"air-drop/cmd/internal/svc"
 	"context"
 	"time"
 
+	constx "air-drop/cmd/internal/const"
 	"github.com/zeromicro/go-zero/core/logx"
-	constx "xyz/cmd/internal/const"
-	"xyz/cmd/internal/data/model"
-	"xyz/cmd/internal/svc"
 )
 
 type EventLogic struct {
@@ -25,19 +25,7 @@ func NewEventLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EventLogic 
 		svcCtx: svcCtx,
 	}
 	eventMap := map[string]func(blockTime int64, reqJson string) error{
-		"Staking":            logic.StakingEvent,
-		"UnStaking":          logic.UnStakingEvent,
-		"NewNode":            logic.NewNode,
-		"AgentCommission":    logic.AgentCommissionEvent,
-		"StakingCommission":  logic.StakingCommissionEvent,
-		"Settle":             logic.SettleEvent,
-		"SellNft":            logic.SellNftEvent,
-		"CancelSell":         logic.CancelSellEvent,
-		"StakingNft":         logic.StakingNftEvent,
-		"UnStakingNft":       logic.UnStakingNftEvent,
-		"WithdrawMany":       logic.WithdrawManyEvent,
-		"CancelWithdrawMany": logic.CancelWithdrawManyEvent,
-		"BuyScoreFromMany":   logic.BuyScoreFromManyEvent,
+		//"Staking":            logic.StakingEvent,
 	}
 	logic.events = eventMap
 	return logic
