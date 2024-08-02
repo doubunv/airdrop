@@ -8,7 +8,7 @@ type AiComputingOrder struct {
 	Amount         float64 `gorm:"column:amount"`
 	ServiceMonth   int64   `gorm:"column:service_month"`
 	EndTime        int64   `gorm:"column:end_time"`
-	WithdrawAmount float64 `gorm:"column:withdraw_amount,omitempty"`
+	WithdrawAmount float64 `gorm:"column:withdraw_amount"`
 	SendAmount     float64 `gorm:"column:send_amount"`
 	CreatedAt      int64   `gorm:"column:created_at"`
 	UpdatedAt      int64   `gorm:"column:updated_at"`

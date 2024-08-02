@@ -6,7 +6,6 @@ import (
 	"air-drop/cmd/internal/types"
 	"air-drop/pkg/utils"
 	"context"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -50,6 +49,5 @@ func (l *InviteCodeInputLogic) InviteCodeInput(req *types.InviteCodeReq) error {
 	userInfo.InvitePathDistance = parentInfo.InvitePathDistance + 1
 
 	err = l.svcCtx.UserModel.UpdateSchema(&userInfo)
-
 	return nil
 }

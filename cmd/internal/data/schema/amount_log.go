@@ -1,5 +1,10 @@
 package schema
 
+const (
+	AmountLogTypeId1 = 1 //'1-佣金记录，
+	AmountLogTypeId2 = 2 // 2-回报记录'
+)
+
 type AmountLog struct {
 	ID            int64   `gorm:"column:id"`
 	UserId        int64   `gorm:"column:user_id"`

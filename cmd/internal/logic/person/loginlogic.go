@@ -71,6 +71,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			logx.Errorf("Login InsertUser err:%v", err)
 			return nil, xerr.NewErrCodeMsg(401, "insert uAddress error")
 		}
+
 	}
 
 	token, err := utils.GenToken(l.svcCtx.Config.Auth.AccessSecret, user.ID, req.UAddress, l.svcCtx.Config.Auth.AccessExpire, false)
