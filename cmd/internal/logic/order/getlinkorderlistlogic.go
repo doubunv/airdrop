@@ -59,6 +59,7 @@ func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq)
 
 	for _, v := range list {
 		t := types.GetLinkOrderListItem{
+			Id:        v.ID,
 			CreatedAt: v.CreatedAt,
 			Name:      "",
 			BuyNumber: int32(v.BuyNumber),

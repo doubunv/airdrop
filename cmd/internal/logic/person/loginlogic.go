@@ -71,6 +71,9 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 			logx.Errorf("Login InsertUser err:%v", err)
 			return nil, xerr.NewErrCodeMsg(401, "insert uAddress error")
 		}
+		if user.ID == 0 {
+			return nil, xerr.NewErrCodeMsg(401, "add new user error")
+		}
 
 	}
 

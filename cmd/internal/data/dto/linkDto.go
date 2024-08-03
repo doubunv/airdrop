@@ -11,5 +11,5 @@ type LinkDetail struct {
 	CreatedAt   int64   `gorm:"column:created_at"`
 	UpdatedAt   int64   `gorm:"column:updated_at"`
 	ProjectName string  `gorm:"column:project_name"`
-	ProjectIcon string  `gorm:"column:updated_icon"`
+	ProjectIcon string  `gorm:"column:project_icon"`
 }

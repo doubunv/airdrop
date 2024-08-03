@@ -39,6 +39,7 @@ type (
     }
 
     GetLinkOrderListItem {
+        Id int64  `json:"id"`
         CreatedAt int64 `json:"created_at"` //投资时间
         Name string `json:"name"` //项目名字
         BuyNumber int32 `json:"buy_number"` //认购数量

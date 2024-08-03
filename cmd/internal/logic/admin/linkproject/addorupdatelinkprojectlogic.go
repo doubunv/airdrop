@@ -49,10 +49,10 @@ func (l *AddOrUpdateLinkProjectLogic) AddOrUpdateLinkProject(req *types.AddOrUpd
 			return nil, err
 		}
 	} else {
+		lk.ID = req.Id
 		if req.IsDeleted == 1 {
 			lk.DeletedAt = soft_delete.DeletedAt(time.Now().Unix())
 		}
-		lk.ID = req.Id
 		err = l.svcCtx.LinkModel.UpdateSchema(lk)
 		if err != nil {
 			return nil, err

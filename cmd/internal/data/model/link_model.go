@@ -47,11 +47,19 @@ func (m *LinkModel) FindByIds(ids []int64) (res []dto.LinkDetail, err error) {
 	if len(ids) == 0 {
 		return
 	}
-	err = m.db.Find(&res, "id in ?", ids).Error
+	err = m.db.Model(&schema.ArLink{}).
+		Unscoped().
+		Select("ar_link.*,ar_project.icon as project_icon,ar_project.name as project_name").
+		Joins("left join ar_project on ar_link.project_ids=ar_project.id").
+		Find(&res, "ar_link.id in ?", ids).Error
 	return
 }
 
 func (m *LinkModel) FindDetailById(id int64) (res dto.LinkDetail, err error) {
-	err = m.db.Find(&res, "id = ?", id).Error
+	err = m.db.Model(&schema.ArLink{}).
+		Unscoped().
+		Select("ar_link.*,ar_project.icon as project_icon,ar_project.name as project_name").
+		Joins("left join ar_project on ar_link.project_ids=ar_project.id").
+		Find(&res, "ar_link.id = ?", id).Error
 	return
 }

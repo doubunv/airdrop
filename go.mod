@@ -7,10 +7,12 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/pkg/errors v0.9.1
+	github.com/robfig/cron v1.2.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/storyicon/sigverify v1.1.0
 	github.com/stretchr/testify v1.9.0
 	github.com/zeromicro/go-zero v1.6.6
+	golang.org/x/time v0.5.0
 	google.golang.org/grpc v1.64.1
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.7

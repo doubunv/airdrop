@@ -61,8 +61,8 @@ func GetTokenAddress(ctx context.Context) string {
 
 // GetTokenUid user login address
 func GetTokenUid(ctx context.Context) int64 {
-	if ok := ctx.Value("token_Uid"); ok == nil {
+	if ok := ctx.Value("token_uid"); ok == nil {
 		return int64(0)
 	}
-	return ctx.Value("token_Uid").(int64)
+	return ctx.Value("token_uid").(int64)
 }

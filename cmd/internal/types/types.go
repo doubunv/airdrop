@@ -240,6 +240,7 @@ type GetLinkOrderListReq struct {
 }
 
 type GetLinkOrderListItem struct {
+	Id        int64   `json:"id"`
 	CreatedAt int64   `json:"created_at"` //投资时间
 	Name      string  `json:"name"`       //项目名字
 	BuyNumber int32   `json:"buy_number"` //认购数量
@@ -315,12 +316,12 @@ type AdminGetLinkProjectListResp struct {
 type AddOrUpdateLinkProjectReq struct {
 	Id          int64   `json:"id,optional"`
 	ProjectId   int64   `json:"project_id"`
-	Price       float64 `json:"price"`           //售价
-	DropAmount  float64 `json:"drop_amount"`     //代币数量
-	SellEndTime int64   `json:"sell_end_time"`   //销售结束时间
-	DropTime    int64   `json:"drop_time"`       //发币时间
-	IsDeleted   int32   `json:"is_deleted"`      //1-删除
-	Status      int32   `json:"status,optional"` // 1-上架 ，2 下架
+	Price       float64 `json:"price"`               //售价
+	DropAmount  float64 `json:"drop_amount"`         //代币数量
+	SellEndTime int64   `json:"sell_end_time"`       //销售结束时间
+	DropTime    int64   `json:"drop_time"`           //发币时间
+	IsDeleted   int32   `json:"is_deleted,optional"` //1-删除
+	Status      int32   `json:"status,optional"`     // 1-上架 ，2 下架
 }
 
 type AddOrUpdateLinkProjectResp struct {

@@ -33,6 +33,7 @@ func (l *ApplyLinkEarningsLogic) ApplyLinkEarnings(req *types.ApplyLinkEarningsR
 		UAddress: req.Address,
 		Amount:   req.Amount,
 		Status:   model.LinkReceiveStatus1,
+		OrderId:  req.Id,
 	}
 
 	err = l.svcCtx.LinkReceiveModel.Insert(da)

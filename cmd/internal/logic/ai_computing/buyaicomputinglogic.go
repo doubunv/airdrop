@@ -46,7 +46,6 @@ func (l *BuyAiComputingLogic) BuyAiComputing(req *types.BuyAiComputingReq) (resp
 	}
 
 	ord := &schema.AiComputingOrder{
-		ID:            0,
 		UserId:        utils.GetTokenUid(l.ctx),
 		UAddress:      utils.GetTokenAddress(l.ctx),
 		AiComputingId: req.Id,
