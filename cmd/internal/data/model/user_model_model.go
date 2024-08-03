@@ -51,7 +51,8 @@ func (m *UserModel) Insert(res *schema.User) error {
 }
 
 func (m *UserModel) UpdateSchema(data *schema.User) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *UserModel) CountInvite(userAddress string) int64 {

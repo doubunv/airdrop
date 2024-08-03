@@ -3,6 +3,7 @@ package model
 import (
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type LinkReceiveModel struct {
@@ -22,7 +23,8 @@ func (m *LinkReceiveModel) Insert(res *schema.ArLinkReceive) error {
 }
 
 func (m *LinkReceiveModel) UpdateSchema(data *schema.ArLinkReceive) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *LinkReceiveModel) FindById(id int64) (res schema.ArLinkReceive, err error) {

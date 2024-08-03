@@ -20,7 +20,8 @@ func (m *PackageModel) Insert(res *schema.AirPackage) error {
 }
 
 func (m *PackageModel) UpdateSchema(data *schema.AirPackage) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *PackageModel) FindById(id int64) (res schema.AirPackage, err error) {

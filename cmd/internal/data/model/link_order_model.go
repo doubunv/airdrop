@@ -3,6 +3,7 @@ package model
 import (
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type LinkOrderModel struct {
@@ -18,7 +19,8 @@ func (m *LinkOrderModel) Insert(res *schema.LinkOrder) error {
 }
 
 func (m *LinkOrderModel) UpdateSchema(data *schema.LinkOrder) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *LinkOrderModel) FindById(id int64) (res schema.LinkOrder, err error) {

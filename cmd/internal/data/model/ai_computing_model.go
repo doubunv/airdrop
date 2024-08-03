@@ -20,7 +20,8 @@ func (m *AiComputingModel) Insert(res *schema.AiComputing) error {
 }
 
 func (m *AiComputingModel) UpdateSchema(data *schema.AiComputing) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *AiComputingModel) FindById(id int64) (res schema.AiComputing, err error) {

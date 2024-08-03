@@ -3,11 +3,12 @@ package order
 import (
 	"air-drop/cmd/internal/data/model"
 	"air-drop/cmd/internal/data/schema"
-	"air-drop/pkg/utils"
-	"context"
-
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
+	"air-drop/pkg/utils"
+	"context"
+	"fmt"
+	"github.com/zeromicro/go-zero/core/logc"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,6 +28,12 @@ func NewGetOrderInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetO
 }
 
 func (l *GetOrderInfoLogic) GetOrderInfo(req *types.GetOrderInfoReq) (resp *types.GetOrderInfoResp, err error) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+			logc.Infof(context.Background(), "handler panic: %v", err)
+		}
+	}()
 	resp = &types.GetOrderInfoResp{
 		TotalBuyAmount:         0, //累计投资金额
 		LinkEarnings:           0, //全链空投收益

@@ -3,6 +3,7 @@ package model
 import (
 	"air-drop/cmd/internal/data/schema"
 	"gorm.io/gorm"
+	"time"
 )
 
 type AmountChangeTypeModel struct {
@@ -18,7 +19,8 @@ func (m *AmountChangeTypeModel) Insert(res *schema.AmountChangeType) error {
 }
 
 func (m *AmountChangeTypeModel) UpdateSchema(data *schema.AmountChangeType) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *AmountChangeTypeModel) FindById(id int64) (res schema.AmountChangeType, err error) {

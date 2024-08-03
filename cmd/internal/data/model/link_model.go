@@ -21,7 +21,8 @@ func (m *LinkModel) Insert(res *schema.ArLink) error {
 }
 
 func (m *LinkModel) UpdateSchema(data *schema.ArLink) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *LinkModel) FindById(id int64) (res schema.ArLink, err error) {

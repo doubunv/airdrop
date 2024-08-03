@@ -5,6 +5,8 @@ import (
 	"air-drop/cmd/internal/data/schema"
 	"air-drop/pkg/utils"
 	"context"
+	"fmt"
+	"github.com/zeromicro/go-zero/core/logc"
 
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/internal/types"
@@ -27,6 +29,13 @@ func NewGetLinkOrderListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *GetLinkOrderListLogic) GetLinkOrderList(req *types.GetLinkOrderListReq) (resp *types.GetLinkOrderListResp, err error) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+			logc.Infof(context.Background(), "handler panic: %v", err)
+		}
+	}()
+
 	resp = &types.GetLinkOrderListResp{
 		List:     make([]types.GetLinkOrderListItem, 0),
 		Page:     req.Page,

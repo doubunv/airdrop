@@ -2,6 +2,7 @@ package utils
 
 import (
 	"context"
+	"encoding/json"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -64,5 +65,9 @@ func GetTokenUid(ctx context.Context) int64 {
 	if ok := ctx.Value("token_uid"); ok == nil {
 		return int64(0)
 	}
-	return ctx.Value("token_uid").(int64)
+	i, err := ctx.Value("token_uid").(json.Number).Int64()
+	if err != nil {
+		return 0
+	}
+	return i
 }

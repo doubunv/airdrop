@@ -20,7 +20,8 @@ func (m *AmountLogModel) Insert(res *schema.AmountLog) error {
 }
 
 func (m *AmountLogModel) UpdateSchema(data *schema.AmountLog) error {
-	return m.db.Where("id = ?", data.ID).Save(data).Error
+	data.CreatedAt = time.Now().Unix()
+	return m.db.Where("id = ?", data.ID).Updates(data).Error
 }
 
 func (m *AmountLogModel) FindById(id int64) (res schema.AmountLog, err error) {
