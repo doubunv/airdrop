@@ -9,6 +9,8 @@ type LinkOrder struct {
 	DropTime  int64   `gorm:"column:drop_time"`
 	BuyNumber int64   `gorm:"column:buy_number"`
 	Status    int64   `gorm:"column:status"`
+	BlockTime int64   `gorm:"column:block_time"`
+	TxHash    string  `gorm:"column:tx_hash"`
 	CreatedAt int64   `gorm:"column:created_at"`
 	UpdatedAt int64   `gorm:"column:updated_at"`
 }

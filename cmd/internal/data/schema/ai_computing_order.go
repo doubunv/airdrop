@@ -10,6 +10,9 @@ type AiComputingOrder struct {
 	EndTime        int64   `gorm:"column:end_time"`
 	WithdrawAmount float64 `gorm:"column:withdraw_amount"`
 	SendAmount     float64 `gorm:"column:send_amount"`
+	Status         int32   `gorm:"column:status"`
+	BlockTime      int64   `gorm:"column:block_time"`
+	TxHash         string  `gorm:"column:tx_hash"`
 	CreatedAt      int64   `gorm:"column:created_at"`
 	UpdatedAt      int64   `gorm:"column:updated_at"`
 	DeletedAt      int64   `gorm:"column:deleted_at"`
