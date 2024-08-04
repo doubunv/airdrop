@@ -5,6 +5,7 @@ import (
 	"air-drop/cmd/internal/svc"
 	"context"
 	"github.com/zeromicro/go-zero/core/logc"
+	"strconv"
 )
 
 type InviteCommission struct {
@@ -19,8 +20,7 @@ func NewInviteCommission(ctx context.Context, svcCtx *svc.ServiceContext) *Invit
 	}
 }
 
-func (l *InviteCommission) sendCommission(register *schema.User, parentUser *schema.User) {
-	commission := float64(100)
+func (l *InviteCommission) sendCommission(register *schema.User, parentUser *schema.User, commission float64) {
 	am := &schema.AmountLog{
 		UserId:        parentUser.ID,
 		UAddress:      parentUser.UAddress,
@@ -45,13 +45,34 @@ func (l *InviteCommission) sendCommission(register *schema.User, parentUser *sch
 	}
 }
 
-func (l *InviteCommission) SendParentCommission(parentIds []int64, newUser *schema.User) {
+func (l *InviteCommission) SendParentCommission(newUser *schema.User, amount float64) {
+	var LevelCommission = make(map[int]float64)
 
-	for _, v := range parentIds {
+	atoi, err := strconv.Atoi(l.svcCtx.SettingModel.FindByKey(schema.Invite_one_level_commission))
+	if err != nil {
+		return
+	}
+	LevelCommission[1] = float64(atoi) / 100
+
+	atoi, err = strconv.Atoi(l.svcCtx.SettingModel.FindByKey(schema.Invite_two_level_commission))
+	if err != nil {
+		return
+	}
+	LevelCommission[2] = float64(atoi) / 100
+
+	atoi, err = strconv.Atoi(l.svcCtx.SettingModel.FindByKey(schema.Invite_three_level_commission))
+	if err != nil {
+		return
+	}
+	LevelCommission[3] = float64(atoi) / 100
+
+	parentIds := newUser.Path.GetParentIdByNumber(string(newUser.Path), 3)
+	for i, v := range parentIds {
+		commission := amount * LevelCommission[i] //todo
 		parentUser, _ := l.svcCtx.UserModel.GetUserById(v)
 		if parentUser.ID == 0 {
 			continue
 		}
-		l.sendCommission(newUser, &parentUser)
+		l.sendCommission(newUser, &parentUser, commission)
 	}
 }

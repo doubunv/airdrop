@@ -56,6 +56,7 @@ func (l *BuyPackageProjectLogic) BuyPackageProject(req *types.BuyPackageProjectR
 		MaxEarningsRate: 0,
 		CreatedAt:       0,
 		UpdatedAt:       0,
+		PayStatus:       1,
 	}
 
 	err = l.svcCtx.PackageOrderModel.Insert(rd)

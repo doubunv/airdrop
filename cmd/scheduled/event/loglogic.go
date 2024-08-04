@@ -97,6 +97,7 @@ func (f *LogLogic) SyncBlock() error {
 	return f.svcCtx.ChainModel.CreateChainBlock(chainBlockList, chainName)
 }
 
+// 42651435
 func (f *LogLogic) getBlockList(node string, blockList []int64, chainName string) ([]model.ChainBlock, error) {
 	chainBlockList := make([]model.ChainBlock, 0, len(blockList))
 	if len(blockList) == 0 {

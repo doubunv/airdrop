@@ -48,10 +48,11 @@ func (l *BuyLinkProjectLogic) BuyLinkProject(req *types.BuyLinkProjectReq) (resp
 		UserId:    utils.GetTokenUid(l.ctx),
 		UAddress:  utils.GetTokenAddress(l.ctx),
 		LinkId:    req.Id,
-		BuyAmount: linkInfo.DropAmount,
+		BuyAmount: linkInfo.Price,
 		DropTime:  linkInfo.DropTime,
 		BuyNumber: 1,
 		Status:    1,
+		PayStatus: 1,
 	}
 	err = l.svcCtx.LinkOrderModel.Insert(rd)
 	if err != nil {

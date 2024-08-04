@@ -23,7 +23,7 @@ func InviteCodeInputHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		if err != nil {
 			result.HttpErrorResult(r.Context(), w, err)
 		} else {
-			httpx.Ok(w)
+			result.HttpSuccessResult(r.Context(), w, nil)
 		}
 	}
 }

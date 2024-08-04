@@ -5,6 +5,7 @@ import (
 	"air-drop/cmd/internal/handler"
 	"air-drop/cmd/internal/svc"
 	"air-drop/cmd/middleware"
+	"air-drop/cmd/scheduled"
 	"flag"
 	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
@@ -33,7 +34,7 @@ func main() {
 	defer server.Stop()
 
 	ctx := svc.NewServiceContext(c)
-	//scheduled.GetEthData(ctx)
+	scheduled.GetEthData(ctx)
 
 	server.Use(middleware.ActiveUserMiddleware)
 	handler.RegisterHandlers(server, ctx)

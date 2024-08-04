@@ -28,11 +28,8 @@ func (l *GetSettingKeyLogic) GetSettingKey(req *types.GetSettingKeyReq) (resp *t
 		Key:   req.Key,
 		Value: "",
 	}
-	key, err := l.svcCtx.SettingModel.FindByKey(req.Key)
-	if err != nil {
-		return nil, err
-	}
-	resp.Value = key.Value
+	value := l.svcCtx.SettingModel.FindByKey(req.Key)
+	resp.Value = value
 
 	return
 }

@@ -20,7 +20,7 @@ func (p UserPath) Append(pid int64) UserPath {
 }
 
 // 向上返回邀请顺序层级，1->n级
-func (p UserPath) GetParentIdByNumber(input string, number int) []int64 {
+func (p UserPath) GetParentIdByNumber(input string, number int) map[int]int64 {
 	stringSlice := strings.Split(input, ",")
 	if len(stringSlice) > number {
 		stringSlice = stringSlice[len(stringSlice)-number:]
@@ -39,15 +39,15 @@ func (p UserPath) GetParentIdByNumber(input string, number int) []int64 {
 		reversedMap[len(intSlice)-i] = intSlice[i]
 	}
 
-	return intSlice
+	return reversedMap
 }
 
 type User struct {
-	ID                 int64    `gorm:"column:id"`
-	Pid                int64    `gorm:"column:pid"`
-	UAddress           string   `gorm:"column:u_address"`
-	ParentAddress      string   `gorm:"column:parent_address"`
-	Amount             float64  `gorm:"column:amount"`
+	ID            int64  `gorm:"column:id"`
+	Pid           int64  `gorm:"column:pid"`
+	UAddress      string `gorm:"column:u_address"`
+	ParentAddress string `gorm:"column:parent_address"`
+	//Amount             float64  `gorm:"column:amount"`
 	PayAmount          float64  `gorm:"column:pay_amount"`
 	TotalCommission    float64  `gorm:"column:total_commission"`
 	Version            int      `gorm:"column:version"`

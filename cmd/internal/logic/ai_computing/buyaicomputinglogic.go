@@ -52,6 +52,7 @@ func (l *BuyAiComputingLogic) BuyAiComputing(req *types.BuyAiComputingReq) (resp
 		Amount:        aiInfo.Price,
 		ServiceMonth:  aiInfo.ServiceMonth,
 		EndTime:       time.Now().AddDate(0, int(aiInfo.ServiceMonth), 0).Unix(),
+		PayStatus:     1,
 	}
 
 	err = l.svcCtx.AiComputingOrderModel.Insert(ord)

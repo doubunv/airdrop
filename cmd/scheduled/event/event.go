@@ -4,6 +4,8 @@ import (
 	"air-drop/cmd/internal/data/model"
 	"air-drop/cmd/internal/svc"
 	"context"
+	"fmt"
+	"github.com/zeromicro/go-zero/core/logc"
 	"time"
 
 	constx "air-drop/cmd/internal/const"
@@ -14,7 +16,7 @@ type EventLogic struct {
 	logx.Logger
 	ctx        context.Context
 	svcCtx     *svc.ServiceContext
-	events     map[string]func(blockTime int64, reqJson string) error
+	events     map[string]func(chainTx *model.ChainTx) error
 	NowChainTx *model.ChainTx
 }
 
@@ -24,8 +26,10 @@ func NewEventLogic(ctx context.Context, svcCtx *svc.ServiceContext) *EventLogic 
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
-	eventMap := map[string]func(blockTime int64, reqJson string) error{
-		//"Staking":            logic.StakingEvent,
+	eventMap := map[string]func(res *model.ChainTx) error{
+		"BuyPacketProject":      logic.BuyPacketProject,
+		"BuyLinkProject":        logic.BuyLinkProject,
+		"BuyAiComputingProject": logic.BuyAiComputingProject,
 	}
 	logic.events = eventMap
 	return logic
@@ -46,6 +50,10 @@ func (l *EventLogic) EventHandler() (string, error) {
 	l.NowChainTx = &chainTx
 	defer func() {
 		l.NowChainTx = nil
+		if err := recover(); err != nil {
+			fmt.Println(err)
+			logc.Infof(context.Background(), "handler panic: %v", err)
+		}
 	}()
 
 	fn, ok := l.events[chainTx.EventName]
@@ -54,11 +62,11 @@ func (l *EventLogic) EventHandler() (string, error) {
 		err = l.svcCtx.ChainModel.UpdateChainTxExecute(chainTx.ID)
 		return chainTx.EventName, err
 	}
-	err = fn(chainTx.BlockTime, chainTx.Data)
+	err = fn(&chainTx)
 	if err == nil {
-		_ = l.svcCtx.ChainModel.UpdateChainTxError(chainTx.ID, constx.ChainTxSuccess)
+		_ = l.svcCtx.ChainModel.UpdateChainTxError(chainTx.ID, constx.ChainTxSuccess, "success")
 	} else {
-		_ = l.svcCtx.ChainModel.UpdateChainTxError(chainTx.ID, constx.ChainTxFailed)
+		_ = l.svcCtx.ChainModel.UpdateChainTxError(chainTx.ID, constx.ChainTxFailed, err.Error())
 	}
 	_ = l.svcCtx.ChainModel.UpdateChainTxExecute(chainTx.ID)
 	return chainTx.EventName, err

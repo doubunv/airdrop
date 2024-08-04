@@ -20,12 +20,13 @@ func (m *SettingModel) Insert(res *schema.Setting) error {
 }
 
 func (m *SettingModel) UpdateByKey(data *schema.Setting) error {
-	return m.db.Where("key = ?", data.Key).Save(data).Error
+	return m.db.Where("setting_key = ?", data.Key).Save(data).Error
 }
 
-func (m *SettingModel) FindByKey(key string) (res schema.Setting, err error) {
-	err = m.db.Find(&res, "key = ?", key).Error
-	return
+func (m *SettingModel) FindByKey(key string) string {
+	res := schema.Setting{}
+	_ = m.db.Find(&res, "setting_key = ?", key).Error
+	return res.Value
 }
 
 func (m *SettingModel) GetList(model *schema.Setting, startTime, endTime int64, page, pageSize int) (list []*schema.Setting, total int64, err error) {

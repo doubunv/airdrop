@@ -67,6 +67,7 @@ type ChainTx struct {
 	UpdatedAt        time.Time `gorm:"column:updated_at" json:"updated_at"`
 	SignatureVersion string    `gorm:"column:signature_version;not null" json:"signature_version"`
 	Signature        string    `gorm:"column:signature;not null" json:"signature"`
+	FailReason       string    `gorm:"column:fail_reason;not null" json:"fail_reason"`
 }
 
 // TableName ChainTx's table name
@@ -83,7 +84,7 @@ func NewChainModel(db *gorm.DB) *ChainModel {
 }
 
 func (chainModel *ChainModel) GetChainListenerContractByName(name string) (res []ChainListenerContract, err error) {
-	err = chainModel.db.Model(&ChainListenerContract{}).Where("chain = ?", name).Find(&res).Error
+	err = chainModel.db.Model(&ChainListenerContract{}).Where("chain = ? and is_enable = 1", name).Find(&res).Error
 	return
 }
 
@@ -192,8 +193,12 @@ func (chainModel *ChainModel) UpdateChainTxExecute(id int64) error {
 	return chainModel.db.Model(&ChainTx{}).Where("id = ?", id).Update("execute_status", 1).Error
 }
 
-func (chainModel *ChainModel) UpdateChainTxError(id int64, kind string) error {
-	return chainModel.db.Model(&ChainTx{}).Where("id = ?", id).Update("status", kind).Error
+func (chainModel *ChainModel) UpdateChainTxError(id int64, kind string, reason string) error {
+	data := ChainTx{
+		Status:     kind,
+		FailReason: reason,
+	}
+	return chainModel.db.Model(&ChainTx{}).Where("id = ?", id).Updates(data).Error
 }
 
 func (chainModel *ChainModel) GetLastChainTxNotExecute() (res ChainTx, err error) {

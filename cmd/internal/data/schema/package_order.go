@@ -10,7 +10,7 @@ type PackageOrder struct {
 	EndTime         int64   `gorm:"column:end_time"`
 	SendEarnings    float64 `gorm:"column:send_earnings"`
 	MaxEarningsRate float64 `gorm:"column:max_earnings_rate"`
-	Status          int32   `gorm:"column:status"`
+	PayStatus       int32   `gorm:"column:pay_status"`
 	BlockTime       int64   `gorm:"column:block_time"`
 	TxHash          string  `gorm:"column:tx_hash"`
 	CreatedAt       int64   `gorm:"column:created_at"`
